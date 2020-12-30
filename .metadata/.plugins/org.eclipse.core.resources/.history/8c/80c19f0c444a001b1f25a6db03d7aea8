@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wh">
+
+
+	<!-- 제품 입고 등록 -->
+ 	<select id="In" parameterType="hashMap">
+		UPDATE PR SET FAIL=#{FAIL}, R_QUAN=#{R_QUAN}, IO=#{IO} WHERE LOT_NO=#{LOT_NO}
+	</select>
+	<!-- 제품 출고 등록 -->
+ 	<select id="Out" parameterType="hashMap">
+		UPDATE PR SET IO=#{IO}, OUT_DATE=sysdate()  WHERE LOT_NO=#{LOT_NO}
+	</select>
+	<!-- 작업번호 검색 -->
+	<select id="LotAll" parameterType="hashMap" resultType="hashmap">
+		SELECT * FROM PR WHERE IO IS NULL
+	</select>
+	<!-- 작업번호로 검색 -->
+  	<select id="InOut2" parameterType="String" resultType="hashmap">
+		SELECT PR.LOT_NO, PR.PART_NO, BOM2.PART_NAME, PR.QUAN FROM PR, BOM2 WHERE PR.PART_NO=BOM2.PART_NO AND PR.LOT_NO=#{LOT_NO} 
+	</select>
+  	<select id="InOut" parameterType="hashMap">
+		INSERT INTO PR VALUES(#{LOT_NO}, #{PART_NAME}, #{PART_NO}, #{QUNA}, 'EA', #{S_DATE}, #{DEFCOUNT}, 'X')
+	</select> 
+	
+	<select id="SeaLot" parameterType="hashMap" resultType="hashmap">
+		SELECT * FROM PR WHERE LOT_NO = #{LOT_NO}
+	</select>
+	<!-- 창고에 있는 제품 중 모델번호로 검색 -->
+	<select id="SeaPart" parameterType="hashMap" resultType="hashmap">
+		SELECT * FROM PR WHERE PART_NO = #{PART_NO} AND IO='O'
+	</select>
+	<!-- 입고된 제품만 검색 -->
+	<!-- parameterType="hashMap"  -->
+	<select id="SeaLotAll" resultType="hashmap">
+		SELECT * FROM PR WHERE IO='O'
+	</select>
+	<!-- 제품 이름 검색 -->
+	<select id="getPartName" parameterType="hashMap" resultType="hashmap">
+		SELECT distinct PR.PART_NO, BOM2.PART_NAME FROM BOM2, PR WHERE PR.PART_NO=BOM2.PART_NO;
+	</select>
+	<!-- 창고에 있는 제품 중 제품 정보 작업번호로 검색 -->
+	<select id="Cor" parameterType="hashMap" resultType="hashmap">
+		SELECT * FROM PR WHERE LOT_NO = #{LOT_NO} AND IO='O'
+	</select>
+	<!-- 창고에 있는 제품 중 제품 정보 수정 등록 -->
+	<select id="UpdateCor" parameterType="hashMap">
+		UPDATE PR SET FAIL=#{FAIL}, R_QUAN=#{R_QUAN} WHERE LOT_NO=#{LOT_NO}
+	</select>
+	
+</mapper>

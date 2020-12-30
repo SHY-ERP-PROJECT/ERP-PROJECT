@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="common">
+
+	<!-- Test용 -->
+	<select id="getListofUser" parameterType="hashmap" resultType="hashmap">
+				SELECT * FROM USER;
+	</select> 	
+
+	<!-- 생산계획 수세기-->
+	<select id="db_p_paging" parameterType="hashmap" resultType="int">
+		SELECT COUNT(LOT_NO) FROM PR
+			<choose>
+				<when test="LOT_NO != null">
+					 WHERE LOT_NO=#{LOT_NO}
+				</when>
+			</choose>
+	</select>
+
+ 	<!--  생산_기본화면 & 페이징-->
+	<select id="db_p_view_paging" parameterType="hashmap" resultType="hashmap">
+				SELECT PR.LOT_NO , PR.PART_NO, BOM2.PART_NAME, PR.QUAN, PR.UNIT, PR.S_DATE, PR.F_DATE FROM PR, BOM2 WHERE PR.PART_NO=BOM2.PART_NO
+		<choose>
+			<when test="LOT_NO != null">
+				 AND PR.LOT_NO=#{LOT_NO}
+			</when>
+			<when test="ORDER != null">
+				ORDER BY ${ORDER}
+			</when>
+			<when test="displayPost!=null">
+				LIMIT #{displayPost}, #{postNum}
+			</when>	
+		</choose>
+	</select> 
+
+	<!--  생산_등록1:데이터 삽입기능 --> 
+	<insert id="db_p_inputf" parameterType="hashmap">
+		INSERT INTO PR(LOT_NO, PART_NO, QUAN, S_DATE, F_DATE) 
+			VALUES(#{LOT_NO}, #{PART_NO}, #{QUAN}, #{S_DATE}, date_add(#{S_DATE}, 
+				INTERVAL (SELECT L_TIME FROM BOM1 WHERE PART_NO=#{PART_NO}) DAY))
+	</insert>	
+
+	<!--  생산_등록2:삽입된 데이터의 part_no 조회하여 part_name 넣어주는 기능 --> 
+	<update id="db_p_inputs" parameterType="hashmap">
+		UPDATE PR SET PART_NAME = (SELECT DISTINCT PART_NAME FROM BOM2 WHERE PART_NO=#{PART_NO}) 
+					WHERE LOT_NO=#{LOT_NO}
+	</update>	
+	
+	<!-- 생산_등록3:삽입된 데이터 이후에 자재가 충분히 있는가를 검증 -->
+	<select id="db_p_intputt" resultType="int">
+		SELECT if(SUM(SIGN(M_QUAN))=COUNT(M_NO), 0, -1) FROM WH;
+	</select>
+	
+	<!-- 날짜검색 -->
+	<select id= "db_p_s_d" parameterType="hashmap" resultType="String">
+		SELECT S_DATE FROM PR WHERE LOT_NO=#{LOT_NO}
+	</select>
+	
+	<!-- 중복 LOT_NO체크 -->
+	<select id="db_p_LOTchekcer" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) FROM PR WHERE LOT_NO=#{LOT_NO}
+	</select>
+
+	<!--  생산_수정:sysdate가 이전이면 수정 가능 (갯수만)--> 
+	<update id="db_p_update" parameterType="hashmap">
+		UPDATE PR SET QUAN = #{QUAN}, S_DATE = #{S_DATE} WHERE LOT_NO=#{LOT_NO}
+	</update>	
+
+	<!--  생산_삭제:sysdate가 이전이면 삭제가능--> 
+	<delete id="db_p_delete" parameterType="hashmap">
+		DELETE FROM PR WHERE LOT_NO=#{LOT_NO} 
+	</delete>	
+
+	<!-- 자재 목록수-->
+	<select id="db_m_paging" parameterType="hashmap" resultType="int">
+		SELECT COUNT(M_NO) FROM WH
+			<choose>
+				<when test="M_NO != null">
+					 WHERE M_NO=#{M_NO}
+				</when>
+			</choose>
+	</select>
+
+	<!--  자재검색기능 --> 
+	<select id="db_m_view" parameterType="hashmap" resultType="hashmap">
+		SELECT M_NO, M_NAME, M_QUAN FROM WH
+		<choose>
+			<when test="M_NO != null">
+				 WHERE M_NO=#{M_NO}
+			</when>
+			<when test="ORDER != null">
+				ORDER BY ${ORDER}
+			</when>		
+		</choose>
+	</select> 
+
+	<!--  자재삽입기능 --> 
+	<update id="db_m_update" parameterType="hashmap" >
+				UPDATE WH SET M_QUAN=M_QUAN+#{PLUS_QUAN} WHERE M_NO=#{M_NO}; 
+	</update> 
+
+	<!--  새로운자재삽입기능 --> 
+	<insert id="db_m_input" parameterType="hashmap" >
+				INSERT INTO WH(M_NO, M_NAME, M_QUAN) VALUES(#{M_NO}, #{M_NAME},#{M_QUAN})
+	</insert> 	
+	
+	<!-- 중복 자재 체크 -->
+	<select id="db_m_NOchecker" resultType="int">
+		SELECT COUNT(*) FROM WH WHERE M_NO=#{M_NO}
+	</select>
+
+</mapper>

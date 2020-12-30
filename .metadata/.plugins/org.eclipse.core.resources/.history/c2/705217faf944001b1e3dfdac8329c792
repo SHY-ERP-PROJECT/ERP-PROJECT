@@ -1,0 +1,57 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>생산계획 조회창</title>
+</head>
+<body>
+	function input(array)){
+		var answer=confirm("선택하신 작업을 입고처리 하시겠습니까?");
+		if(answer){
+			var url=
+				
+		}
+	}
+
+
+		<button type="button" onclick="location.href='transferToP_view.do'">생산계획등록</button>
+		<form name="p_view" method="get" action="${contextPath}/p_view.do">
+		<input type="text" name="LOT_NO" placeholder="LOT_NO를 적어주세요"/>
+		<input type="submit" value="검색" />
+		</form>
+		<h1>생산계획 조회</h1>
+		<form action="mhcor" method="get" action="MCHWHCOR.do?${mwh.LOT_NO}">
+		<table border="1" width="700px">
+		<tr>
+			<th>번호</th>
+			<th>작업번호</th>
+			<th>제품모델번호</th>
+			<th>제품명</th>
+			<th>수량</th>
+			<th>단위</th>
+			<th>작업예정일</th>
+			<th>완료예정일</th>
+			<th>출고</th>
+		</tr>
+		<c:forEach var="row" items="${list}">
+		<c:set var="i" value="${i+1}"/>
+		<tr>
+			<td>${i}</td>
+			<td>${row.LOT_NO}</td>
+			<td>${row.PART_NO}</td>
+			<td>${row.PART_NAME}</td>
+			<td>${row.QUAN}</td>
+			<td>${row.UNIT}</td>
+			<td>${row.S_DATE}</td>
+			<td>${row.F_DATE}</td>
+			<td><button type="button" onclick="location.href='MCHWH.do'">출고
+			<%session.setAttribute("number", i);%>
+			</button></td>
+		</tr>
+		</c:forEach>
+		</table>
+
+</body>
+</html>

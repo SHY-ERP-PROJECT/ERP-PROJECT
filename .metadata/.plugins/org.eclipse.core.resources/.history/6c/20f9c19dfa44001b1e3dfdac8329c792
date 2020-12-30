@@ -1,0 +1,41 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% request.setCharacterEncoding("UTF-8"); %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>상품창고등록</title>
+</head>
+<body>
+	<jsp:useBean id="PRlist" class="java.util.ArrayList"/>
+	<jsp:useBean id="PRmap" class="java.util.HashMap"/>
+	<form name="mwh" method="get">
+		<table border="1">
+			<tr>
+			<!-- 작업번호	제품모델번호	제품명	수량	불량갯수	입/출고 -->
+			<th>작업번호</th>
+			<th>제품모델번호</th>
+			<th>제품명</th>
+			<th>수량</th>
+			<th>불량 갯수</th>
+			<th>입/출고</th>
+			</tr>
+			<tr>
+			<td>${LOT_NO}</td>
+			<td>${PART_NO}</td>
+			<td>${PART_NAME}</td>
+			<td>${QUAN}</td>
+			<td><input name="PF" type="text" size=10 />EA</td>
+			<td><select name="IO" size=1>
+				<option value="" selected="selected"/>
+				<option value="O">입고</option>
+				<option value="X">출고</option></td>
+			</tr>
+		</table>
+		<button type="submit" onclick ="MCHWH.do">입력</button>
+		<button type="button" onclick="location.href='/mchwhsea.do'">검색화면으로</button>
+	</form>
+</body>
+</html>

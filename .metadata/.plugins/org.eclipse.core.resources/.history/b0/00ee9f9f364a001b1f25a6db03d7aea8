@@ -1,0 +1,41 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" import="java.util.*" isELIgnored="false"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String id;
+	if(session.getAttribute("sessionId")!=null){
+	id= (String)session.getAttribute("sessionId");
+	}else{
+	id= request.getParameter("id");
+	}
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+header {
+  height: 55px;
+  color: white;
+  background: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+	}
+a {
+	color: white;
+	text-decoration:none;
+	}
+</style>
+</head>
+<body>
+<header>
+	<h1>반갑습니다. <%= id %>님</h1>
+	
+	<!--  <button onclick="location.href='logout.do'">
+	로그아웃
+	</button>-->
+	<a href='/logout.do'>로그아웃</a>
+</header>
+</body>
+</html>
