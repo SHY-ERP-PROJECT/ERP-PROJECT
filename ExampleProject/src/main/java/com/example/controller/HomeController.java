@@ -175,11 +175,12 @@ public class HomeController {
 		int LOT_checker = commonService.db_p_LOTchecker(map, res); // LOT_NO 중복체크용
 		System.out.println(LOT_checker);
 		if(LOT_checker>0) {
+			System.out.println(LOT_checker+"2");
 			out.print("<script>alert('작업번호가 중복입니다!');");
 			out.print("location.href='transferToP_view.do';");
 		}else {
 			int rs = commonService.db_p_input(map, res);
-			if (rs > 1) {
+			if (rs > 0) {
 				out.print("<script>alert('데이터가 삽입되었습니다.');");
 				out.print("location.href='p_view.do';");
 			} else if(rs==-1){
@@ -188,10 +189,10 @@ public class HomeController {
 			} else {
 				out.print("<script>alert('데이터가 제대로 삽입되지 않았어요!');");
 				out.print("location.href='transferToP_view.do';");
+			}
 		}
 		out.print("</script>");
 		out.flush();
-		}
 	}
 		
 	@RequestMapping(value =  "/transferToPU.do", method = RequestMethod.GET)
