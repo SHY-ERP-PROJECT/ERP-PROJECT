@@ -43,7 +43,7 @@
 
 	<!--  생산_등록2:삽입된 데이터의 part_no 조회하여 part_name 넣어주는 기능 --> 
 	<update id="db_p_inputs" parameterType="hashmap">
-		UPDATE PR SET PART_NAME = (SELECT DISTINCT PART_NAME FROM BOM2 WHERE PART_NO=#{PART_NO}) 
+		UPDATE PR SET PART_NAME = (SELECT DISTINCT BOM2.PART_NAME FROM BOM2 WHERE BOM2.PART_NO=#{PART_NO}) 
 					WHERE LOT_NO=#{LOT_NO}
 	</update>	
 	
