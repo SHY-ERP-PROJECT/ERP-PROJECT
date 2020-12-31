@@ -1,0 +1,104 @@
+@CHARSET "UTF-8";
+
+/* --------------- l_include ----------------*/
+	.l {
+    	list-style-type: none;
+    	margin: 0;
+    	padding: 0;
+    	width: 200px;
+    	height:1200px;
+    	background-color: #f1f1f1;
+	}
+	
+	.l a {
+    	display: block;
+    	color: #000;
+    	padding: 8px 16px;
+    	text-decoration: none;
+	}
+	
+	.l a:hover:not(li) {
+    	background-color: #555;
+    	color: white;
+	}
+	
+/* --------------- t_include ----------------*/
+	 
+	.t_header {
+  		height: 55px;
+  		color: white;
+  		background: black;
+  		display: flex;
+  		justify-content: space-between;
+  		align-items: center;
+	}
+	
+	.t_header .jin {
+		color: white;
+		text-decoration:none;
+	}	
+	
+/* --------------- p_view ----------------*/		
+ 	.third .p_li {
+ 		display : inline-block;
+ 		width : 25px;
+ 		height : 25px;
+ 		margin-top : 10px;
+ 	}
+ 	
+ 	.p_font {
+ 		color : 666666;
+ 	}
+ 	
+ 	a{
+ 		text-decoration : none;
+ 		color : black;
+ 	}
+ 	
+ 	.table th{
+ 		background-color : #BBBBBB;
+ 	}
+ 	
+ 	.i{
+ 		width : 20px;
+ 	}
+ 	
+ 	.NAME{
+ 		width :150px;
+ 	}
+ 	
+ 	.QUAN{
+ 		width :100px;
+ 	}
+ 	
+ 	.button{
+ 		text-align : center;
+ 	}
+ 	
+ 	.DATE{
+ 		width : 100px;
+ 	}
+ 	
+	.first{
+		float:left; 
+		margin-right : 30px; 
+		margin-bottom : 10px
+	}
+	
+	.third{
+		position : absolute; 
+		left:700px;
+	 }
+	 
+	 .sidebar{
+	 	position : absolute;
+	 }
+	 
+	 .bodyall{
+		 margin : 30px;
+		margin-left : 250px;
+	 }
+
+	.tablediv{
+		width : 1000px;
+	}

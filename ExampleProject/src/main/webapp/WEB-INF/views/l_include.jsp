@@ -1,31 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <link rel="stylesheet" href="resources/css/ERPcss.css">
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<style type="text/css">ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 200px;
-    height:1200px;
-    background-color: #f1f1f1;
-}
-li a {
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-li a:hover:not(li) {
-    background-color: #555;
-    color: white;
-}</style>
 <title>Insert title here</title>
 </head>
 <body>
-<ul>
+<ul class=l>
       <li><a href="p_view.do">아</a></li>
       <li><a href="/logout.do">직</a></li>
       <li><a href="#">아</a></li>
