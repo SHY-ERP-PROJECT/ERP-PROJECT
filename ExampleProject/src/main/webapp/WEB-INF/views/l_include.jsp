@@ -1,16 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <link rel="stylesheet" href="resources/css/ERPcss.css">
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<style type="text/css">ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    height:1200px;
+    background-color: #f1f1f1;
+}
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+li a:hover:not(li) {
+    background-color: #555;
+    color: white;
+}</style>
 </head>
 <body>
-<ul class=l>
-      <li><a href="p_view.do">아</a></li>
-      <li><a href="/logout.do">직</a></li>
+<ul>
+      <li><a href="/empty.do">home</a></li>
+      <li><a href="/bom.do">bom</a></li>
       <li><a href="#">아</a></li>
       <li><a href="#">무</a></li>
       <li><a href="#">것</a></li>

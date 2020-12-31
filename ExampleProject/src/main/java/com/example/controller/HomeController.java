@@ -120,6 +120,17 @@ public class HomeController {
 			
 		return mv;
 	}
+	@RequestMapping(value = { "/bom.do", "/BOM.do"}, method = RequestMethod.GET)
+	public ModelAndView bom(@RequestParam Map<String, Object> map) {
+		log.debug("Request Parameter : " + map);
+		
+		ModelAndView mv = new ModelAndView("/bom");
+		
+		List<Map<String, Object>> list = commonService.bom(null);
+		mv.addObject("list", list);
+		
+		return mv;
+	}
 	
 	//----------------생산계획관리 MIN---------------------
 	// 생산계획 조회, 검색용 - MIN
