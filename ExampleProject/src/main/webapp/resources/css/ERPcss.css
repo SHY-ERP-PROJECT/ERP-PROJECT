@@ -38,67 +38,95 @@
 		text-decoration:none;
 	}	
 	
-/* --------------- p_view ----------------*/		
- 	.third .p_li {
+/* --------------- p_view ----------------*/	
+
+	 /*사이드바용*/
+	 .sidebar{
+	 	position : absolute;
+	 }
+	 
+	 
+	 /*전체 페이지 감싸기용*/
+	 .bodyall{
+		 margin : 30px;
+		margin-left : 250px;
+	 }
+	
+	 	
+ 	/*테이블 컬럼색깔조정*/
+ 	.table th{
+ 		background-color : #BBBBBB;
+ 	}
+ 	
+	/*전체 페이지 글자 밑줄안뜨도록*/
+ 	a{
+ 		text-decoration : none;
+ 		color : black;
+ 	}
+
+	/*숫자 컬럼 크기 조정용*/
+ 	.i{
+ 		width : 20px;
+ 	}
+ 	
+ 	/*테이블 특정컬럼크기조정용*/
+ 	.NAME{
+ 		width :150px;
+ 	}
+ 
+	/*테이블 특정컬럼크기조정용*/
+	.MNAME{
+ 	width :240px;
+ 	}
+ 	
+ 	/*테이블 특정컬럼크기조정용*/
+ 	.QUAN{
+ 		width :100px;
+ 	}
+ 
+  	/*테이블 특정컬럼크기조정용*/	
+ 	.DATE{
+ 		width : 100px;
+ 	}
+ 	
+ 	/*헤더의 첫번쨰 버튼 배치용*/
+	.first{
+		float:left; 
+		margin-right : 30px; 
+		margin-bottom : 10px
+	}
+
+	/*테이블 크기조정*/
+	.tablediv{
+		width : 1000px;
+	}
+ 	
+ 	/*테이블 아래 버튼*/
+ 	.bottom_buttons {
+ 		margin-top : 10px;
+ 	}
+ 	
+ 	/*페이징숫자 배치*/
+	.paging{
+		position : absolute; 
+		left:600px;
+	 }
+	 
+	/*페이징숫자 데코*/ 	
+ 	.paging li {
  		display : inline-block;
  		width : 25px;
  		height : 25px;
  		margin-top : 10px;
  	}
  	
- 	.p_font {
+ 	/*페이징숫자 글자*/
+ 	.paging li a {
  		color : 666666;
  	}
  	
- 	a{
- 		text-decoration : none;
- 		color : black;
- 	}
- 	
- 	.table th{
- 		background-color : #BBBBBB;
- 	}
- 	
- 	.i{
- 		width : 20px;
- 	}
- 	
- 	.NAME{
- 		width :150px;
- 	}
- 	
- 	.QUAN{
- 		width :100px;
- 	}
- 	
+ 	/*버튼 글자 배치용*/
  	.button{
- 		text-align : center;
+ 	text-align : center;
  	}
  	
- 	.DATE{
- 		width : 100px;
- 	}
- 	
-	.first{
-		float:left; 
-		margin-right : 30px; 
-		margin-bottom : 10px
-	}
-	
-	.third{
-		position : absolute; 
-		left:700px;
-	 }
-	 
-	 .sidebar{
-	 	position : absolute;
-	 }
-	 
-	 .bodyall{
-		 margin : 30px;
-		margin-left : 250px;
-	 }
-
-	.tablediv{
-		width : 1000px;
-	}

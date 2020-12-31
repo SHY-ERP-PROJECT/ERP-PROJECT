@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+     <%
+	request.setCharacterEncoding("UTF-8");
+	String id = (String)session.getAttribute("sessionId");
+%>  
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="resources/css/ERPcss.css">
+ <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <meta charset="UTF-8">
 <title>생산계획 등록창</title>
 <script>
@@ -49,9 +55,20 @@ function noBefore(date){
 </script>
 </head>
 <body>
-<form name="p_insert" method="get" action="${contextPath}/p_insert.do" onsubmit="return nullchecker()" autocomplete="off">
+	<jsp:include page="T_include.jsp">
+	<jsp:param name="id" value="<%= id %>" />
+	</jsp:include>
+	<br>
+	<div class="sidebar">
+	<jsp:include page="l_include.jsp">
+	<jsp:param name="name" value="name" />
+	</jsp:include>
+	</div>
+	<div class="bodyall">
+	<form name="p_insert" method="get" action="${contextPath}/p_insert.do" onsubmit="return nullchecker()" autocomplete="off">
+	
 	<h1>생산계획 등록</h1>
-	<table border="1" width="300px">
+	<table class="table" border="1" width="300px">
 	<tr>
 		<th>작업번호</th>
 		<th>모델번호</th>
@@ -65,8 +82,11 @@ function noBefore(date){
 		<td><input type="text" name="S_DATE" id="S_DATE"></td>
 	</tr>
 	</table>
+	<div class="bottom_buttons">
 	<button type="submit">등록하기</button>
 	<button type="button" onclick="location.href='p_view.do'">생산계획보기</button>
-</form>
+	</div>
+	</form>
+	</div>
 </body>
 </html>

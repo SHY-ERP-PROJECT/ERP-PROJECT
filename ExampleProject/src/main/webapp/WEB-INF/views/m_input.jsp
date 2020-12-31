@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%
+	request.setCharacterEncoding("UTF-8");
+	String id = (String)session.getAttribute("sessionId");
+%>  
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="resources/css/ERPcss.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-	body{
-	margin : 20px;}
-	.first{
-	margin-top : 10px;}
-</style>
 <script>
 function nullchecker(){
 	if(m_input.M_NO.value==""){
@@ -30,6 +29,16 @@ function nullchecker(){
 </script>
 </head>
 <body>
+	<jsp:include page="T_include.jsp">
+	<jsp:param name="id" value="<%= id %>" />
+	</jsp:include>
+	<br>
+	<div class="sidebar">
+	<jsp:include page="l_include.jsp">
+	<jsp:param name="name" value="name" />
+	</jsp:include>
+	</div>
+	<div class="bodyall">
 		<h1>자재추가 페이지</h1>
 		<form name="m_input" method="get" action="${contextPath}/m_input.do" onsubmit="return nullchecker()" autocomplete="off">
 		<table class="table" border="1">
@@ -44,12 +53,12 @@ function nullchecker(){
 			<td><input type="number" name="M_QUAN" min="0"></td>
 		</tr>
 		</table>
-		<div class="first">
+		<div class="bottom_buttons">
 			<input type="submit" value="추가하기">
 			<input type="reset" value="다시입력">
 			<button type="button" onclick="location.href='m_view.do'">돌아가기</button>
 		</div>
 		</form>
-		
+	</div>
 </body>
 </html>

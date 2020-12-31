@@ -35,12 +35,10 @@ function nullchecker(){
 	<div class="first">
 		<button type="button" onclick="location.href='transferToP_view.do'" >생산계획등록</button>
 	</div>
-	<div class="second">
 		<form name="p_search" method="get" action="${contextPath}/p_view.do" onsubmit="return nullchecker()">
 		<input type="text" name="LOT_NO" placeholder="작업번호를 적어주세요"/>
 		<input type="submit" class="btn btn-primary" value="검색" />
 		</form>
-	</div>
 	<div class="tablediv">
 		<table class="table" border="1">
 			<tr>
@@ -74,10 +72,10 @@ function nullchecker(){
 		</tbody>
 		</table>
 		</div>
-		<div class="third">
+		<div class="paging">
 			<c:forEach begin="1" end="${pageNum}" var="num">
    				<span>
-     				<li class="p_li"><a class="p_font" href="p_view.do?num=${num}">${num}</a></li>
+     				<li><a href="p_view.do?num=${num}">${num}</a></li>
   				</span>
  			</c:forEach>
 		</div>
