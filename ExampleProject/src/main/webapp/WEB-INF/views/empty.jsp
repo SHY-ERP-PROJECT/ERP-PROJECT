@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="t_include.jsp" flush="true"/>
+	<jsp:include page="T_include.jsp" flush="true"/>
 	<jsp:include page="l_include.jsp" flush="true"/>	
 </body>
 </html>

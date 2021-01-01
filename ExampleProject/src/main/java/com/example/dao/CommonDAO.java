@@ -21,6 +21,9 @@ public class CommonDAO extends AbstractDAO {
 	public List<Map<String, Object>> getList(Map<String, Object> map) {
 		return (List<Map<String, Object>>)selectList("jin.managerList", map);
 	}
+	public List<Map<String, Object>> bom(Map<String, Object> map) {
+		return (List<Map<String, Object>>)selectList("jin.bom", map);
+	}
 		
 	public Map<String, Object> managerList(Map<String, Object> map) {
 		//System.out.println("33333333333333333333333");

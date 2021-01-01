@@ -23,6 +23,10 @@ public class CommonService {
 	public List<Map<String, Object >> getList(Map<String, Object> map){ 
 		return commonDAO.getList(map);
 	}
+	public List<Map<String, Object >> bom(Map<String, Object> map){ 
+		return commonDAO.bom(map);
+	}
+
 
 	public Map<String, Object > managerList(Map<String, Object> map){ 
 		//System.out.println("-----------------------------");

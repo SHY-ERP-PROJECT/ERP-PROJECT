@@ -81,7 +81,7 @@ public class HomeController {
 		session.setAttribute("sessionId", id); //tester --삭제해도됩니당
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/t_include");
+		mv.setViewName("/T_include");
 		Map<String, Object> rs = commonService.managerList(map);
 		mv.addObject("rs", rs);
 			
@@ -126,7 +126,7 @@ public class HomeController {
 		
 		ModelAndView mv = new ModelAndView("/bom");
 		
-		List<Map<String, Object>> list = commonService.bom(null);
+		List<Map<String, Object>> list = commonService.bom(map);
 		mv.addObject("list", list);
 		
 		return mv;

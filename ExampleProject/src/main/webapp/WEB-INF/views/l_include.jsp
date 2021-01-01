@@ -27,7 +27,7 @@ li a:hover:not(li) {
 <ul>
       <li><a href="/empty.do">home</a></li>
       <li><a href="/bom.do">bom</a></li>
-      <li><a href="#">아</a></li>
+      <li><a href="/p_view.do">누나</a></li>
       <li><a href="#">무</a></li>
       <li><a href="#">것</a></li>
       <li><a href="#">도</a></li>
