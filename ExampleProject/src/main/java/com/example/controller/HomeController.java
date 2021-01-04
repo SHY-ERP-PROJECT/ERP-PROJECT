@@ -92,7 +92,7 @@ public class HomeController {
 		else mv.setViewName("redirect:/empty.do");
 		return mv;
 	}
-		//로그아웃
+		//로그아웃d
 	@RequestMapping(value = { "/logout.do", "/LOGOUT.do"}, method = RequestMethod.GET)
 	public ModelAndView logout(@RequestParam Map<String, Object> map) {
 		log.debug("Request Parameter : " + map);
