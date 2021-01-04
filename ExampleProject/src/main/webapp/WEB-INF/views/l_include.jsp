@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<style type="text/css">ul {
+<style>ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 200px;
-    height:1200px;
+    height:800px;
     background-color: #f1f1f1;
 }
 li a {

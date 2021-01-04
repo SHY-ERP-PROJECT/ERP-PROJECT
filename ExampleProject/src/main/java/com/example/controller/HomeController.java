@@ -68,9 +68,7 @@ public class HomeController {
 		log.debug("Request Parameter : " + map);
 			
 		ModelAndView mv = new ModelAndView("/empty");
-			
-		mv.addObject("rs", map.get("rs"));
-			
+
 		return mv;
 	}
 	@RequestMapping(value = { "/t_include.do", "/T_INCLUDE.do" }, method = RequestMethod.POST)
@@ -78,7 +76,7 @@ public class HomeController {
 		log.debug("Request Parameter : " + map); 
 		String id = (String)map.get("id");
 		HttpSession session = request.getSession();
-		session.setAttribute("sessionId", id); //tester --삭제해도됩니당
+		session.setAttribute("sessionId", id); 
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/T_include");
@@ -120,6 +118,7 @@ public class HomeController {
 			
 		return mv;
 	}
+	//bom화면
 	@RequestMapping(value = { "/bom.do", "/BOM.do"}, method = RequestMethod.GET)
 	public ModelAndView bom(@RequestParam Map<String, Object> map) {
 		log.debug("Request Parameter : " + map);
@@ -128,6 +127,17 @@ public class HomeController {
 		
 		List<Map<String, Object>> list = commonService.bom(map);
 		mv.addObject("list", list);
+		
+		return mv;
+	}
+	//bom등록
+	@RequestMapping(value = { "/bom_insert.do"}, method = RequestMethod.GET)
+	public ModelAndView bom_insert(@RequestParam Map<String, Object> map) {
+		log.debug("Request Parameter : " + map);
+			
+		ModelAndView mv = new ModelAndView("/bom_insert");
+		List<Map<String, Object>> list = commonService.bomInsertOne(map);
+		List<Map<String, Object>> lsst = commonService.bomInsertTwo(map);
 		
 		return mv;
 	}

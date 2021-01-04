@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*" isELIgnored="false"%>
-	<link rel="stylesheet" href="resources/css/ERPcss.css">
+	<!-- <link rel="stylesheet" href="resources/css/ERPcss.css"> -->
 <%
 	request.setCharacterEncoding("UTF-8");
 	String id = (String)session.getAttribute("sessionId");
@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
-header {
+.t_header {
   height: 55px;
   color: white;
   background: black;

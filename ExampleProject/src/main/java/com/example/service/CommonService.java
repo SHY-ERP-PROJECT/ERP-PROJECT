@@ -26,11 +26,14 @@ public class CommonService {
 	public List<Map<String, Object >> bom(Map<String, Object> map){ 
 		return commonDAO.bom(map);
 	}
-
+	public List<Map<String, Object >> bomInsertOne(Map<String, Object> map){ 
+		return commonDAO.bomInsertOne(map);
+	}
+	public List<Map<String, Object >> bomInsertTwo(Map<String, Object> map){ 
+		return commonDAO.bomInsertTwo(map);
+	}
 
 	public Map<String, Object > managerList(Map<String, Object> map){ 
-		//System.out.println("-----------------------------");
-		log.info("commonService : "+map);
 		return commonDAO.managerList(map);
 	}
 	
