@@ -41,12 +41,6 @@
 				INTERVAL (SELECT L_TIME FROM BOM1 WHERE PART_NO=#{PART_NO}) DAY))
 	</insert>	
 
-	<!--  생산_등록2:삽입된 데이터의 part_no 조회하여 part_name 넣어주는 기능 --> 
-	<update id="db_p_inputs" parameterType="hashmap">
-		UPDATE PR SET PART_NAME = (SELECT DISTINCT BOM2.PART_NAME FROM BOM2 WHERE BOM2.PART_NO=#{PART_NO}) 
-					WHERE LOT_NO=#{LOT_NO}
-	</update>	
-	
 	<!-- 생산_등록3:삽입된 데이터 이후에 자재가 충분히 있는가를 검증 -->
 	<select id="db_p_intputt" resultType="int">
 		SELECT if(SUM(SIGN(M_QUAN))=COUNT(M_NO), 0, -1) FROM WH;

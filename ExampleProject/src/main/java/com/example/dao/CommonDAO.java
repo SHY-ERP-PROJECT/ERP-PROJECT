@@ -44,14 +44,13 @@ public class CommonDAO extends AbstractDAO {
 	public int db_p_input(Map<String, Object> map) {
 		
 		int a= (Integer)insert("common.db_p_inputf", map);
-		int b =(Integer)update("common.db_p_inputs", map);
 		int c =(Integer)selectOne("common.db_p_intputt");
 		if(c==-1) {
 				update("common.db_p_delete", map);
 				return c;
 		}else {
-			if(a+b>1) {
-				return a+b;
+			if(a>0) {
+				return a;
 			}else {
 				update("common.db_p_delete", map);
 				return 0;

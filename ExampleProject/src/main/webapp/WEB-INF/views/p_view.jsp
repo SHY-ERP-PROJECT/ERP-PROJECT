@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="resources/css/ERPcss.css">
 <%
 	request.setCharacterEncoding("UTF-8");
 	String id = (String)session.getAttribute("sessionId");
@@ -9,47 +10,6 @@
 <head>
 <meta charset="UTF-8">
 <title>생산계획 조회창</title>
-<style>
-	
- 	.p_li {
- 		display : inline-block;
- 		background : royalblue;
- 		width : 25px;
- 		height : 25px;
- 		margin-top : 10px;
- 		text-align: center;
- 	}
- 	.i{
- 		width : 20px;
- 	}
- 	.NAME{
- 		width :150px;
- 	}
- 	.QUAN{
- 		width :100px;
- 	}
- 	.button{
- 		text-align : center;
- 	}
- 	.DATE{
- 		width : 100px;
- 	}
-	.first{float:left; margin-right : 30px; margin-bottom : 10px
-	}
-	.third{
-		position : absolute; 
-		left:400px;
-	 }
-	 .sidebar{
-	 position : absolute;
-	 left : 0px;
-	 }
-	 .bodyall{
-	 margin : 30px;
-	 position : absolute;
-	 left : 250px;
-	 }
-</style>
 <script>
 function nullchecker(){
 	if(p_search.LOT_NO.value==""){
@@ -75,12 +35,11 @@ function nullchecker(){
 	<div class="first">
 		<button type="button" onclick="location.href='transferToP_view.do'" >생산계획등록</button>
 	</div>
-	<div class="second">
 		<form name="p_search" method="get" action="${contextPath}/p_view.do" onsubmit="return nullchecker()">
 		<input type="text" name="LOT_NO" placeholder="작업번호를 적어주세요"/>
 		<input type="submit" class="btn btn-primary" value="검색" />
 		</form>
-	</div>
+	<div class="tablediv">
 		<table class="table" border="1">
 			<tr>
 			<th></th>
@@ -98,7 +57,7 @@ function nullchecker(){
 		<c:forEach var="row" items="${list}">
 			<c:set var="i" value="${i+1}"/>
 		<tr>
-			<th class="i">${i}</th>
+			<td class="i">${i}</th>
 			<td width="50px">${row.LOT_NO}</td>
 			<td class="NAME">${row.PART_NO}</td>
 			<td class="NAME">${row.PART_NAME}</td>
@@ -112,10 +71,11 @@ function nullchecker(){
 		</c:forEach>
 		</tbody>
 		</table>
-		<div class="third">
+		</div>
+		<div class="paging">
 			<c:forEach begin="1" end="${pageNum}" var="num">
    				<span>
-     				<li class="p_li"><a class="p_font" style="color:white" href="p_view.do?num=${num}">${num}</a></li>
+     				<li><a href="p_view.do?num=${num}">${num}</a></li>
   				</span>
  			</c:forEach>
 		</div>
