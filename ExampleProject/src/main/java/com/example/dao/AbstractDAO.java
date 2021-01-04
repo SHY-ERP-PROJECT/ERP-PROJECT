@@ -19,7 +19,7 @@ public class AbstractDAO {
 		}
 	}
 
-//창고 시작 ju
+//창고 시작 ju 0104
 	//작업번호 list 검색 ju
 	public List selectLotList(String queryId) {//, Object params) {
 		printQueryId(queryId);

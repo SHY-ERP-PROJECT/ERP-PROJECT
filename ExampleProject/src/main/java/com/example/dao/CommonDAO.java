@@ -102,7 +102,7 @@ public class CommonDAO extends AbstractDAO {
 	}
 
 	//창고 시작 ju
-	//----------------제품창고 JU---------------------
+	//----------------제품창고 JU 0104---------------------
 	//창고 시작 ju
 	//입고 전 작업번호 전체 갯수 구하기
 	public  int mwhGetLotCount(Map<String, Object> map){

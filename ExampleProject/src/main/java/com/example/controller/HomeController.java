@@ -249,6 +249,7 @@ public class HomeController {
 	}
 	
 	//----------------제품창고 JU---------------------
+	//----------------제품창고 JU 0104---------------------
 	//상품입출고창고등록	ju
 	@RequestMapping(value = { "/MCHWH.do", "/mchwh.do" }, method = RequestMethod.GET)
 	public ModelAndView mchwh(@RequestParam Map<String, Object> map,
