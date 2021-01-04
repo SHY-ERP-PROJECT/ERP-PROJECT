@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+	.p_li {
+		display : inline-block;
+		background : royalblue;
+		width : 25px;
+		height : 25px;
+		margin-top : 10px;
+		text-align: center;
+	}
+	.third{
+	position : absolute; 
+	left:400px;
+ 	}
+ 	
+ 	
+ /* 테이블 컬럼 색상 */
+ th{background-color: #A9F5A9;}
+ /* 테이블 컬럼 링크 밑줄 제거 */
+ th>a{
+ 	text-decoration: none;
+ 	color: black;
+ }

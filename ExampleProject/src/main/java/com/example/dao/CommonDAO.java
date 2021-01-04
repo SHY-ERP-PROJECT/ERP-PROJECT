@@ -105,6 +105,18 @@ public class CommonDAO extends AbstractDAO {
 	//창고 시작 ju
 	//----------------제품창고 JU---------------------
 	//창고 시작 ju
+	//입고 전 작업번호 전체 갯수 구하기
+	public  int mwhGetLotCount(Map<String, Object> map){
+		return (Integer)selectOne("wh.LotAllCount", map);
+	}
+	//입고된 전체 모델 갯수 구하기
+	public  int mwhGetPartCount(Map<String, Object> map){
+		return (Integer)selectOne("wh.InPartAllCount", map);
+	}
+	//입고된 작업번호 전체 갯수 구하기
+	public  int mwhGetInLotCount(Map<String, Object> map){
+		return (Integer)selectOne("wh.InLotAllCount", map);
+	}
 	//작업번호 list 검색 ju
 	public  List<Map<String, Object>> mwhGetLotList(){//Map<String, Object> wh) {
 		return (List<Map<String, Object>>)selectLotList("wh.LotAll");//, wh);
@@ -139,8 +151,8 @@ public class CommonDAO extends AbstractDAO {
 		return (List<Map<String, Object> > )selectSeaPart("wh.SeaPart", wh);
 	}
 	//창고에 물품 전체검색 ju
-	public  List<Map<String, Object> > mwhSeaLotAll(){//Map<String, Object> wh) {
-		return (List<Map<String, Object> > )selectSeaLotAll("wh.SeaLotAll");//, wh);
+	public  List<Map<String, Object> > mwhSeaLotAll(Map<String, Object> map){
+		return (List<Map<String, Object> > )selectSeaLotAll("wh.SeaLotAll", map);//, wh);
 	}
 	//창고에 있는 물품 수정 검색 ju
 	public  Map<String, Object> mwhCor(Map<String, Object> wh) {

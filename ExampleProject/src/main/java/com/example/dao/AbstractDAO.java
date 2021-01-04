@@ -51,7 +51,7 @@ public class AbstractDAO {
 		return sqlSession.selectList(queryId, params);
 	}
 	//창고 물품 전체검색 ju
-	public List selectSeaLotAll(String queryId) {//, Object params) {
+	public List selectSeaLotAll(String queryId, Object params) {
 		printQueryId(queryId);
 		return sqlSession.selectList(queryId);//, params);
 	}

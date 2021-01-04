@@ -4,9 +4,6 @@
 	request.setCharacterEncoding("UTF-8");
 	String id = (String)session.getAttribute("sessionId");
 %>
-<!DOCTYPE html>
-<html>
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
 header {
@@ -22,12 +19,8 @@ header {
 	text-decoration:none;
 	}
 </style>
-</head>
-<body>
 <header>
 	<h1>반갑습니다. <%= id %>님</h1>
 	
 	<a class="jin" href='/logout.do'>로그아웃</a>
 </header>
-</body>
-</html>

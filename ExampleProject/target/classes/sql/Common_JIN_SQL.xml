@@ -16,8 +16,8 @@
 
 	<select id="managerList" parameterType="hashMap" resultType="hashMap">
 		SELECT * FROM USER
-		WHERE ID = #{id}
-		AND PW = #{pw}
+		WHERE BINARY ID = #{id}
+		AND BINARY PW = #{pw}
 	</select>
 
 </mapper>
