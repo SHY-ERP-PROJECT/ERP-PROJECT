@@ -68,9 +68,7 @@ public class HomeController {
 		log.debug("Request Parameter : " + map);
 			
 		ModelAndView mv = new ModelAndView("/empty");
-			
-		mv.addObject("rs", map.get("rs"));
-			
+
 		return mv;
 	}
 	@RequestMapping(value = { "/t_include.do", "/T_INCLUDE.do" }, method = RequestMethod.POST)
@@ -78,10 +76,10 @@ public class HomeController {
 		log.debug("Request Parameter : " + map); 
 		String id = (String)map.get("id");
 		HttpSession session = request.getSession();
-		session.setAttribute("sessionId", id); //tester --삭제해도됩니당
+		session.setAttribute("sessionId", id); 
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/t_include");
+		mv.setViewName("/T_include");
 		Map<String, Object> rs = commonService.managerList(map);
 		mv.addObject("rs", rs);
 			
@@ -92,7 +90,7 @@ public class HomeController {
 		else mv.setViewName("redirect:/empty.do");
 		return mv;
 	}
-		//로그아웃d
+		//로그아웃
 	@RequestMapping(value = { "/logout.do", "/LOGOUT.do"}, method = RequestMethod.GET)
 	public ModelAndView logout(@RequestParam Map<String, Object> map) {
 		log.debug("Request Parameter : " + map);
@@ -120,7 +118,7 @@ public class HomeController {
 			
 		return mv;
 	}
-	
+
 	//----------------생산계획관리 MIN---------------------
 	// 생산계획 조회, 검색용 - MIN
 	@RequestMapping(value = { "/p_view.do" }, method = RequestMethod.GET)
@@ -139,7 +137,9 @@ public class HomeController {
 			out.print("</script>");
 			out.flush();			
 		}else {
-			//게시물 총 갯수구하기
+			
+			//--------------------신규작업------------- 
+			//작업 총 갯수구하기
 			int count = commonService.p_paging(map);
 			//한페이지 출력수
 			int postNum=10;
@@ -153,6 +153,23 @@ public class HomeController {
 			List<Map<String, Object>> list = commonService.db_p_view(map);
 			mv.addObject("list", list);
 			mv.addObject("pageNum", pageNum);
+			
+			//--------------------완료작업------------- 
+			//작업 총 갯수구하기
+			int count2 = commonService.pp_paging(map);
+			//한페이지 출력수
+			int postNum2=10;
+			map.put("postNum", postNum);
+			//하단 페이지 번호
+			int pageNum2=(int)Math.ceil((double)count/postNum);
+		
+			//출력 게시물
+			int displayPost2 = (num-1) * postNum;
+			map.put("displayPost2", displayPost2);
+			List<Map<String, Object>> list2 = commonService.db_pp_view(map);
+			mv.addObject("list2", list2);
+			mv.addObject("pageNum2", pageNum2);			
+			
 			}
 			return mv;
 	}
@@ -536,6 +553,34 @@ public class HomeController {
 	}
 	//창고 끝
 	
+	//-------------------BOM JIN--------------------------
+	
+	//bom화면
+	@RequestMapping(value = { "/bom.do", "/BOM.do"}, method = RequestMethod.GET)
+	public ModelAndView bom(@RequestParam Map<String, Object> map) {
+		log.debug("Request Parameter : " + map);
+		
+		ModelAndView mv = new ModelAndView("/bom");
+		
+		List<Map<String, Object>> list = commonService.bom(map);
+		mv.addObject("list", list);
+		
+		return mv;
+	}
+	
+	//bom등록
+	@RequestMapping(value = { "/bom_insert.do"}, method = RequestMethod.GET)
+	public ModelAndView bom_insert(@RequestParam Map<String, Object> map) {
+		log.debug("Request Parameter : " + map);
+			
+		ModelAndView mv = new ModelAndView("/bom_insert");
+		List<Map<String, Object>> list = commonService.bomInsertOne(map);
+		List<Map<String, Object>> lsst = commonService.bomInsertTwo(map);
+		
+		return mv;
+	}
+	//BOM 끝
+	
 	//-------------------자재창고 MIN--------------------------
 
 	// 자재창고 조회, 검색용 - MIN
@@ -620,6 +665,8 @@ public class HomeController {
 		out.flush();
 	}
 
+
+
 	@RequestMapping(value = "/sample/testMapArgumentResolver.do")
 	public ModelAndView testMapArgumentResolver(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("");
@@ -634,5 +681,6 @@ public class HomeController {
 		return mv;
 
 	}
+	
 	
 } //class
