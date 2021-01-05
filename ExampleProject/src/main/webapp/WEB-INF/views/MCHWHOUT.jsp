@@ -39,7 +39,7 @@ String id = (String)session.getAttribute("sessionId");%>
 	<jsp:useBean id="PRmap" class="java.util.HashMap"/>
 	
 	<form name="mwhout" method="get" action="MCHWHOUT.do">
-	<h2>배송을 할 물품을 확인하십시오.</h2>
+	<h2>출고하실 물품을 확인해주십시오.</h2>
 		<table border="1">
 			<tr>
 			<!-- 작업번호	제품모델번호	제품명	수량	불량갯수	입/출고 -->

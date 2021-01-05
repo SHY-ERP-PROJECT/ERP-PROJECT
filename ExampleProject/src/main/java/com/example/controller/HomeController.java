@@ -287,6 +287,12 @@ public class HomeController {
 		map.put("displayPost", displayPost);
 		mv.addObject("pageNum", pageNum);
 		
+		String tmp = (String)map.get("FAIL"); // 불량 수량
+		int quan = Integer.parseInt((String)map.get("QUAN"));//생산 수량
+		if(tmp != null) {
+			iFail = Integer.parseInt( tmp ); 
+		}
+		
 		if(lotno != null && lotno.length() > 0) { // 입고버튼으로 입력시 작업번호가 있으면
 			for(int i = 0; i < lotList.size(); i++) {
 				if(lotno.equalsIgnoreCase((String)lotList.get(i).get("LOT_NO"))) {
@@ -308,25 +314,22 @@ public class HomeController {
 				}
 			}
 		}
-		
-		String tmp = (String)map.get("FAIL"); // 불량 수량
-		if(tmp != null) {
-			iFail = Integer.parseInt( tmp ); 
-		}
-		if(io != null && io.length() > 0) {
-			int quan = Integer.parseInt((String)map.get("QUAN"));//(Integer)map.get("QUAN");//
+
+		if(quan >= iFail){//io != null && io.length() > 0) {
+			//(Integer)map.get("QUAN");//
 			R_QUAN = quan - iFail;
-			map.put("R_QUAN", R_QUAN);
+			map.put("R_QUAN", R_QUAN); //실 생산 수량
+			map.put("IO", "O" ); //입고처리
 			commonService.mwhIn(map);
 			out.print("<script>location.href='MCHWH.do'</script>");
 			out.flush();
 		}else {
-			out.print("<script>alert('입고상태를 입력하지 않았습니다.')");
+			out.print("<script>alert('불량 수량이 입력수량 보다 큽니다.')");
 			out.print("location.href='MCHWH.do?LOT_NO=" + lno + "}';"); 
 			out.print("</script>"); 
 			out.flush();
 		}
-		
+
 		mv.addObject("partName", nameList); //제품이름 리스트
 		mv.addObject("lotList", lotList); //작업전체 리스트
 		
