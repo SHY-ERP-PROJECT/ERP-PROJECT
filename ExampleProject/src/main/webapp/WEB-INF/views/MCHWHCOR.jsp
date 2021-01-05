@@ -16,6 +16,26 @@ String id = (String)session.getAttribute("sessionId");%>
 	 left : 250px;
 	 }
 </style>
+<script language="javascript">
+function check() {
+	var f = document.mwh;
+	var q = f.QUAN.value;
+	if(f.FAIL.value==""){
+		alert("불량갯수를 입력하시오.");
+		f.FAIL.focus();
+		return false;
+	}
+
+	if(f.FAIL.value >= q){
+		alert("생산수량보다 클 수 없습니다.");
+		f.FAIL.vlaue = 0;
+		f.FAIL.focus();
+		return false;
+	}
+	return true;
+}//check()
+
+</script>
 <head>
 <meta charset="UTF-8">
 <title>상품창고수정</title>
@@ -40,7 +60,7 @@ String id = (String)session.getAttribute("sessionId");%>
 	<jsp:useBean id="PRmap" class="java.util.HashMap"/>
 	<c:set var="mwh" value="${list}"/><!-- 수정할 자료가져오기 -->
 	
-	<form name="mhcor" method="get" action="MCHWHCOR.do?"><%-- ${mwh.LOT_NO}"> --%>
+	<form name="mhcor" method="get" action="MCHWHCOR.do?" onsubmit="return check()"><%-- ${mwh.LOT_NO}"> --%>
 		<h2>작업번호 ${mwh.LOT_NO}인 ${mwh.PART_NO}의 불량 수량을 수정하십시오.</h2>
 		<table border="1">
 			<tr>
@@ -63,9 +83,9 @@ String id = (String)session.getAttribute("sessionId");%>
 			<td><input name="PART_NAME" type="text" size=20 value="${name.PART_NAME}" readonly="readonly"/></td>
 			</c:if>
 			</c:forEach>
-			<td><input name="QUAN" type="text" size=10 value="${mwh.QUAN}" readonly="readonly"/>EA</td>
-			<td><input name="FAIL" type="text" size=10 value="${mwh.FAIL}"/>EA</td>
-			<td><input name="R_QUAN" type="text" size=10 value="${mwh.R_QUAN}" readonly="readonly"/>EA</td>
+			<td><input name="QUAN" size=5 type="number" value="${mwh.QUAN}" readonly="readonly"/>EA</td>
+			<td><input name="FAIL" size=5 type="number" min="0" value="${mwh.FAIL}" placeholder="불량품 수량"/>EA</td>
+			<td><input name="R_QUAN" size=5 type="number" value="${mwh.R_QUAN}" readonly="readonly"/>EA</td>
 			<td><select name="IO"  size=1>
 				<c:if test="${(mwh.IO == null)}" >
 				<option value=" " selected="selected"/>

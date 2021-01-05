@@ -52,7 +52,7 @@ String id = (String)session.getAttribute("sessionId");%>
 				<td><input name="PART_NAME" type="text" size=20 value="${name.PART_NAME}" readonly="readonly"/></td>
 					</c:if>
 				</c:forEach>
-				<td><input type="text" value="${nameCount.count}" readonly="readonly" /></td></tr>
+				<td><input type="text" value="${nameCount.count}" size=6 readonly="readonly" /></td></tr>
 			</c:forEach>
 		</table>
 		<br>
@@ -84,9 +84,9 @@ String id = (String)session.getAttribute("sessionId");%>
 			<td><input name="PART_NAME" type="text" size=20 value="${name.PART_NAME}" readonly="readonly"/></td>
 			</c:if>
 		</c:forEach>
-		<td><input type="text" name="QUAN" value="${mwh.QUAN}" readonly="readonly"/></td>
-		<td><input type="text" name="FAIL" value="${mwh.FAIL}" readonly="readonly"/></td>
-		<td><input type="text" name="R_QUAN" value="${mwh.R_QUAN}" readonly="readonly"/></td>
+		<td><input type="text" name="QUAN" value="${mwh.QUAN}" size=6 readonly="readonly"/></td>
+		<td><input type="text" name="FAIL" value="${mwh.FAIL}" size=6 readonly="readonly"/></td>
+		<td><input type="text" name="R_QUAN" value="${mwh.R_QUAN}" size=6 readonly="readonly"/></td>
 		
 		<td>
 		<c:if test="${(mwh.IO == 'O') || (mwh.IO == 'o')}" >

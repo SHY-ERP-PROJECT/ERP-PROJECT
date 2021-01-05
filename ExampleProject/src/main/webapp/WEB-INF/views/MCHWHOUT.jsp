@@ -38,7 +38,7 @@ String id = (String)session.getAttribute("sessionId");%>
 	<jsp:useBean id="PRlist" class="java.util.ArrayList"/>
 	<jsp:useBean id="PRmap" class="java.util.HashMap"/>
 	
-	<form name="mwhout" method="get" action="MCHWHOUT.do">
+	<form name="mwhout" method="get" action="MCHWHOUT.do" onsubmit="return check()">
 	<h2>출고하실 물품을 확인해주십시오.</h2>
 		<table border="1">
 			<tr>
