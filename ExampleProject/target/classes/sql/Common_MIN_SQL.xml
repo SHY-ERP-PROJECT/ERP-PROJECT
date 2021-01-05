@@ -10,17 +10,43 @@
 
 	<!-- 생산계획 수세기-->
 	<select id="db_p_paging" parameterType="hashmap" resultType="int">
-		SELECT COUNT(LOT_NO) FROM PR
+		SELECT COUNT(LOT_NO) FROM PR WHERE IO IS NULL
 			<choose>
 				<when test="LOT_NO != null">
-					 WHERE LOT_NO=#{LOT_NO}
+					 AND LOT_NO=#{LOT_NO}
 				</when>
 			</choose>
 	</select>
 
  	<!--  생산_기본화면 & 페이징-->
 	<select id="db_p_view_paging" parameterType="hashmap" resultType="hashmap">
-				SELECT PR.LOT_NO , PR.PART_NO, BOM2.PART_NAME, PR.QUAN, PR.UNIT, PR.S_DATE, PR.F_DATE FROM PR, BOM2 WHERE PR.PART_NO=BOM2.PART_NO
+				SELECT PR.LOT_NO , PR.PART_NO, BOM2.PART_NAME, PR.QUAN, PR.UNIT, PR.S_DATE, PR.F_DATE FROM PR, BOM2 WHERE PR.PART_NO=BOM2.PART_NO AND IO IS NULL
+		<choose>
+			<when test="LOT_NO != null">
+				 AND PR.LOT_NO=#{LOT_NO}
+			</when>
+			<when test="ORDER != null">
+				ORDER BY ${ORDER}
+			</when>
+			<when test="displayPost!=null">
+				LIMIT #{displayPost}, #{postNum}
+			</when>	
+		</choose>
+	</select> 
+
+	<!-- 과거 생산계획 수세기-->
+	<select id="db_pp_paging" parameterType="hashmap" resultType="int">
+		SELECT COUNT(LOT_NO) FROM PR WHERE IO IS NOT NULL
+			<choose>
+				<when test="LOT_NO != null">
+					 AND LOT_NO=#{LOT_NO}
+				</when>
+			</choose>
+	</select>
+	
+	 	<!--  생산_과거 기본화면 & 페이징-->
+	<select id="db_pp_view_paging" parameterType="hashmap" resultType="hashmap">
+				SELECT PR.LOT_NO , PR.PART_NO, BOM2.PART_NAME, PR.QUAN, PR.UNIT, PR.IO, PR.S_DATE, PR.F_DATE, PR.OUT_DATE FROM PR, BOM2 WHERE PR.PART_NO=BOM2.PART_NO AND PR.IO IS NOT NULL
 		<choose>
 			<when test="LOT_NO != null">
 				 AND PR.LOT_NO=#{LOT_NO}

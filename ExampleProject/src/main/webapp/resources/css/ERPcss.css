@@ -6,7 +6,7 @@
     	margin: 0;
     	padding: 0;
     	width: 200px;
-    	height:1200px;
+    	height:800px;
     	background-color: #f1f1f1;
 	}
 	
@@ -87,6 +87,11 @@
   	/*테이블 특정컬럼크기조정용*/	
  	.DATE{
  		width : 100px;
+ 	}
+ 	
+  	/*테이블 특정컬럼크기조정용*/	
+ 	.ERP{
+ 		width : 80px;
  	}
  	
  	/*헤더의 첫번쨰 버튼 배치용*/
