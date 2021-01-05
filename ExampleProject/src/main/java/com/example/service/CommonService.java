@@ -72,8 +72,17 @@ public class CommonService {
 		return rs;
 	}
 
-	//----------------제품창고 JU---------------------
+	//----------------제품창고 JU 0104---------------------
 	//창고 시작 ju
+	//페이지 처리
+	//작업번호 전체 갯수 구하기
+	public int mwhGetLotCount(Map<String, Object> map){
+		return commonDAO.mwhGetLotCount(map);
+	}
+	//제품번호 전체 갯수 구하기
+	public int mwhGetInPartAllCount(Map<String, Object> map){
+		return commonDAO.mwhGetPartCount(map);
+	}
 	//작업번호 전체 검색 ju
 	public List<Map<String, Object>> mwhGetLotList(){//Map<String, Object> wh){
 		return commonDAO.mwhGetLotList();//wh);
@@ -94,10 +103,6 @@ public class CommonService {
 	public List<Map<String, Object> > mwhGetPartName(Map<String, Object> wh){ 
 		return commonDAO.mwhGetPartName(wh);
 	}
-	//창고에 있는 물품 partno 검색 ju
-
-
-
 	//창고에 물품등록 ju
 	public void mwhInOut(Map<String, Object> wh){ 
 		commonDAO.mwhInOut(wh);
@@ -107,8 +112,8 @@ public class CommonService {
 		return commonDAO.mwhSeaPart(wh);
 	}
 	//창고에 있는 물품 전체 검색 ju
-	public List<Map<String, Object> > mwhSeaLotAll(){//Map<String, Object> wh){ 
-		return commonDAO.mwhSeaLotAll();//wh);
+	public List<Map<String, Object> > mwhSeaLotAll(Map<String, Object> map){ 
+		return commonDAO.mwhSeaLotAll(map);
 	}
 	//창고에 있는 물품 수정 검색 ju
 	public Map<String, Object> mwhCor(Map<String, Object> wh){ 
@@ -149,4 +154,7 @@ public class CommonService {
 	public int db_m_input(Map<String, Object> map){ 
 		return (Integer)commonDAO.db_m_input(map);
 	}
+	
+	
+	//페이지 처리부분
 }
