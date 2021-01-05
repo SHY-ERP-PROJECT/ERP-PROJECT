@@ -1,13 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <% request.setCharacterEncoding("UTF-8"); 
+String id = (String)session.getAttribute("sessionId");%>
 <!DOCTYPE html>
 <html>
+<style>
+.sidebar{
+	 position : absolute;
+	 left : 0px;
+	 }
+.bodyall{
+	 margin : 30px;
+	 position : absolute;
+	 left : 250px;
+	 }
+</style>
 <head>
 <meta charset="UTF-8">
 <title>제품검색결과</title>
+
+<link href="resources/css/table.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<div class="header">
+	<jsp:include page="T_include.jsp">
+	<jsp:param name="id" value="<%= id %>" />
+	</jsp:include>
+	</div>
+	<br>
+	<div class="sidebar">
+	<jsp:include page="l_include.jsp">
+	<jsp:param name="name" value="name" />
+	</jsp:include>
+	</div>
+	
+	<div class="bodyall">
 	<form name="mwhsch" method="get" ><%-- action="MCHWHCOR.do/${mwh.LOT_NO}"> --%>
+		<h2>창고에 입고 되어 있는 검색한 물품의 총 수량입니다.</h2>
+		<%-- <c:set var="mwh" value="${list}"/><!-- 수정할 자료가져오기 --> --%>
+		<c:set var="schPartNo" value="${schPartNo}"/>
 		<table border="1">
 			<tr>
 			<th>제품모델번호</th>
@@ -16,27 +47,33 @@
 			</tr>
 			<c:forEach var="nameCount" items="${nameCount}">
 				<tr><td><input type="text" value="${nameCount.PART_NO}" readonly="readonly" /></td>
-			<c:forEach var="name" items="${partName}">
-			<c:if test="${name.PART_NO == nameCount.PART_NO}">
+				<c:forEach var="name" items="${partName}">
+					<c:if test="${name.PART_NO == nameCount.PART_NO}">
 				<td><input name="PART_NAME" type="text" size=20 value="${name.PART_NAME}" readonly="readonly"/></td>
-			</c:if>
-			</c:forEach>
+					</c:if>
+				</c:forEach>
 				<td><input type="text" value="${nameCount.count}" readonly="readonly" /></td></tr>
 			</c:forEach>
 		</table>
 		<br>
+		<button type="button" onclick="location.href='/mchwh.do'">등록화면으로</button>
+		<button type="button" onclick="location.href='/mchwhsea.do'">검색화면으로</button>
+	</form>
+	<hr>
 	
+	<h2>검색한 물품의 입고 상태입니다.</h2>
 	
 	<table border="1">
 	<tr>
-		<th align = "center">작업번호</th>
-		<th align = "center">제품모벨번호</th>
-		<th align = "center">제품명</th>
-		<th align = "center">생산수량</th>
-		<th align = "center">불량수량</th>
-		<th align = "center">실 생산수량</th>
-		<th align = "center">입고</th>
-		<th align = "center">비고</th>
+		<th><a href="MCHWHSCH.do?ORDER=LOT_NO">작업번호</a></th>
+		<th><a href="MCHWHSCH.do?ORDER=PRAT_NO">제품모벨번호</a></th>
+		<th>제품명</th>
+		<th><a href="MCHWHSCH.do?ORDER=QUAN">생산수량</a></th>
+		<th><a href="MCHWHSCH.do?ORDER=FIAL">불량수량</a></th>
+		<th><a href="MCHWHSCH.do?ORDER=R_QUAN">실 생산수량</a></th>
+		<th>입고</th>
+		<th>출고</th>
+		<th>비고</th>
 	</tr>
 	<c:forEach var="mwh" items="${list}">
 	<tr>
@@ -50,27 +87,33 @@
 		<td><input type="text" name="QUAN" value="${mwh.QUAN}" readonly="readonly"/></td>
 		<td><input type="text" name="FAIL" value="${mwh.FAIL}" readonly="readonly"/></td>
 		<td><input type="text" name="R_QUAN" value="${mwh.R_QUAN}" readonly="readonly"/></td>
-		<%-- <td name="LOT_NO">${mwh.LOT_NO}</td>
-		<td name="PART_NO">${mwh.PART_NO}</td>
-		<td name="PART_NAME">${mwh.PART_NAME}</td>
-		<td name="QUAN">${mwh.QUAN}</td>
-		<td name="PF">${mwh.PF}</td> --%>
+		
 		<td>
 		<c:if test="${(mwh.IO == 'O') || (mwh.IO == 'o')}" >
 		<p>입고</p>
 		</c:if>
 		<c:if test="${(mwh.IO == 'X') || (mwh.IO == 'x') }" >
 		<p>출고</p>
-		</c:if></td>
+		</c:if>
+		</td>
+		<td>
+		<button type="button" onclick="location.href='/mchwhout.do?LOT_NO=${mwh.LOT_NO}'">출고</button>
+		</td>
 		<td align = "center">
 			<a href="MCHWHCOR.do?LOT_NO=${mwh.LOT_NO}">수정</a>
 		<!-- <button type="submit" >수정</button> -->
-		</td>
+		</td>		
 	</tr>
 	</c:forEach>
+	
 	</table>
-	</form>
-	<button type="button" onclick="location.href='/mchwh.do'">등록화면으로</button>
-	<button type="button" onclick="location.href='/mchwhsea.do'">검색화면으로</button>
+		<div class="third">
+		<c:forEach begin="1" end="${pageNum}" var="num">
+  			<span>
+    			<li class="p_li"><a class="p_font" style="color:white" href="MCHWHSCH.do?PART_NO=${schPartNo.PART_NO}&&num=${num}">${num}</a></li>
+ 			</span>
+		</c:forEach>
+	</div>
+	</div>
 </body>
 </html>

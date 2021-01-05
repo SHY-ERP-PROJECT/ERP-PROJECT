@@ -249,24 +249,48 @@ public class HomeController {
 	}
 	
 	//----------------제품창고 JU---------------------
+	//----------------제품창고 JU 0104---------------------
 	//상품입출고창고등록	ju
 	@RequestMapping(value = { "/MCHWH.do", "/mchwh.do" }, method = RequestMethod.GET)
-	public ModelAndView mchwh(@RequestParam Map<String, Object> map) {
+	public ModelAndView mchwh(@RequestParam Map<String, Object> map,
+			@RequestParam(value="num", required=false, defaultValue="1") int num,
+			HttpServletResponse res )throws IOException {
+		
 		log.debug("Request Parameter : " + map);
+		//알림 팝업을 위한 선언부분
+		res.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
+		out = res.getWriter();
 		
 		ModelAndView mv = new ModelAndView("/MCHWH");//파일명 대소문자 구분
 		Map<String, Object> mwhIn = new HashMap(); //해당 작업 내역
 		Map<String, Object> mwhGetNo = new HashMap(); //해당 작업 내역
-		List<Map<String, Object>> nameList = commonService.mwhGetPartName(map);
-		List<Map<String, Object>> lotList = commonService.mwhGetLotList();
-		String lotno = (String)map.get("LOTNO"); // 작업번호
-		String fail = (String)map.get("FAIL"); // 실패수량
-		String io = (String)map.get("IO"); // 실패수량
+		List<Map<String, Object>> nameList = commonService.mwhGetPartName(map); //네임리스트
+		List<Map<String, Object>> lotList = commonService.mwhGetLotList(); //작업번호 리스트
+		String lotno = (String)map.get("LOTNO"); // 작업번호 창고에서 입고시
+		String lot_no = (String)map.get("LOT_NO"); // 작업번호 p_view에서 입고시
+		String lno ="";
+		String io = (String)map.get("IO"); // 입고
 		int R_QUAN = 0;
+		int iFail = 0;
 		
-		if(lotno != null && lotno.length() > 0) { //작업번호가 있으면
+		//작업번호 총 갯수구하기
+		int lotCount = commonService.mwhGetLotCount(map);
+		//한페이지 출력수
+		int postNum = 10;
+		map.put("postNum", postNum);
+		//하단 페이지 번호
+		int pageNum=(int)Math.ceil((double)lotCount/postNum);
+	
+		//출력 게시물
+		int displayPost = (num-1) * postNum;
+		map.put("displayPost", displayPost);
+		mv.addObject("pageNum", pageNum);
+		
+		if(lotno != null && lotno.length() > 0) { // 입고버튼으로 입력시 작업번호가 있으면
 			for(int i = 0; i < lotList.size(); i++) {
 				if(lotno.equalsIgnoreCase((String)lotList.get(i).get("LOT_NO"))) {
+					lno = lotno; 
 					mwhGetNo.put("LOT_NO", lotno);
 					mwhIn = commonService.mwhGetSeaLot(mwhGetNo);
 					mv.addObject("mwhIn", mwhIn);
@@ -274,13 +298,33 @@ public class HomeController {
 			}
 		}
 		
-		if(fail != null && fail.length() > 0) { //불량 수량이 있으면
-			if(io != null && io.length() > 0) {
-				int quan = Integer.parseInt((String)map.get("QUAN"));
-				R_QUAN = quan - Integer.parseInt(fail);
-				map.put("R_QUAN", R_QUAN);
-				commonService.mwhIn(map);
+		if(lot_no != null && lot_no.length() > 0) { //p_view에서 입고시
+			for(int i = 0; i < lotList.size(); i++) {
+				if(lot_no.equalsIgnoreCase((String)lotList.get(i).get("LOT_NO") ) ) {
+					lno = lot_no;
+					mwhGetNo.put("LOT_NO", lot_no);
+					mwhIn = commonService.mwhGetSeaLot(mwhGetNo);
+					mv.addObject("mwhIn", mwhIn);
+				}
 			}
+		}
+		
+		String tmp = (String)map.get("FAIL"); // 불량 수량
+		if(tmp != null) {
+			iFail = Integer.parseInt( tmp ); 
+		}
+		if(io != null && io.length() > 0) {
+			int quan = Integer.parseInt((String)map.get("QUAN"));//(Integer)map.get("QUAN");//
+			R_QUAN = quan - iFail;
+			map.put("R_QUAN", R_QUAN);
+			commonService.mwhIn(map);
+			out.print("<script>location.href='MCHWH.do'</script>");
+			out.flush();
+		}else {
+			out.print("<script>alert('입고상태를 입력하지 않았습니다.')");
+			out.print("location.href='MCHWH.do?LOT_NO=" + lno + "}';"); 
+			out.print("</script>"); 
+			out.flush();
 		}
 		
 		mv.addObject("partName", nameList); //제품이름 리스트
@@ -288,6 +332,7 @@ public class HomeController {
 		
 		return mv;
 	}//상품 입고 창고 등록	
+	
 	//상품 입고 수정 ju
 	@RequestMapping(value = { "/MCHWHCOR.do", "/mchwhcor.do" }, method = RequestMethod.GET)
 	public ModelAndView mchwhcor(@RequestParam Map<String, Object> map) {
@@ -323,14 +368,31 @@ public class HomeController {
 	
 	//상품 입출고 검색 ju
 	@RequestMapping(value = { "/MCHWHSEA.do", "/mchwhsea.do" }, method = RequestMethod.GET)
-	public ModelAndView mchwhsea(@RequestParam Map<String, Object> map) {
+	public ModelAndView mchwhsea(@RequestParam Map<String, Object> map,
+			@RequestParam(value="num", required=false, defaultValue="1") int num
+			) throws IOException {
+		
 		log.debug("Request Parameter : " + map);
+				
 		List<Map<String, Object>> list = new ArrayList();
 		List<Map<String, Object>> nameCountList = new ArrayList();//제품별 수량
 		List<Map<String, Object>> nameList = commonService.mwhGetPartName(map);
-		ModelAndView mv = null;
-		mv = new ModelAndView("/MCHWHSEA");//검색창
-		list = commonService.mwhSeaLotAll();
+		Map<String, Object> partCount = new HashMap<String, Object>(); //
+		ModelAndView mv = new ModelAndView("/MCHWHSEA");//검색창
+		list = commonService.mwhSeaLotAll(map);
+
+		//작업번호 총 갯수구하기
+		int inPartCount = commonService.mwhGetInPartAllCount(map);
+		//한페이지 출력수
+		int postInNum = 10;
+		map.put("postInNum", postInNum);
+		//하단 페이지 번호
+		int pageInNum=(int)Math.ceil((double)inPartCount/postInNum);
+	
+		//출력 게시물
+		int displayInPost = (num-1) * postInNum;
+		map.put("displayInPost", displayInPost);
+		mv.addObject("pageInNum", pageInNum);
 		
 		for(int i = 0; i < nameList.size(); i++) {
 			int iTemp = 0;
@@ -345,11 +407,24 @@ public class HomeController {
 					iTemp += iTemp2;//Integer.parseInt(sTemp2);//실 수량 더하기 
 				}
 			}//for list
-			Map<String, Object> count = new HashMap<String, Object>();
-			count.put("PART_NO", sTemp);
-			count.put("count", iTemp);
-			nameCountList.add(count);
+			
+			partCount.put("PART_NO", sTemp);
+			partCount.put("count", iTemp);
+			nameCountList.add(partCount);
 		} // for namelist
+
+		//작업번호 총 갯수구하기
+		int lotCount = commonService.mwhGetLotCount(map);
+		//한페이지 출력수
+		int postNum = 10;
+		map.put("postNum", postNum);
+		//하단 페이지 번호
+		int pageNum=(int)Math.ceil((double)lotCount/postNum);
+	
+		//출력 게시물
+		int displayPost = (num-1) * postNum;
+		map.put("displayPost", displayPost);
+		mv.addObject("pageNum", pageNum);
 		
 		mv.addObject("partName", nameList); //제품이름 리스트
 		mv.addObject("nameCount", nameCountList);
@@ -357,46 +432,44 @@ public class HomeController {
 		
 		return mv;
 	}//상품 입출고 검색
+	
 	//창고 물품 검색 결과 화면 ju
 	@RequestMapping(value = { "/MCHWHSCH.do", "/mchwhsch.do" }, method = RequestMethod.GET)
-	public ModelAndView mchwhsch(@RequestParam Map<String, Object> map) {
+	public ModelAndView mchwhsch(@RequestParam Map<String, Object> map,
+			@RequestParam(value="num", required=false, defaultValue="1") int num 
+			) throws IOException {
 		log.debug("Request Parameter : " + map);
 
 		int count = 0;
-		String io = "";		
-		List<Map<String, Object> > list = new ArrayList();
-		List<Map<String, Object> > listSea = new ArrayList(); //선언을 new로 해야 된다
+		String io = "";
+		List<Map<String, Object> > list = new ArrayList(); //전체 검색
 		List<Map<String, Object>> nameList = commonService.mwhGetPartName(map);
 		List<Map<String, Object>> nameCountList = new ArrayList();//제품별 수량
+		Map<String, Object> part_no = new HashMap<String, Object>();//제품번호 저장용
 		ModelAndView mv = null;
-		String partno = (String)map.get("PART_NO");
-		//String modelno = (String)map.get("modelno");
-		//String domelname = (String)map.get("domelname");
-		
 		mv = new ModelAndView("/MCHWHSCH");//검색결과창
+		String partno = (String)map.get("PART_NO");
+
+		//작업번호 총 갯수구하기
+		int lotCount = commonService.mwhGetLotCount(map);
+		//한페이지 출력수
+		int postNum = 10;
+		map.put("postNum", postNum);
+		//하단 페이지 번호
+		int pageNum=(int)Math.ceil((double)lotCount/postNum);
+	
+		//출력 게시물
+		int displayPost = (num-1) * postNum;
+		map.put("displayPost", displayPost);
+		mv.addObject("pageNum", pageNum);
 		
 		if(partno != null && partno.length() > 0) {
 			count++;
 		}
-		/*if(modelno != null && modelno.length() > 0) {
-			count++;
-		}
-		if(domelname != null && domelname.length() > 0) {
-			count++;
-		}*/
+		
 		if(count == 1) {
 			if(partno.equalsIgnoreCase("all")) {
-				list = commonService.mwhSeaLotAll();//map);//sql검색결과 저장
-				/*
-				for(int i = 0; i < list.size(); i++) {
-					Map<String, Object> mTmp = list.get(i);
-					String sTmp = (String)mTmp.get("IO");
-					
-					if(sTmp != null){
-						listSea.add(mTmp);
-					}
-				} //for list검사
-				*/
+				list = commonService.mwhSeaLotAll(map);//sql검색결과 저장
 			}else { //all로 검사시
 				list = commonService.mwhSeaLot(map);//검색결과 저장
 			}//개별 검사시
@@ -415,15 +488,14 @@ public class HomeController {
 			}//for list
 			Map<String, Object> mCount = new HashMap<String, Object>();
 			mCount.put("PART_NO", sTemp);
+			part_no.put("PART_NO", sTemp);
 			mCount.put("count", iTemp);
 			nameCountList.add(mCount);
 			
 		}//if PART_NO가 있으면
 		
-		//전체 출력
-		//list = commonService.mwhSeaLotAll(map);//sql검색결과 저장
-		//mv.addObject("list", list);
 		//창고 입출력 있을시
+		mv.addObject("schPartNo",part_no);
 		mv.addObject("list", list);
 		mv.addObject("partName", nameList); //제품이름 리스트
 		mv.addObject("nameCount", nameCountList); //총 제품 수량
@@ -433,17 +505,25 @@ public class HomeController {
 	
 	//출고 처리 ju
 	@RequestMapping(value = { "/MCHWHOUT.do", "/mchwhout.do" }, method = RequestMethod.GET)
-	public ModelAndView mchwhout(@RequestParam Map<String, Object> map) {
+	public ModelAndView mchwhout(@RequestParam Map<String, Object> map,
+			HttpServletResponse res )throws IOException {
 		log.debug("Request Parameter : " + map);
 		
+		//알림 팝업을 위한 선언부분
+		res.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
+		out = res.getWriter();
+				
 		Map<String, Object> list = new HashMap<String, Object>();
 		List<Map<String, Object>> nameList = commonService.mwhGetPartName(map);
 		list = commonService.mwhCor(map);//검색결과 저장
-		String out = (String)map.get("IO");
+		String outIO = (String)map.get("IO"); //입출고 상태
 		
-		if(out != null) {
-			if(out.equalsIgnoreCase("X")) {
+		if(outIO != null) {
+			if(outIO.equalsIgnoreCase("X")) {
 				commonService.mwhOut(map);
+				out.print("<script>location.href='mchwhsea.do'</script>");
+				out.flush();
 			}
 		}
 		ModelAndView mv = new ModelAndView("/MCHWHOUT");
