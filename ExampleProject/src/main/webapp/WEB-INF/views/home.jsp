@@ -1,14 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false" session="false"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-response.setHeader("Pragma", "no-cache");
-response.setHeader("Cache-Control", "no-cache");
-response.setHeader("Cache-Control", "no-store");
-response.setDateHeader("Expires", 0L);
-%><html>
+<html>
 <head>
-<title>Home</title>
+<title>MHJ factory 로그인</title>
+<link rel="stylesheet" href="resources/css/ERPcss.css">
+<style>
+	.home{display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  font-weight:900;
+	}
+	
+</style>
 </head>
 <body>
 	<!-- ne = not equals eq = equals -->
@@ -17,11 +21,13 @@ response.setDateHeader("Expires", 0L);
 			alert('${msg}');
 		</Script>
 	</c:if>
-	
+	<div class="home">
 	<form method="post" action="/t_include.do">
-		아이디 : <input type="text" name="id" id="Sid"><br> 
-		비밀번호 : <input type="password" name="pw"><br>
-		 <input type="submit" value="로그인">
+	<h2>WELCOME TO KRJ FACTORY</h2>
+		ID&nbsp;&nbsp; : <input type="text" name="id"><br> 
+		PW  : <input type="password" name="pw"><br>
+		 <input class="bottom_buttons" type="submit" value="LOGIN">
 		</form>
+		</div>
 </body>
 </html>

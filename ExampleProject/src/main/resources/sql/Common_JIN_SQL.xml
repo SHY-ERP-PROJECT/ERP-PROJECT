@@ -11,7 +11,6 @@
         </when>
         </choose>
 	</select>
-<<<<<<< HEAD
 	
  	<select id="bom" parameterType="String" resultType="hashmap">
 		select * from erp_db.BOM1 INNER join erp_db.BOM2 using(PART_NO)
@@ -26,16 +25,10 @@
  		SELECT * FROM USER
  		WHERE BINARY ID = #{id}
 		AND BINARY PW = #{pw}
-=======
+	</select>
 
 	<!--<select id="managerList" parameterType="String" resultType="boolean"> 
 		SELECT IF(PW=#{pw}, 1, 0) FROM USER WHERE ID=#{id}; </select> -->
-
-	<select id="managerList" parameterType="hashMap" resultType="hashMap">
-		SELECT * FROM USER
-		WHERE BINARY ID = #{id}
-		        AND BINARY PW = #{pw}
-    </select>
     
     <select id="bomInsertOne" parameterType="hashMap" resultType="hashMap">
         INSERT INTO erp_db.BOM1 VALUES (#{PART_NO}, #{M_NO1}, #{M_NO2}, #{M_NO3}, #{M_NO4}, #{M_NO5}, #{M_NO6}, #{L_TIME})
@@ -43,15 +36,6 @@
     
     <select id="bomInsertTwo" parameterType="hashMap" resultType="hashMap">
         INSERT INTO erp_db.BOM2 VALUES (#{PART_NO}, #{EA1}, #{EA2}, #{EA3}, #{EA4}, #{EA5}, #{EA6}, #{PART_NAME})
->>>>>>> 36b1351ca3bd622022e6e28eea4f2abac2d23357
 	</select>
 	
-	<select id="bomInsertOne" parameterType="hashMap" resultType="hashMap">
-		INSERT INTO erp_db.BOM1 VALUES (#{PART_NO}, #{M_NO1}, #{M_NO2}, #{M_NO3}, #{M_NO4}, #{M_NO5}, #{M_NO6}, #{L_TIME})
-	</select>
-	
-	<select id="bomInsertTwo" parameterType="hashMap" resultType="hashMap">
-		INSERT INTO erp_db.BOM2 VALUES (#{PART_NO}, #{EA1}, #{EA2}, #{EA3}, #{EA4}, #{EA5}, #{EA6}, #{PART_NAME})
- 	</select>
- 
  </mapper>
