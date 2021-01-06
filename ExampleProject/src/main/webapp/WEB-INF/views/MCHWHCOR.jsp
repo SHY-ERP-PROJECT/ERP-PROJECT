@@ -5,17 +5,6 @@
 String id = (String)session.getAttribute("sessionId");%>
 <!DOCTYPE html>
 <html>
-<style>
-.sidebar{
-	 position : absolute;
-	 left : 0px;
-	 }
-.bodyall{
-	 margin : 30px;
-	 position : absolute;
-	 left : 50px;
-	 }
-</style>
 <script language="javascript">
 function check() {
 	var f = document.mwh;
