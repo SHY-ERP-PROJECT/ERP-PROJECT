@@ -64,6 +64,7 @@ function nullchecker(){
 	<tr>
 		</tr>
 		<tr>
+<<<<<<< HEAD
 		<td><input type="text" name="PART_NAME" ></td>
 		<td><input type="number" name="EA1" min=0></td>
 		<td><input type="number" name="EA2" min=0></td>
@@ -71,11 +72,19 @@ function nullchecker(){
 		<td><input type="number" name="EA4" min=0></td>
 		<td><input type="number" name="EA5" min=0></td>
 		<td><input type="number" name="EA6" min=0></td>
+=======
+		<td><input type="text" name="PART_NAME"></td>
+		<td><input type="number" name="EA1" min="0" ></td>
+		<td><input type="number" name="EA2" min="0" ></td>
+		<td><input type="number" name="EA3" min="0" ></td>
+		<td><input type="number" name="EA4" min="0" ></td>
+		<td><input type="number" name="EA5" min="0" ></td>
+		<td><input type="number" name="EA6" min="0" ></td>
+>>>>>>> 6f51cedb1dbeff90c5072bed0b5b5cfc40d8fa2f
 	</tr>
 	</table>
 	<button>등록하기</button>
 	</form>
-	<button onclick="location.href='bom.do'">bom으로가기</button>
-	</div>
+	<button onclick="location.href='bom.do'">BOM 조회</button>
 </body>
 </html>

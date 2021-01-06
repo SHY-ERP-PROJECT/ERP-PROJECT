@@ -70,14 +70,25 @@
  		width : 20px;
  	}
  	
+ 	
+ 	/*테이블 특정컬럼크기조정용*/
+ 	.LOT{
+ 		width :150px;
+ 	}
+ 
+ 	
  	/*테이블 특정컬럼크기조정용*/
  	.NAME{
  		width :150px;
  	}
+ 	
+ 	.PART_NO{
+ 	width : 200px;
+ 	}
  
 	/*테이블 특정컬럼크기조정용*/
 	.MNAME{
- 	width :240px;
+ 	width :200px;
  	}
  	
  	/*테이블 특정컬럼크기조정용*/

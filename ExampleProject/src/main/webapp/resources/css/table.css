@@ -27,7 +27,7 @@
     }
  	
  /* 테이블 컬럼 색상 */
- th{background-color: #A9F5A9;}
+ th{background-color: #BBBBBB;}
  /* 테이블 컬럼 링크 밑줄 제거 */
  th>a{
  	text-decoration: none;

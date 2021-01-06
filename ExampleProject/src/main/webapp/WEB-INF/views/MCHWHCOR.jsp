@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% request.setCharacterEncoding("UTF-8"); 
 String id = (String)session.getAttribute("sessionId");%>
-<link href="resources/css/table.css" rel="stylesheet" type="text/css">
 <!DOCTYPE html>
 <html>
 
@@ -24,11 +23,11 @@ String id = (String)session.getAttribute("sessionId");%>
 	<form name="mhcor" method="get" action="MCHWHCOR.do?" onsubmit="return check()"><%-- ${mwh.LOT_NO}"> --%>
 		<h1>작업번호 ${mwh.LOT_NO}인 ${mwh.PART_NO}의 불량 수량을 수정하십시오.</h1>
 		<div class="first">
-		<button type="button" onclick="location.href='/mchwh.do'">등록화면으로</button>
-		<button type="button" onclick="location.href='/mchwhsea.do'">검색화면으로</button>
-	
+		<button type="button" onclick="location.href='/mchwh.do'">제품등록</button>
+		<button type="button" onclick="location.href='/mchwhsea.do'">제품검색</button>
 		</div>
-		<table border="1">
+		<br><br>
+		<table class ="table" border="1">
 			<tr>
 			<!-- 작업번호	제품모델번호	제품명	수량	불량갯수	입/출고 -->
 			<th>작업번호</th>
@@ -49,9 +48,9 @@ String id = (String)session.getAttribute("sessionId");%>
 			<td><input name="PART_NAME" type="text" size=20 value="${name.PART_NAME}" readonly="readonly"/></td>
 			</c:if>
 			</c:forEach>
-			<td><input name="QUAN" type="text" size=10 value="${mwh.QUAN}" readonly="readonly"/>EA</td>
-			<td><input name="FAIL" type="text" size=10 value="${mwh.FAIL}"/>EA</td>
-			<td><input name="R_QUAN" type="text" size=10 value="${mwh.R_QUAN}" readonly="readonly"/>EA</td>
+			<td><input name="QUAN" type="number" value="${mwh.QUAN}" readonly="readonly" style="width:100px;"/>EA</td>
+			<td><input name="FAIL" type="number" min=0 value="${mwh.FAIL}" style="width:100px;"/>EA</td>
+			<td><input name="R_QUAN" type="number" value="${mwh.R_QUAN}" readonly="readonly" style="width:100px;"/>EA</td>
 			<td><select name="IO"  size=1>
 				<c:if test="${(mwh.IO == null)}" >
 				<option value=" " selected="selected"/>
