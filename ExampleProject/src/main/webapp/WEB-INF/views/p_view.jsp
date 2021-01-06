@@ -91,7 +91,7 @@ function nullchecker(){
 			<th class="NAME"><a href="p_view.do?ORDER=PART_NO">제품모델번호</a></th>
 			<th class="NAME"><a href="p_view.do?ORDER=PART_NAME">제품명</a></th>
 			<th class="QUAN">수량</th>
-			<th class="IO">입/출</th>
+			<th class="IO">창고</th>
 			<th class="DATE"><a href="p_view.do?ORDER=S_DATE">작업예정일</a></th>
 			<th class="DATE"><a href="p_view.do?ORDER=F_DATE">완료예정일</a></th>
 			<th class="DATE"><a href="p_view.do?ORDER=OUT_DATE">출고일</a></th>
@@ -105,7 +105,7 @@ function nullchecker(){
 			<td>${row.PART_NO}</td>
 			<td>${row.PART_NAME}</td>
 			<td>${row.QUAN}${row.UNIT}</td>
-			<td>${row.IO}</td>
+			<td><c:if test="${row.IO eq 'O'}"><c:out value="입고" /></c:if><c:if test="${row.IO eq 'X'}"><c:out value="출고" /></c:if></td>
 			<td>${row.S_DATE}</td>
 			<td>${row.F_DATE}</td>
 			<td>${row.OUT_DATE}</td>
