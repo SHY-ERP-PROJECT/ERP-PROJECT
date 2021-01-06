@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% request.setCharacterEncoding("UTF-8"); 
 String id = (String)session.getAttribute("sessionId");%>
-<link href="resources/css/table.css" rel="stylesheet" type="text/css">
+<!-- <link href="resources/css/table.css" rel="stylesheet" type="text/css"> -->
 <!DOCTYPE html>
 <html>
 
