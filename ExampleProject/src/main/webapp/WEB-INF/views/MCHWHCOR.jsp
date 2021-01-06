@@ -13,7 +13,7 @@ String id = (String)session.getAttribute("sessionId");%>
 .bodyall{
 	 margin : 30px;
 	 position : absolute;
-	 left : 250px;
+	 left : 50px;
 	 }
 </style>
 <script language="javascript">
@@ -83,9 +83,9 @@ function check() {
 			<td><input name="PART_NAME" type="text" size=20 value="${name.PART_NAME}" readonly="readonly"/></td>
 			</c:if>
 			</c:forEach>
-			<td><input name="QUAN" size=5 type="number" value="${mwh.QUAN}" readonly="readonly"/>EA</td>
-			<td><input name="FAIL" size=5 type="number" min="0" value="${mwh.FAIL}" placeholder="불량품 수량"/>EA</td>
-			<td><input name="R_QUAN" size=5 type="number" value="${mwh.R_QUAN}" readonly="readonly"/>EA</td>
+			<td class="QUAN"><input name="QUAN" style="background-color:transparent;border:0;width:50px;" type="number" value="${mwh.QUAN}" readonly="readonly"/>EA</td>
+			<td><input name="FAIL" size=5 type="number" min="0" value="${mwh.FAIL}" placeholder="불량품 수량" style="background-color:transparent;border:0;width:50px;" />EA</td>
+			<td><input name="R_QUAN" size=5 type="number" value="${mwh.R_QUAN}" readonly="readonly" style="background-color:transparent;border:0;width:50px;" />EA</td>
 			<td><select name="IO"  size=1>
 				<c:if test="${(mwh.IO == null)}" >
 				<option value=" " selected="selected"/>

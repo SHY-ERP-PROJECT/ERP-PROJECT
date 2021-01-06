@@ -36,7 +36,7 @@ function check() {
 .bodyall{
 	 margin : 30px;
 	 position : absolute;
-	 left : 250px;
+	 left : 50px;
 	 }
 </style>
 <head>

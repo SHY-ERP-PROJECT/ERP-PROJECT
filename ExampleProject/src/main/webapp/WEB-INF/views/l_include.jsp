@@ -11,7 +11,7 @@
 <ul class=l>
       <li><a href="p_view.do">아</a></li>
       <li><a href="/logout.do">직</a></li>
-      <li><a href="#">아</a></li>
+      <li><a href="/MCHWH.do">아</a></li>
       <li><a href="#">무</a></li>
       <li><a href="#">것</a></li>
       <li><a href="#">도</a></li>
