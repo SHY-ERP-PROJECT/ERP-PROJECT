@@ -48,6 +48,17 @@ public class CommonService {
 		return commonDAO.db_p_view(map);
 	}
 	
+	//과거 생산계획 조회 페이징-전체계획수 조회 -MIN
+	public int pp_paging(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return commonDAO.pp_paging(map);
+	}
+	
+	//과거 생산계획 조회 페이징2 -MIN
+	public List<Map<String, Object >> db_pp_view(Map<String, Object> map){ 
+		return commonDAO.db_pp_view(map);
+	}
+	
 	//생산계획 LOT_NO중복체크용 -- MIN 
 	public int db_p_LOTchecker(Map<String, Object> map,  HttpServletResponse res){
 		int rs = commonDAO.db_p_LOTchecker(map);

@@ -161,7 +161,8 @@ public class HomeController {
 			out.print("</script>");
 			out.flush();			
 		}else {
-			//게시물 총 갯수구하기
+			//--------------------신규작업------------- 
+			//작업 총 갯수구하기
 			int count = commonService.p_paging(map);
 			//한페이지 출력수
 			int postNum=10;
@@ -175,6 +176,22 @@ public class HomeController {
 			List<Map<String, Object>> list = commonService.db_p_view(map);
 			mv.addObject("list", list);
 			mv.addObject("pageNum", pageNum);
+			
+			//--------------------완료작업------------- 
+			//작업 총 갯수구하기
+			int count2 = commonService.pp_paging(map);
+			//한페이지 출력수
+			int postNum2=10;
+			map.put("postNum2", postNum2);
+			//하단 페이지 번호
+			int pageNum2=(int)Math.ceil((double)count2/postNum2);
+		
+			//출력 게시물
+			int displayPost2 = (num-1) * postNum2;
+			map.put("displayPost2", displayPost2);
+			List<Map<String, Object>> list2 = commonService.db_pp_view(map);
+			mv.addObject("list2", list2);
+			mv.addObject("pageNum2", pageNum2);			
 			}
 			return mv;
 	}
@@ -188,12 +205,13 @@ public class HomeController {
 
 	// 생산계획 등록용 - MIN
 	@RequestMapping(value = "/p_insert.do", method = RequestMethod.GET)
-	public void p_insert(@RequestParam Map<String, Object> map, HttpServletResponse res) throws IOException {
+	public void p_insert(@RequestParam Map<String, Object> map, HttpServletResponse res, HttpServletRequest req) throws IOException {
 		log.debug("Request Parameter : " + map);
 		PrintWriter out;
 		res.setContentType("text/html; charset=UTF-8");
 		out = res.getWriter();
 		
+		if(IDCheck(req, res));
 		int LOT_checker = commonService.db_p_LOTchecker(map, res); // LOT_NO 중복체크용
 		System.out.println(LOT_checker);
 		if(LOT_checker>0) {
@@ -230,12 +248,13 @@ public class HomeController {
 
 	// 생산계획 수정용 - MIN
 	@RequestMapping(value = "/p_update.do", method = RequestMethod.GET)
-	public void p_update(@RequestParam Map<String, Object> map, HttpServletResponse res) throws IOException {
+	public void p_update(@RequestParam Map<String, Object> map, HttpServletResponse res, HttpServletRequest req) throws IOException {
 		log.debug("Request Parameter : " + map);
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out;
 		out = res.getWriter();
 		
+		if(IDCheck(req, res));
 		int rs = commonService.db_p_update(map, res);
 		if (rs > 0) {
 				out.print("<script>alert('수정하였습니다.');");
@@ -252,12 +271,13 @@ public class HomeController {
 	
 	// 생산계획 삭제용 - MIN
 	@RequestMapping(value = "/p_delete.do", method = RequestMethod.GET)
-	public void p_delete(@RequestParam Map<String, Object> map, HttpServletResponse res) throws IOException {
+	public void p_delete(@RequestParam Map<String, Object> map, HttpServletResponse res, HttpServletRequest req) throws IOException {
 		log.debug("Request Parameter : " + map);
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out;
 		out = res.getWriter();
 		
+		if(IDCheck(req, res));
 		int rs = commonService.db_p_delete(map, res);
 		if (rs > 0) {
 				out.print("<script>alert('삭제하였습니다.');");
@@ -612,19 +632,30 @@ public class HomeController {
 			out.flush();			
 		}
 		
-		return check;
+		return mv;
 	}
-	//창고 끝
+	//bom등록
+	@RequestMapping(value = { "/bom_insert.do"}, method = RequestMethod.GET)
+	public ModelAndView bom_insert(@RequestParam Map<String, Object> map, HttpServletRequest req, HttpServletResponse res)throws IOException {
+		log.debug("Request Parameter : " + map);
+		if(IDCheck(req, res));
+		ModelAndView mv = new ModelAndView("/bom_insert");
+		List<Map<String, Object>> list = commonService.bomInsertOne(map);
+		List<Map<String, Object>> lsst = commonService.bomInsertTwo(map);
+		
+		return mv;
+	}
+	
 	
 	//-------------------자재창고 MIN--------------------------
 
 	// 자재창고 조회, 검색용 - MIN
 	@RequestMapping(value = { "/m_view.do" }, method = RequestMethod.GET)
-	public ModelAndView m_view(@RequestParam(value="num", required=false, defaultValue="1") int num, @RequestParam Map<String, Object> map) {
+	public ModelAndView m_view(@RequestParam(value="num", required=false, defaultValue="1") int num, @RequestParam Map<String, Object> map, HttpServletRequest req, HttpServletResponse res) throws IOException {
 		log.debug("Request Parameter : " + map);
 
 		ModelAndView mv = new ModelAndView("/m_view");
-
+		if(IDCheck(req, res));
 		//게시물 총 갯수구하기
 		int count = commonService.m_paging(map);
 		//한페이지 출력수
@@ -653,6 +684,7 @@ public class HomeController {
 		out = res.getWriter();
 		int rs = commonService.db_m_update(map);
 		
+		if(IDCheck(req, res));		
 		if (rs > 0) {
 			out.print("<script>alert('자재를 추가하였습니다');");
 			// 성공
@@ -679,6 +711,7 @@ public class HomeController {
 		PrintWriter out;
 		out = res.getWriter();
 		
+		if(IDCheck(req, res));
 		int NO_checker = commonService.db_m_NOchecker(map, res); // M_NO 중복체크용
 		System.out.println(NO_checker);
 		if(NO_checker>0) {
@@ -700,6 +733,25 @@ public class HomeController {
 		out.flush();
 	}
 
+	//ID 체크
+	   public boolean IDCheck(HttpServletRequest req, HttpServletResponse res )throws IOException {
+	      boolean check = false;
+	      HttpSession session = req.getSession();
+	      String sessionId = (String) session.getAttribute("sessionId"); 
+	      res.setContentType("text/html; charset=UTF-8");
+	      if(sessionId == null) {
+	         check = true;
+	         PrintWriter out;
+	         out = res.getWriter();
+	         out.print("<script>alert('세션정보가 만료되었나봐요! ㅠ 로그인다시해주세용');");
+	         out.print("location.href='/index.do';");
+	         out.print("</script>");
+	         out.flush();         
+	      }
+	      
+	      return check;
+	   }
+	
 	@RequestMapping(value = "/sample/testMapArgumentResolver.do")
 	public ModelAndView testMapArgumentResolver(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("");
@@ -715,4 +767,5 @@ public class HomeController {
 
 	}
 	
+
 } //class

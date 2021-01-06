@@ -111,10 +111,11 @@ function check() {
 			</tr>
 			</c:forEach>
 		</table>
-		<div class="third">
+		</form>
+		<div class="paging">
 			<c:forEach begin="1" end="${pageNum}" var="num">
    				<span>
-     				<li class="p_li"><a class="p_font" style="color:white" href="mchwh.do?num=${num}">${num}</a></li>
+     				<li class="p_li"><a class="p_font" href="mchwh.do?num=${num}">${num}</a></li>
   				</span>
  			</c:forEach>
 		</div>
