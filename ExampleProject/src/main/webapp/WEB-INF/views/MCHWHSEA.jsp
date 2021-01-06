@@ -13,22 +13,22 @@ String id = (String)session.getAttribute("sessionId");%>
 
 </head>
 <body>
-<<<<<<< HEAD
 	<jsp:include page="T_include.jsp"/>
 	<div class="sidebar"><jsp:include page="l_include.jsp"/></div>
 			
-=======
-	<jsp:include page="T_include.jsp" flush="true"/>
-   <div class="sidebar"><jsp:include page="l_include.jsp"/></div>
-		
->>>>>>> c7dd3f6f5bcd1520567efa23577f2edb4529f28a
 	<div class="bodyall">
 		<jsp:useBean id="PRlist" class="java.util.ArrayList"/>
 		<jsp:useBean id="PRmap" class="java.util.HashMap"/>
-		
 		<div>
 			<form name="mhsea" method="get" action="MCHWHSCH.do?PART_NO=${PART_NO}">
-				<h2>창고에 입고된 물품 중 찾는 물건을 입력하세요.</h1>
+				<h1>제품 창고 조회</h1>
+		<div class="first">
+		<button type="button" onclick="location.href='/mchwh.do'">제품창고등록</button>
+		</div>
+				<form name="p_search" method="get" action="${contextPath}/MCHWHSEA.do">
+		<input type="text" name="PART_NO" placeholder="제품모델번호를 적어주세요"/>
+		<input type="submit" class="btn btn-primary" value="검색" />
+		</form>
 				<!-- <table border="1">
 					<tr>
 					작업번호	제품모델번호	제품명
@@ -45,7 +45,6 @@ String id = (String)session.getAttribute("sessionId");%>
 					<td><input id="domelname" type="text" size=20 /></td>
 				 </table> -->
 				<button type="submit">검색</button>
-				<button type="button" onclick="location.href='/mchwh.do'">등록화면으로</button>
 			</form>
 		</div>
 		<hr>

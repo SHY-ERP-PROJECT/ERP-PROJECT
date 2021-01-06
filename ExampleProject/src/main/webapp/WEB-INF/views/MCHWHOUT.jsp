@@ -7,8 +7,7 @@ String id = (String)session.getAttribute("sessionId");%>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<link href="resources/css/table.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="resources/css/ERPcss.css">
 </head>
 <body>
 	<jsp:include page="T_include.jsp" flush="true"/>

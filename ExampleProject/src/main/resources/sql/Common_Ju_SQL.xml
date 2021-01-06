@@ -27,8 +27,8 @@
 	<select id="LotAll" parameterType="hashMap" resultType="hashmap">
 		SELECT * FROM PR WHERE IO IS NULL
 		<choose>
-			<when test="LOT_NO != null">
-				 AND PR.LOT_NO=#{LOT_NO}
+			<when test="PART_NO != null">
+				 AND PR.PART_NO=#{PART_NOF}
 			</when>
 			<when test="ORDER != null">
 				ORDER BY ${ORDER}

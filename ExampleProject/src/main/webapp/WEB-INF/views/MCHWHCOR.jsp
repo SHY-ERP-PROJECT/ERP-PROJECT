@@ -28,8 +28,7 @@ function check() {
 <head>
 <meta charset="UTF-8">
 <title>상품창고수정</title>
-
-<link href="resources/css/table.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="resources/css/ERPcss.css">
 </head>
 <body>
 	<jsp:include page="T_include.jsp" flush="true"/>
@@ -41,7 +40,12 @@ function check() {
 	<c:set var="mwh" value="${list}"/><!-- 수정할 자료가져오기 -->
 	
 	<form name="mhcor" method="get" action="MCHWHCOR.do?" onsubmit="return check()"><%-- ${mwh.LOT_NO}"> --%>
-		<h2>작업번호 ${mwh.LOT_NO}인 ${mwh.PART_NO}의 불량 수량을 수정하십시오.</h2>
+		<h1>작업번호 ${mwh.LOT_NO}인 ${mwh.PART_NO}의 불량 수량을 수정하십시오.</h1>
+		<div class="first">
+		<button type="button" onclick="location.href='/mchwh.do'">등록화면으로</button>
+		<button type="button" onclick="location.href='/mchwhsea.do'">검색화면으로</button>
+	
+		</div>
 		<table border="1">
 			<tr>
 			<!-- 작업번호	제품모델번호	제품명	수량	불량갯수	입/출고 -->
@@ -85,8 +89,6 @@ function check() {
 			</tr>
 		</table>
 		<hr>
-		<button type="button" onclick="location.href='/mchwh.do'">등록화면으로</button>
-		<button type="button" onclick="location.href='/mchwhsea.do'">검색화면으로</button>
 		
 	</form>
 	</div>
