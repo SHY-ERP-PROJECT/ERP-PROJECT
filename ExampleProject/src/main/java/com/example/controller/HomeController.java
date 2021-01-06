@@ -158,14 +158,19 @@ public class HomeController {
 			//--------------------완료작업------------- 
 			//작업 총 갯수구하기
 			int count2 = commonService.pp_paging(map);
+			System.out.println(count2);
 			//한페이지 출력수
 			int postNum2=10;
 			map.put("postNum2", postNum2);
 			//하단 페이지 번호
 			int pageNum2=(int)Math.ceil((double)count2/postNum2);
+			System.out.println(pageNum2);
+			
 		
 			//출력 게시물
 			int displayPost2 = (num2-1) * postNum2;
+			System.out.println(num2);
+			System.out.println(displayPost2);
 			map.put("displayPost2", displayPost2);
 			List<Map<String, Object>> list2 = commonService.db_pp_view(map);
 			mv.addObject("list2", list2);
@@ -428,7 +433,7 @@ public class HomeController {
 		List<Map<String, Object>> list = new ArrayList();
 		List<Map<String, Object>> nameCountList = new ArrayList();//제품별 수량
 		List<Map<String, Object>> nameList = commonService.mwhGetPartName(map);
-		Map<String, Object> partCount = new HashMap<String, Object>(); //
+		
 		ModelAndView mv = new ModelAndView("/MCHWHSEA");//검색창
 		
 		if(IDCheck(req, res) );
@@ -450,6 +455,7 @@ public class HomeController {
 		
 		for(int i = 0; i < nameList.size(); i++) {
 			int iTemp = 0;
+			Map<String, Object> partCount = new HashMap<String, Object>(); //추가용
 			Map<String, Object> mTemp = nameList.get(i);
 			String sTemp = "";
 			sTemp = (String)mTemp.get("PART_NO");
@@ -585,8 +591,6 @@ public class HomeController {
 				out.flush();
 			}
 		}
-		
-		
 		
 		//mv.setViewName("redirect:/MCHWHSEA");
 		mv.addObject("list", list);
