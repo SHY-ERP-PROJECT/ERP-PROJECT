@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="resources/css/ERPcss.css">
 <%
 	request.setCharacterEncoding("UTF-8");
 	String id = (String)session.getAttribute("sessionId");
@@ -9,6 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="resources/css/ERPcss.css">
 <title>생산계획 조회창</title>
 <script>
 function nullchecker(){
@@ -21,15 +21,8 @@ function nullchecker(){
 </script>
 </head>
 <body>
-	<jsp:include page="T_include.jsp">
-	<jsp:param name="id" value="<%= id %>" />
-	</jsp:include>
-	<br>
-	<div class="sidebar">
-	<jsp:include page="l_include.jsp">
-	<jsp:param name="name" value="name" />
-	</jsp:include>
-	</div>
+	<jsp:include page="T_include.jsp" flush="true"/>
+   <div class="sidebar"><jsp:include page="l_include.jsp"/></div>
 	<div class="bodyall">
 	<h1>신규생산계획 조회</h1>
 	<div class="first">
@@ -91,7 +84,7 @@ function nullchecker(){
 			<th class="NAME"><a href="p_view.do?ORDER=PART_NO">제품모델번호</a></th>
 			<th class="NAME"><a href="p_view.do?ORDER=PART_NAME">제품명</a></th>
 			<th class="QUAN">수량</th>
-			<th class="IO">입/출</th>
+			<th class="IO">창고</th>
 			<th class="DATE"><a href="p_view.do?ORDER=S_DATE">작업예정일</a></th>
 			<th class="DATE"><a href="p_view.do?ORDER=F_DATE">완료예정일</a></th>
 			<th class="DATE"><a href="p_view.do?ORDER=OUT_DATE">출고일</a></th>
@@ -105,7 +98,10 @@ function nullchecker(){
 			<td>${row.PART_NO}</td>
 			<td>${row.PART_NAME}</td>
 			<td>${row.QUAN}${row.UNIT}</td>
-			<td>${row.IO}</td>
+			<td><c:if test="${row.IO eq 'O'}"> <c:out value="입고" />
+			</c:if>
+			<c:if test="${row.IO eq 'X'}"> <c:out value="출고" />
+			 </c:if></td> 
 			<td>${row.S_DATE}</td>
 			<td>${row.F_DATE}</td>
 			<td>${row.OUT_DATE}</td>
@@ -115,9 +111,9 @@ function nullchecker(){
 		</table>
 		</div>
 		<div class="paging">
-			<c:forEach begin="1" end="${pageNum2}" var="num">
+			<c:forEach begin="1" end="${pageNum2}" var="num2">
    				<span>
-     				<li><a href="p_view.do?num=${num}">${num}</a></li>
+     				<li><a href="p_view.do?num2=${num2}">${num2}</a></li>
   				</span>
  			</c:forEach>
 		</div>

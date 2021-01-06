@@ -5,44 +5,29 @@
 String id = (String)session.getAttribute("sessionId");%>
 <!DOCTYPE html>
 <html>
-<style>
-.sidebar{
-	 position : absolute;
-	 left : 0px;
-	 }
-.bodyall{
-	 margin : 30px;
-	 position : absolute;
-	 left : 250px;
-	 }
-</style>
+
 <head>
 <meta charset="UTF-8">
 <title>상품창고수정</title>
-
-<link href="resources/css/table.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="resources/css/ERPcss.css">
 </head>
 <body>
-<div class="header">
-	<jsp:include page="T_include.jsp">
-	<jsp:param name="id" value="<%= id %>" />
-	</jsp:include>
-	</div>
-	<br>
-	<div class="sidebar">
-	<jsp:include page="l_include.jsp">
-	<jsp:param name="name" value="name" />
-	</jsp:include>
-	</div>
+	<jsp:include page="T_include.jsp" flush="true"/>
+	<div class="sidebar"><jsp:include page="l_include.jsp"/></div>
 	
 	<div class="bodyall">
 	<jsp:useBean id="PRlist" class="java.util.ArrayList"/>
 	<jsp:useBean id="PRmap" class="java.util.HashMap"/>
 	<c:set var="mwh" value="${list}"/><!-- 수정할 자료가져오기 -->
 	
-	<form name="mhcor" method="get" action="MCHWHCOR.do?"><%-- ${mwh.LOT_NO}"> --%>
-		<h2>작업번호 ${mwh.LOT_NO}인 ${mwh.PART_NO}의 불량 수량을 수정하십시오.</h2>
-		<table border="1">
+	<form name="mhcor" method="get" action="MCHWHCOR.do?" onsubmit="return check()"><%-- ${mwh.LOT_NO}"> --%>
+		<h1>작업번호 ${mwh.LOT_NO}인 ${mwh.PART_NO}의 불량 수량을 수정하십시오.</h1>
+		<div class="first">
+		<button type="button" onclick="location.href='/mchwh.do'">제품등록</button>
+		<button type="button" onclick="location.href='/mchwhsea.do'">제품검색</button>
+		</div>
+		<br><br>
+		<table class ="table" border="1">
 			<tr>
 			<!-- 작업번호	제품모델번호	제품명	수량	불량갯수	입/출고 -->
 			<th>작업번호</th>
@@ -63,9 +48,9 @@ String id = (String)session.getAttribute("sessionId");%>
 			<td><input name="PART_NAME" type="text" size=20 value="${name.PART_NAME}" readonly="readonly"/></td>
 			</c:if>
 			</c:forEach>
-			<td><input name="QUAN" type="text" size=10 value="${mwh.QUAN}" readonly="readonly"/>EA</td>
-			<td><input name="FAIL" type="text" size=10 value="${mwh.FAIL}"/>EA</td>
-			<td><input name="R_QUAN" type="text" size=10 value="${mwh.R_QUAN}" readonly="readonly"/>EA</td>
+			<td><input name="QUAN" type="number" value="${mwh.QUAN}" readonly="readonly" style="width:100px;"/>EA</td>
+			<td><input name="FAIL" type="number" min=0 value="${mwh.FAIL}" style="width:100px;"/>EA</td>
+			<td><input name="R_QUAN" type="number" value="${mwh.R_QUAN}" readonly="readonly" style="width:100px;"/>EA</td>
 			<td><select name="IO"  size=1>
 				<c:if test="${(mwh.IO == null)}" >
 				<option value=" " selected="selected"/>
@@ -85,8 +70,6 @@ String id = (String)session.getAttribute("sessionId");%>
 			</tr>
 		</table>
 		<hr>
-		<button type="button" onclick="location.href='/mchwh.do'">등록화면으로</button>
-		<button type="button" onclick="location.href='/mchwhsea.do'">검색화면으로</button>
 		
 	</form>
 	</div>

@@ -23,18 +23,27 @@ public class CommonService {
 	public List<Map<String, Object >> getList(Map<String, Object> map){ 
 		return commonDAO.getList(map);
 	}
+	public List<Map<String, Object >> bom(Map<String, Object> map){ 
+		return commonDAO.bom(map);
+	}
+	public List<Map<String, Object >> bomInsertOne(Map<String, Object> map){ 
+		return commonDAO.bomInsertOne(map);
+	}
+	public List<Map<String, Object >> bomInsertTwo(Map<String, Object> map){ 
+		return commonDAO.bomInsertTwo(map);
+	}
 
 	public Map<String, Object > managerList(Map<String, Object> map){ 
 		return commonDAO.managerList(map);
 	}
 	
 	//----------------생산계획관리 MIN---------------------
-	//신규 생산계획 조회 페이징-전체계획수 조회 -MIN
+	//생산계획 조회 페이징-전체계획수 조회 -MIN
 	public int p_paging(Map<String, Object> map){ 
 		return commonDAO.p_paging(map);
 	}
 	
-	//신규 생산계획 조회 페이징2 -MIN
+	//생산계획 조회 페이징2 -MIN
 	public List<Map<String, Object >> db_p_view(Map<String, Object> map){ 
 		return commonDAO.db_p_view(map);
 	}
@@ -126,17 +135,7 @@ public class CommonService {
 		commonDAO.mwhUpdateCor(wh);
 	}
 	//------------창고끝----------
-	//-------------------BOM JIN--------------------------
 	
-	public List<Map<String, Object >> bom(Map<String, Object> map){ 
-		return commonDAO.bom(map);
-	}
-	public List<Map<String, Object >> bomInsertOne(Map<String, Object> map){ 
-		return commonDAO.bomInsertOne(map);
-	}
-	public List<Map<String, Object >> bomInsertTwo(Map<String, Object> map){ 
-		return commonDAO.bomInsertTwo(map);
-	}
 	
 	//-------------------자재창고 MIN--------------------------
 
@@ -166,6 +165,7 @@ public class CommonService {
 	public int db_m_input(Map<String, Object> map){ 
 		return (Integer)commonDAO.db_m_input(map);
 	}
+	
 	
 	//페이지 처리부분
 }
