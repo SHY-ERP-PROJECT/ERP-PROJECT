@@ -2,7 +2,7 @@
    pageEncoding="UTF-8" isELIgnored="false" session="false"%>
 <html>
 <head>
-<title>MHJ factory 로그인</title>
+<title>4M factory 로그인</title>
 <link rel="stylesheet" href="resources/css/ERPcss.css">
 <style>
    .home{display: flex;
