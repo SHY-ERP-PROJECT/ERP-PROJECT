@@ -111,9 +111,9 @@ function nullchecker(){
 		</table>
 		</div>
 		<div class="paging">
-			<c:forEach begin="1" end="${pageNum2}" var="num">
+			<c:forEach begin="1" end="${pageNum2}" var="num2">
    				<span>
-     				<li><a href="p_view.do?num=${num}">${num}</a></li>
+     				<li><a href="p_view.do?num2=${num2}">${num2}</a></li>
   				</span>
  			</c:forEach>
 		</div>
