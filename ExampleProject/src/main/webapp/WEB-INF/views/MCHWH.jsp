@@ -10,24 +10,16 @@ String id = (String)session.getAttribute("sessionId");%>
 
 <script language="javascript">
 function check() {
-	var f = document.mwh;
-	var q = f.QUAN.value;
-	
+	var f = document.mwh; 
 	if(f.FAIL.value==""){
 		alert("불량갯수를 입력하시오.");
-		f.FAIL.focus();
-		return false;
-	}
-
-	if(f.FAIL.value >= q){
-		alert("생산수량보다 클 수 없습니다.");
-		f.FAIL.vlaue = 0;
 		f.FAIL.focus();
 		return false;
 	}
 	return true;
 }//check()
 </script>
+
 <head>
 <meta charset="UTF-8">
 <title>상품창고등록</title>
@@ -59,7 +51,7 @@ function check() {
 			<th>작업번호</th>
 			<th>제품모델번호</th>
 			<th>제품명</th>
-			<th>생산 수량</th>
+			<th>수량</th>
 			<th>불량 수량</th>
 			<th>입고</th>
 			<th>입력</th>
@@ -74,14 +66,10 @@ function check() {
 			<td><input name="PART_NAME" type="text" size=20 value="${name.PART_NAME}" readonly="readonly"/></td>
 			</c:if>
 			</c:forEach>
-			<td><input name="QUAN" type="number" size=5 value="${mwhIn.QUAN}" readonly="readonly"/>EA</td>
-			<td>
-			<input name="FAIL" type="number" min="0" size=5 placeholder="불량품 수량"/>EA
-			</td>
-			<td>
-				<p>입고</p>
-				<!-- <select name="IO" size=1>
-				<option value="O" selected="selected">입고</option> -->
+			<td><input name="QUAN" type="number" size=10 value="${mwhIn.QUAN}" readonly="readonly"/>EA</td>
+			<td><input name="FAIL" type="number" min="0" size=10 placeholder="불량품 수량"/>EA</td>
+			<td><select name="IO" size=1>
+				<option value="O" selected="selected">입고</option>
 				<!-- <option value="O">입고</option> -->
 				<!-- <option value="X">출고</option> -->
 			</td>
@@ -96,15 +84,15 @@ function check() {
 		</c:if>
 		</form>
 		</div>
-		<form name="mwh2" method="get" ><!-- onsubmit="return check()" -->
-		<h2>아직 창고에 입고되지 않은 작업 현황.</h2>
+		
+		<h2>작업 진행 중인 물품들입니다.</h2>
 		<table class="table" border="1">
 			<tr>
 			<!-- 작업번호	제품모델번호	제품명	수량	불량갯수	입/출고 -->
 			<th><a href="MCHWH.do?ORDER=LOT_NO">작업번호</a></th>
 			<th><a href="MCHWH.do?ORDER=PART_NO">제품모델번호</a></th>
 			<th><a href="MCHWH.do?ORDER=PART_NAME">제품명</a></th>
-			<th>생산 수량</th>
+			<th>수량</th>
 			<th>비고</th>
 			</tr>
 			<c:forEach var="mwh" items="${lotList}">
@@ -116,18 +104,17 @@ function check() {
 			<td><input name="PART_NAME" type="text" size=20 value="${name.PART_NAME}" readonly="readonly"/></td>
 			</c:if>
 			</c:forEach>
-			<td><input name="QUAN" type="number" size=5 value="${mwh.QUAN}" readonly="readonly"/>EA</td>
+			<td><input name="QUAN" type="number" size=10 value="${mwh.QUAN}" readonly="readonly"/>EA</td>
 			<td>
 			<button type="button" onclick="location.href='MCHWH.do?LOTNO=${mwh.LOT_NO}'">등록</button>
 			</td>
 			</tr>
 			</c:forEach>
 		</table>
-		</form>
 		<div class="third">
 			<c:forEach begin="1" end="${pageNum}" var="num">
    				<span>
-     				<li class="p_li"><a class="p_font" href="mchwh.do?num=${num}">${num}</a></li>
+     				<li class="p_li"><a class="p_font" style="color:white" href="mchwh.do?num=${num}">${num}</a></li>
   				</span>
  			</c:forEach>
 		</div>

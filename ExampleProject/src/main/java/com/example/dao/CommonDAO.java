@@ -21,7 +21,15 @@ public class CommonDAO extends AbstractDAO {
 	public List<Map<String, Object>> getList(Map<String, Object> map) {
 		return (List<Map<String, Object>>)selectList("jin.managerList", map);
 	}
-
+	public List<Map<String, Object>> bom(Map<String, Object> map) {
+		return (List<Map<String, Object>>)selectList("jin.bom", map);
+	}
+	public List<Map<String, Object>> bomInsertOne(Map<String, Object> map) {
+		return (List<Map<String, Object>>)selectList("jin.bomInsertOne", map);
+	}
+	public List<Map<String, Object>> bomInsertTwo(Map<String, Object> map) {
+		return (List<Map<String, Object>>)selectList("jin.bomInsertTwo", map);
+	}
 		
 	public Map<String, Object> managerList(Map<String, Object> map) {
 		return (Map<String, Object>)selectOne("jin.managerList", map);
@@ -29,26 +37,15 @@ public class CommonDAO extends AbstractDAO {
 	
 	
 	//----------------생산계획관리 MIN---------------------
-	//신규 생산계획 조회 페이징-전체글수조회 -- MIN
+	//생산계획 조회 페이징-전체글수조회 -- MIN
 	public int p_paging(Map<String, Object> map) {
 		return (Integer)selectOne("common.db_p_paging", map);
 	}
 
-	//신규 생산계획 조회 페이징2 -- MIN
+	//생산계획 조회 페이징2 -- MIN
 	public List<Map<String, Object>> db_p_view(Map<String, Object> map) {
 		
 		return (List<Map<String, Object>>)selectList("common.db_p_view_paging", map);
-	}
-
-	//과거 생산계획 조회 페이징-전체글수조회 -- MIN
-	public int pp_paging(Map<String, Object> map) {
-		return (Integer)selectOne("common.db_pp_paging", map);
-	}
-	
-	//과거 생산계획 조회 페이징2 -- MIN
-	public List<Map<String, Object>> db_pp_view(Map<String, Object> map) {
-		
-		return (List<Map<String, Object>>)selectList("common.db_pp_view_paging", map);
 	}
 	
 	//생산계획 등록용 -- MIN 
@@ -173,17 +170,7 @@ public class CommonDAO extends AbstractDAO {
 		updateCor("wh.UpdateCor", wh);
 	}
 	//창고 끝
-	
-	//-------------------BOM JIN--------------------------
-	public List<Map<String, Object>> bom(Map<String, Object> map) {
-		return (List<Map<String, Object>>)selectList("jin.bom", map);
-	}
-	public List<Map<String, Object>> bomInsertOne(Map<String, Object> map) {
-		return (List<Map<String, Object>>)selectList("jin.bomInsertOne", map);
-	}
-	public List<Map<String, Object>> bomInsertTwo(Map<String, Object> map) {
-		return (List<Map<String, Object>>)selectList("jin.bomInsertTwo", map);
-	}
+
 	
 	//-------------------자재창고 MIN--------------------------
 	//자재창고 조회 페이징-자재수목록 조회 -- MIN

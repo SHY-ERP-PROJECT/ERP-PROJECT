@@ -3,28 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% request.setCharacterEncoding("UTF-8"); 
 String id = (String)session.getAttribute("sessionId");%>
+<link href="resources/css/table.css" rel="stylesheet" type="text/css">
 <!DOCTYPE html>
 <html>
-<script language="javascript">
-function check() {
-	var f = document.mwh;
-	var q = f.QUAN.value;
-	if(f.FAIL.value==""){
-		alert("불량갯수를 입력하시오.");
-		f.FAIL.focus();
-		return false;
-	}
 
-	if(f.FAIL.value >= q){
-		alert("생산수량보다 클 수 없습니다.");
-		f.FAIL.vlaue = 0;
-		f.FAIL.focus();
-		return false;
-	}
-	return true;
-}//check()
-
-</script>
 <head>
 <meta charset="UTF-8">
 <title>상품창고수정</title>
@@ -67,9 +49,9 @@ function check() {
 			<td><input name="PART_NAME" type="text" size=20 value="${name.PART_NAME}" readonly="readonly"/></td>
 			</c:if>
 			</c:forEach>
-			<td class="QUAN"><input name="QUAN" style="background-color:transparent;border:0;width:50px;" type="number" value="${mwh.QUAN}" readonly="readonly"/>EA</td>
-			<td><input name="FAIL" size=5 type="number" min="0" value="${mwh.FAIL}" placeholder="불량품 수량" style="background-color:transparent;border:0;width:50px;" />EA</td>
-			<td><input name="R_QUAN" size=5 type="number" value="${mwh.R_QUAN}" readonly="readonly" style="background-color:transparent;border:0;width:50px;" />EA</td>
+			<td><input name="QUAN" type="text" size=10 value="${mwh.QUAN}" readonly="readonly"/>EA</td>
+			<td><input name="FAIL" type="text" size=10 value="${mwh.FAIL}"/>EA</td>
+			<td><input name="R_QUAN" type="text" size=10 value="${mwh.R_QUAN}" readonly="readonly"/>EA</td>
 			<td><select name="IO"  size=1>
 				<c:if test="${(mwh.IO == null)}" >
 				<option value=" " selected="selected"/>

@@ -21,8 +21,8 @@ function nullcheckers(){
 </script>
 </head>
 <body>
-	<jsp:include page="T_include.jsp" flush="true"/>
-   <div class="sidebar"><jsp:include page="l_include.jsp"/></div>
+	<jsp:include page="T_include.jsp"/>
+	<div class="sidebar"><jsp:include page="l_include.jsp"/></div>
 	<div class="bodyall">
 		<h1>자재창고 조회</h1>
 		
