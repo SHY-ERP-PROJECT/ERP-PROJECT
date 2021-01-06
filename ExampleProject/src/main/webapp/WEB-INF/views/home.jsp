@@ -3,15 +3,18 @@
 <html>
 <head>
 <title>MHJ factory 로그인</title>
-<link rel="stylesheet" href="resources/css/ERPcss.css">
 <style>
    .home{display: flex;
   justify-content: center;
+  flex-direction:column;
   align-items: center;
   min-height: 50vh;
   font-weight:900;
    }
-   
+	.bottom_buttons{margin-top : 10px;
+	display: flex;
+	margin-left:90px;
+  }
 </style>
 </head>
 <body>
@@ -22,10 +25,10 @@
       </Script>
    </c:if>
    <div class="home">
-   <form method="post" action="/t_include.do">
    <h2>WELCOME TO KRJ FACTORY</h2>
-      ID&nbsp;&nbsp; : <input type="text" name="id"><br> 
-      PW  : <input type="password" name="pw"><br>
+   <form method="post" action="/t_include.do">
+      ID&nbsp;&nbsp; : <input type="text" name="id"><br>
+      PW  : <input type="password" name="pw">
        <input class="bottom_buttons" type="submit" value="LOGIN">
       </form>
       </div>
