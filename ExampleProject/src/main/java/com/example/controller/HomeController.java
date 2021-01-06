@@ -160,12 +160,12 @@ public class HomeController {
 			int count2 = commonService.pp_paging(map);
 			//한페이지 출력수
 			int postNum2=10;
-			map.put("postNum", postNum);
+			map.put("postNum2", postNum2);
 			//하단 페이지 번호
-			int pageNum2=(int)Math.ceil((double)count/postNum);
+			int pageNum2=(int)Math.ceil((double)count2/postNum2);
 		
 			//출력 게시물
-			int displayPost2 = (num-1) * postNum;
+			int displayPost2 = (num-1) * postNum2;
 			map.put("displayPost2", displayPost2);
 			List<Map<String, Object>> list2 = commonService.db_pp_view(map);
 			mv.addObject("list2", list2);
@@ -594,24 +594,7 @@ public class HomeController {
 		
 		return mv;
 	}
-	//ID 체크
-	public boolean IDCheck(HttpServletRequest req, HttpServletResponse res )throws IOException {
-		boolean check = false;
-		HttpSession session = req.getSession();
-		String sessionId = (String) session.getAttribute("sessionId"); 
-		res.setContentType("text/html; charset=UTF-8");
-		if(sessionId == null) {
-			check = true;
-			PrintWriter out;
-			out = res.getWriter();
-			out.print("<script>alert('세션정보가 만료되었나봐요! ㅠ 로그인다시해주세용');");
-			out.print("location.href='/index.do';");
-			out.print("</script>");
-			out.flush();			
-		}
-		
-		return check;
-	}
+
 	//창고 끝
 	
 	//-------------------BOM JIN--------------------------
@@ -761,9 +744,5 @@ public class HomeController {
 
 	}
 	
-<<<<<<< HEAD
 
-}
-=======
 } //class
->>>>>>> 54173130e0e9c9a7169a488d7c83e552bdf582a7

@@ -20,7 +20,7 @@
 
  	<!--  생산_기본화면 & 페이징-->
 	<select id="db_p_view_paging" parameterType="hashmap" resultType="hashmap">
-				SELECT PR.LOT_NO , PR.PART_NO, BOM2.PART_NAME, PR.QUAN, PR.UNIT, PR.S_DATE, PR.F_DATE FROM PR, BOM2 WHERE PR.PART_NO=BOM2.PART_NO
+				SELECT PR.LOT_NO , PR.PART_NO, BOM2.PART_NAME, PR.QUAN, PR.UNIT, PR.S_DATE, PR.F_DATE FROM PR, BOM2 WHERE PR.PART_NO=BOM2.PART_NO AND PR.IO IS NULL
 		<choose>
 			<when test="LOT_NO != null">
 				 AND PR.LOT_NO=#{LOT_NO}
