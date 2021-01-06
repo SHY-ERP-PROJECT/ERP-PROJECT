@@ -12,18 +12,9 @@ String id = (String)session.getAttribute("sessionId");%>
 <link href="resources/css/table.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<div class="header">
-		<jsp:include page="T_include.jsp">
-		<jsp:param name="id" value="<%= id %>" />
-		</jsp:include>
-	</div>
-		<br>
-	<div class="sidebar">
-		<jsp:include page="l_include.jsp">
-		<jsp:param name="name" value="name" />
-		</jsp:include>
-	</div>
-		
+	<jsp:include page="T_include.jsp"/>
+	<div class="sidebar"><jsp:include page="l_include.jsp"/></div>
+			
 	<div class="bodyall">
 		<jsp:useBean id="PRlist" class="java.util.ArrayList"/>
 		<jsp:useBean id="PRmap" class="java.util.HashMap"/>
