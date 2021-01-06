@@ -29,15 +29,8 @@ function nullchecker(){
 </script>
 </head>
 <body>
-	<jsp:include page="T_include.jsp">
-	<jsp:param name="id" value="<%= id %>" />
-	</jsp:include>
-	<br>
-	<div class="sidebar">
-	<jsp:include page="l_include.jsp">
-	<jsp:param name="name" value="name" />
-	</jsp:include>
-	</div>
+	<jsp:include page="T_include.jsp" flush="true"/>
+   <div class="sidebar"><jsp:include page="l_include.jsp"/></div>
 	<div class="bodyall">
 		<h1>자재추가 페이지</h1>
 		<form name="m_input" method="get" action="${contextPath}/m_input.do" onsubmit="return nullchecker()" autocomplete="off">

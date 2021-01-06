@@ -1,22 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <link rel="stylesheet" href="resources/css/ERPcss.css">
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<style>ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    height:800px;
+    background-color: #f1f1f1;
+}
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+li a:hover:not(li) {
+    background-color: #555;
+    color: white;
+}</style>
 </head>
 <body>
-<ul class=l>
-      <li><a href="p_view.do">생산</a></li>
-      <li><a href="/logout.do">로그아웃</a></li>
-      <li><a href="MCHWH.do">창고 입고</a></li>
-      <li><a href="MCHWHSEA.do">창고 검색</a></li>
-      <li><a href="#">것</a></li>
-      <li><a href="#">도</a></li>
-      <li><a href="#">없</a></li>
-      <li><a href="#">음</a></li>
+<ul>
+      <li><a href="/p_view.do">생산계획등록 및 조회</a></li>
+      <li><a href="/MCHWHSEA.do">제품창고 조회</a></li>
+      <li><a href="/bom.do">BOM</a></li>
+      <li><a href="/m_view.do">자재창고 조회</a></li>
     </ul>
 </body>
 </html>

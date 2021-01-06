@@ -5,7 +5,7 @@
 String id = (String)session.getAttribute("sessionId");%>
 <!DOCTYPE html>
 <html>
-
+<link rel="stylesheet" href="resources/css/ERPcss.css">
 <link href="resources/css/table.css" rel="stylesheet" type="text/css">
 
 <script language="javascript">
@@ -33,17 +33,8 @@ function check() {
 <title>상품창고등록</title>
 </head>
 <body>
-	<div class="header">
-	<jsp:include page="T_include.jsp">
-	<jsp:param name="id" value="<%= id %>" />
-	</jsp:include>
-	</div>
-	<br>
-	<div class="sidebar">
-	<jsp:include page="l_include.jsp">
-	<jsp:param name="name" value="name" />
-	</jsp:include>
-	</div>
+	<jsp:include page="T_include.jsp" flush="true"/>
+   <div class="sidebar"><jsp:include page="l_include.jsp"/></div>
 	
 	<div class="bodyall">
 	<jsp:useBean id="PRlist" class="java.util.ArrayList"/>
@@ -133,7 +124,7 @@ function check() {
 		<div class="third">
 			<c:forEach begin="1" end="${pageNum}" var="num">
    				<span>
-     				<li class="p_li"><a class="p_font" style="color:white" href="mchwh.do?num=${num}">${num}</a></li>
+     				<li class="p_li"><a class="p_font" href="mchwh.do?num=${num}">${num}</a></li>
   				</span>
  			</c:forEach>
 		</div>

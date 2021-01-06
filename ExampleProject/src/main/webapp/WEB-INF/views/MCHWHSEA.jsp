@@ -9,20 +9,12 @@ String id = (String)session.getAttribute("sessionId");%>
 <meta charset="UTF-8">
 <title>상품창고검색</title>
 
-<link href="resources/css/table.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="resources/css/ERPcss.css">
+
 </head>
 <body>
-	<div class="header">
-		<jsp:include page="T_include.jsp">
-		<jsp:param name="id" value="<%= id %>" />
-		</jsp:include>
-	</div>
-		<br>
-	<div class="sidebar">
-		<jsp:include page="l_include.jsp">
-		<jsp:param name="name" value="name" />
-		</jsp:include>
-	</div>
+	<jsp:include page="T_include.jsp" flush="true"/>
+   <div class="sidebar"><jsp:include page="l_include.jsp"/></div>
 		
 	<div class="bodyall">
 		<jsp:useBean id="PRlist" class="java.util.ArrayList"/>
@@ -53,7 +45,7 @@ String id = (String)session.getAttribute("sessionId");%>
 		<hr>
 		<div class="partNo">
 			<h2>창고에 입고된 전체 물품의 종류와 수량입니다.</h1>
-			<table border="1">
+			<table class="table" border="1">
 				<tr>
 				<th>제품모델번호</th>
 				<th>제품모델명</th>
@@ -77,10 +69,10 @@ String id = (String)session.getAttribute("sessionId");%>
 				</c:forEach>
 			</table>
 			
-			<div class="third">
+			<div class="paging">
 				<c:forEach begin="1" end="${pageInNum}" var="inNum">
 		  			<span>
-		    			<li class="p_li"><a class="p_font" style="color:white" href="mchwhsea.do?inNum=${inNum}">${inNum}</a></li>
+		    			<li class="p_li"><a class="p_font" href="mchwhsea.do?inNum=${inNum}">${inNum}</a></li>
 		 			</span>
 				</c:forEach>
 			</div>
@@ -88,7 +80,7 @@ String id = (String)session.getAttribute("sessionId");%>
 		<div class="LOT_NO">
 			<hr>
 			<h2>창고에 입고된 물품들입니다.</h2>
-			<table border="1">
+			<table class="table" border="1">
 				<tr>
 					<th><a href="MCHWHSEA.do?ORDER=LOT_NO">작업번호</a></th>
 					<th><a href="MCHWHSEA.do?ORDER=PRAT_NO">제품모델벨번호</a></th>
@@ -127,10 +119,10 @@ String id = (String)session.getAttribute("sessionId");%>
 				</c:forEach>
 			</table>
 		</div>
-		<div class="third">
+		<div class="paging">
 			<c:forEach begin="1" end="${pageNum}" var="num">
 	  			<span>
-	    			<li class="p_li"><a class="p_font" style="color:white" href="mchwhsea.do?num=${num}">${num}</a></li>
+	    			<li class="p_li"><a class="p_font" href="mchwhsea.do?num=${num}">${num}</a></li>
 	 			</span>
 			</c:forEach>
 		</div>
