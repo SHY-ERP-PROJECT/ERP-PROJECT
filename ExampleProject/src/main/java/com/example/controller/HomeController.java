@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.aspectj.ajdt.internal.compiler.ast.AddAtAspectJAnnotationsVisitor;
+import org.apache.taglibs.standard.tag.common.fmt.ParseDateSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,26 +62,15 @@ public class HomeController {
 		 */
 	}
 
-		//로그인 후 첫화면
-	@RequestMapping(value = { "/empty.do", "/EMPTY.do" }, method = RequestMethod.GET)
-	public ModelAndView empty(@RequestParam Map<String, Object> map) {
-		log.debug("Request Parameter : " + map);
-			
-		ModelAndView mv = new ModelAndView("/empty");
-			
-		mv.addObject("rs", map.get("rs"));
-			
-		return mv;
-	}
 	@RequestMapping(value = { "/t_include.do", "/T_INCLUDE.do" }, method = RequestMethod.POST)
 	public ModelAndView tinclude(@RequestParam Map<String, Object> map, HttpServletRequest request) {
 		log.debug("Request Parameter : " + map); 
 		String id = (String)map.get("id");
 		HttpSession session = request.getSession();
-		session.setAttribute("sessionId", id); //tester --삭제해도됩니당
+		session.setAttribute("sessionId", id); 
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/t_include");
+		mv.setViewName("/T_include");
 		Map<String, Object> rs = commonService.managerList(map);
 		mv.addObject("rs", rs);
 			
@@ -89,10 +78,10 @@ public class HomeController {
 			mv.setViewName("redirect:/index.do");
 			mv.addObject("msg", "로그인 실패");
 		}
-		else mv.setViewName("redirect:/empty.do");
+		else mv.setViewName("redirect:/p_view.do");
 		return mv;
 	}
-		//로그아웃d
+		//로그아웃
 	@RequestMapping(value = { "/logout.do", "/LOGOUT.do"}, method = RequestMethod.GET)
 	public ModelAndView logout(@RequestParam Map<String, Object> map) {
 		log.debug("Request Parameter : " + map);
@@ -120,6 +109,7 @@ public class HomeController {
 			
 		return mv;
 	}
+
 	
 	//----------------생산계획관리 MIN---------------------
 	// 생산계획 조회, 검색용 - MIN
@@ -139,42 +129,40 @@ public class HomeController {
 			out.print("</script>");
 			out.flush();			
 		}else {
-				//--------------------신규작업------------- 
-				//작업 총 갯수구하기
-				int count = commonService.p_paging(map);
-				//한페이지 출력수
-				int postNum=10;
-				map.put("postNum", postNum);
-				//하단 페이지 번호
-				int pageNum=(int)Math.ceil((double)count/postNum);
+			//--------------------신규작업------------- 
+			//작업 총 갯수구하기
+			int count = commonService.p_paging(map);
+			//한페이지 출력수
+			int postNum=10;
+			map.put("postNum", postNum);
+			//하단 페이지 번호
+			int pageNum=(int)Math.ceil((double)count/postNum);
+		
+			//출력 게시물
+			int displayPost = (num-1) * postNum;
+			map.put("displayPost", displayPost);
+			List<Map<String, Object>> list = commonService.db_p_view(map);
+			mv.addObject("list", list);
+			mv.addObject("pageNum", pageNum);
 			
-				//출력 게시물
-				int displayPost = (num-1) * postNum;
-				map.put("displayPost", displayPost);
-				List<Map<String, Object>> list = commonService.db_p_view(map);
-				mv.addObject("list", list);
-				mv.addObject("pageNum", pageNum);
-				
-				//--------------------완료작업------------- 
-				//작업 총 갯수구하기
-				int count2 = commonService.pp_paging(map);
-				//한페이지 출력수
-				int postNum2=10;
-				map.put("postNum", postNum);
-				//하단 페이지 번호
-				int pageNum2=(int)Math.ceil((double)count/postNum);
-			
-				//출력 게시물
-				int displayPost2 = (num-1) * postNum;
-				map.put("displayPost2", displayPost2);
-				List<Map<String, Object>> list2 = commonService.db_pp_view(map);
-				mv.addObject("list2", list2);
-				mv.addObject("pageNum2", pageNum2);			
-				
-				}
-				return mv;
-		}
-	
+			//--------------------완료작업------------- 
+			//작업 총 갯수구하기
+			int count2 = commonService.pp_paging(map);
+			//한페이지 출력수
+			int postNum2=10;
+			map.put("postNum", postNum);
+			//하단 페이지 번호
+			int pageNum2=(int)Math.ceil((double)count/postNum);
+		
+			//출력 게시물
+			int displayPost2 = (num-1) * postNum;
+			map.put("displayPost2", displayPost2);
+			List<Map<String, Object>> list2 = commonService.db_pp_view(map);
+			mv.addObject("list2", list2);
+			mv.addObject("pageNum2", pageNum2);			
+			}
+			return mv;
+	}
 
 	// p_view호출용- MIN
 	@RequestMapping(value = "/transferToP_view.do")
@@ -233,7 +221,7 @@ public class HomeController {
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out;
 		out = res.getWriter();
-
+		
 		if(IDCheck(req, res));
 		int rs = commonService.db_p_update(map, res);
 		if (rs > 0) {
@@ -256,7 +244,7 @@ public class HomeController {
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out;
 		out = res.getWriter();
-
+		
 		if(IDCheck(req, res));
 		int rs = commonService.db_p_delete(map, res);
 		if (rs > 0) {
@@ -271,63 +259,24 @@ public class HomeController {
 	}
 	
 	//----------------제품창고 JU---------------------
-	//----------------제품창고 JU 0104---------------------
 	//상품입출고창고등록	ju
 	@RequestMapping(value = { "/MCHWH.do", "/mchwh.do" }, method = RequestMethod.GET)
-	public ModelAndView mchwh(@RequestParam Map<String, Object> map,
-			@RequestParam(value="num", required=false, defaultValue="1") int num,
-			HttpServletRequest req, HttpServletResponse res )throws IOException {
-		
+	public ModelAndView mchwh(@RequestParam Map<String, Object> map) {
 		log.debug("Request Parameter : " + map);
-		//알림 팝업을 위한 선언부분
-		res.setContentType("text/html; charset=UTF-8");
-		PrintWriter out;
-		out = res.getWriter();
 		
 		ModelAndView mv = new ModelAndView("/MCHWH");//파일명 대소문자 구분
 		Map<String, Object> mwhIn = new HashMap(); //해당 작업 내역
 		Map<String, Object> mwhGetNo = new HashMap(); //해당 작업 내역
-		List<Map<String, Object>> nameList = commonService.mwhGetPartName(map); //네임리스트
-		List<Map<String, Object>> lotList = commonService.mwhGetLotList(); //작업번호 리스트
-		String lotno = (String)map.get("LOTNO"); // 작업번호 창고에서 입고시
-		String lot_no = (String)map.get("LOT_NO"); // 작업번호 p_view에서 입고시
-		String lno ="";
-		String io = (String)map.get("IO"); // 입고
+		List<Map<String, Object>> nameList = commonService.mwhGetPartName(map);
+		List<Map<String, Object>> lotList = commonService.mwhGetLotList();
+		String lotno = (String)map.get("LOTNO"); // 작업번호
+		String fail = (String)map.get("FAIL"); // 실패수량
+		String io = (String)map.get("IO"); // 실패수량
 		int R_QUAN = 0;
-		int iFail = 0;
-		int chCount= 0; 
 		
-		//작업번호 총 갯수구하기
-		int lotCount = commonService.mwhGetLotCount(map);
-		//한페이지 출력수
-		int postNum = 10;
-		map.put("postNum", postNum);
-		//하단 페이지 번호
-		int pageNum=(int)Math.ceil((double)lotCount/postNum);
-	
-		//출력 게시물
-		int displayPost = (num-1) * postNum;
-		map.put("displayPost", displayPost);
-		mv.addObject("pageNum", pageNum);
-		
-		if(IDCheck(req, res));
-			
-		String tmp = (String)map.get("FAIL"); // 불량 수량
-		String tmp2 = (String)map.get("QUAN"); // to
-		int quan = 0;
-		
-		if(tmp != null) {
-			iFail = Integer.parseInt( tmp );
-			chCount++;
-		}
-		if(tmp2 != null)
-			quan = Integer.parseInt(tmp2);//생산 수량
-		
-		if(lotno != null && lotno.length() > 0) { // 입고버튼으로 입력시 작업번호가 있으면
-			chCount++;
+		if(lotno != null && lotno.length() > 0) { //작업번호가 있으면
 			for(int i = 0; i < lotList.size(); i++) {
 				if(lotno.equalsIgnoreCase((String)lotList.get(i).get("LOT_NO"))) {
-					lno = lotno; 
 					mwhGetNo.put("LOT_NO", lotno);
 					mwhIn = commonService.mwhGetSeaLot(mwhGetNo);
 					mv.addObject("mwhIn", mwhIn);
@@ -335,53 +284,25 @@ public class HomeController {
 			}
 		}
 		
-		if(lot_no != null && lot_no.length() > 0) { //p_view에서 입고시
-			chCount++;
-			for(int i = 0; i < lotList.size(); i++) {
-				if(lot_no.equalsIgnoreCase((String)lotList.get(i).get("LOT_NO") ) ) {
-					lno = lot_no;
-					mwhGetNo.put("LOT_NO", lot_no);
-					mwhIn = commonService.mwhGetSeaLot(mwhGetNo);
-					mv.addObject("mwhIn", mwhIn);
-				}
-			}
-		}
-
-		if(chCount == 2) {
-			if(quan >= iFail){//io != null && io.length() > 0) {
-				//(Integer)map.get("QUAN");//
-				R_QUAN = quan - iFail;
-				map.put("R_QUAN", R_QUAN); //실 생산 수량
-				map.put("IO", "O" ); //입고처리
+		if(fail != null && fail.length() > 0) { //불량 수량이 있으면
+			if(io != null && io.length() > 0) {
+				int quan = Integer.parseInt((String)map.get("QUAN"));
+				R_QUAN = quan - Integer.parseInt(fail);
+				map.put("R_QUAN", R_QUAN);
 				commonService.mwhIn(map);
-				out.print("<script>location.href='MCHWH.do'</script>");
-				out.flush();
-			}else {
-				out.print("<script>alert('불량 수량이 입력수량 보다 큽니다.')");
-				out.print("location.href='MCHWH.do?LOT_NO=" + lno + "}';"); 
-				out.print("</script>"); 
-				out.flush();
 			}
 		}
 		
-
 		mv.addObject("partName", nameList); //제품이름 리스트
 		mv.addObject("lotList", lotList); //작업전체 리스트
 		
 		return mv;
 	}//상품 입고 창고 등록	
-	
 	//상품 입고 수정 ju
 	@RequestMapping(value = { "/MCHWHCOR.do", "/mchwhcor.do" }, method = RequestMethod.GET)
-	public ModelAndView mchwhcor(@RequestParam Map<String, Object> map,
-			HttpServletRequest req, HttpServletResponse res) throws IOException {
+	public ModelAndView mchwhcor(@RequestParam Map<String, Object> map) {
 		log.debug("Request Parameter : " + map);
 		
-		//알림 팝업을 위한 선언부분
-		res.setContentType("text/html; charset=UTF-8");
-		PrintWriter out;
-		out = res.getWriter();
-				
 		ModelAndView mv = null;
 		Map<String, Object> cor = new HashMap<String, Object>();
 		List<Map<String, Object>> nameList = commonService.mwhGetPartName(map);
@@ -389,24 +310,15 @@ public class HomeController {
 		String quan = (String)map.get("QUAN"); //수정사항 있는지 체크
 		String fail = (String)map.get("FAIL");
 		
-		if(IDCheck(req, res) );
-		
 		mv = new ModelAndView("/MCHWHCOR");//수정화면
 		
 		if(quan != null && quan.length() > 0) {//수정사항이 있으면
 			int rqual = Integer.parseInt(quan) - Integer.parseInt(fail);//실 생산 수량
-			if(rqual < 0) {
-				out.print("<script>alert('불량 수량이 입력수량 보다 큽니다.')");
-				out.print("location.href='MCHWHCOR.do?LOT_NO=" + LOT_NO + "}';"); 
-				out.print("</script>"); 
-				out.flush();
-			}else {
-				map.replace("R_QUAN", rqual);//map data 수정
-				commonService.mwhUpdateCor(map);
-			}
-				
-				cor = commonService.mwhCor(map);
-				mv.addObject("list", cor);
+			map.replace("R_QUAN", rqual);//map data 수정
+			commonService.mwhUpdateCor(map);
+			
+			cor = commonService.mwhCor(map);
+			mv.addObject("list", cor);
 		}
 		
 		if(LOT_NO != null && LOT_NO.length() > 0) {
@@ -421,34 +333,14 @@ public class HomeController {
 	
 	//상품 입출고 검색 ju
 	@RequestMapping(value = { "/MCHWHSEA.do", "/mchwhsea.do" }, method = RequestMethod.GET)
-	public ModelAndView mchwhsea(@RequestParam Map<String, Object> map,
-			@RequestParam(value="num", required=false, defaultValue="1") int num,
-			HttpServletRequest req, HttpServletResponse res) throws IOException {
-		
+	public ModelAndView mchwhsea(@RequestParam Map<String, Object> map) {
 		log.debug("Request Parameter : " + map);
-				
 		List<Map<String, Object>> list = new ArrayList();
 		List<Map<String, Object>> nameCountList = new ArrayList();//제품별 수량
 		List<Map<String, Object>> nameList = commonService.mwhGetPartName(map);
-		Map<String, Object> partCount = new HashMap<String, Object>(); //
-		ModelAndView mv = new ModelAndView("/MCHWHSEA");//검색창
-		
-		if(IDCheck(req, res) );
-		
+		ModelAndView mv = null;
+		mv = new ModelAndView("/MCHWHSEA");//검색창
 		list = commonService.mwhSeaLotAll(map);
-
-		//작업번호 총 갯수구하기
-		int inPartCount = commonService.mwhGetInPartAllCount(map);
-		//한페이지 출력수
-		int postInNum = 10;
-		map.put("postInNum", postInNum);
-		//하단 페이지 번호
-		int pageInNum=(int)Math.ceil((double)inPartCount/postInNum);
-	
-		//출력 게시물
-		int displayInPost = (num-1) * postInNum;
-		map.put("displayInPost", displayInPost);
-		mv.addObject("pageInNum", pageInNum);
 		
 		for(int i = 0; i < nameList.size(); i++) {
 			int iTemp = 0;
@@ -463,24 +355,11 @@ public class HomeController {
 					iTemp += iTemp2;//Integer.parseInt(sTemp2);//실 수량 더하기 
 				}
 			}//for list
-			
-			partCount.put("PART_NO", sTemp);
-			partCount.put("count", iTemp);
-			nameCountList.add(partCount);
+			Map<String, Object> count = new HashMap<String, Object>();
+			count.put("PART_NO", sTemp);
+			count.put("count", iTemp);
+			nameCountList.add(count);
 		} // for namelist
-
-		//작업번호 총 갯수구하기
-		int lotCount = commonService.mwhGetLotCount(map);
-		//한페이지 출력수
-		int postNum = 10;
-		map.put("postNum", postNum);
-		//하단 페이지 번호
-		int pageNum=(int)Math.ceil((double)lotCount/postNum);
-	
-		//출력 게시물
-		int displayPost = (num-1) * postNum;
-		map.put("displayPost", displayPost);
-		mv.addObject("pageNum", pageNum);
 		
 		mv.addObject("partName", nameList); //제품이름 리스트
 		mv.addObject("nameCount", nameCountList);
@@ -488,45 +367,46 @@ public class HomeController {
 		
 		return mv;
 	}//상품 입출고 검색
-	
 	//창고 물품 검색 결과 화면 ju
 	@RequestMapping(value = { "/MCHWHSCH.do", "/mchwhsch.do" }, method = RequestMethod.GET)
-	public ModelAndView mchwhsch(@RequestParam Map<String, Object> map,
-			@RequestParam(value="num", required=false, defaultValue="1") int num,
-			HttpServletRequest req, HttpServletResponse res) throws IOException {
+	public ModelAndView mchwhsch(@RequestParam Map<String, Object> map) {
 		log.debug("Request Parameter : " + map);
 
 		int count = 0;
-		String io = "";
-		List<Map<String, Object> > list = new ArrayList(); //전체 검색
+		String io = "";		
+		List<Map<String, Object> > list = new ArrayList();
+		List<Map<String, Object> > listSea = new ArrayList(); //선언을 new로 해야 된다
 		List<Map<String, Object>> nameList = commonService.mwhGetPartName(map);
 		List<Map<String, Object>> nameCountList = new ArrayList();//제품별 수량
-		Map<String, Object> part_no = new HashMap<String, Object>();//제품번호 저장용
 		ModelAndView mv = null;
-		mv = new ModelAndView("/MCHWHSCH");//검색결과창
 		String partno = (String)map.get("PART_NO");
-
-		//작업번호 총 갯수구하기
-		int lotCount = commonService.mwhGetLotCount(map);
-		//한페이지 출력수
-		int postNum = 10;
-		map.put("postNum", postNum);
-		//하단 페이지 번호
-		int pageNum=(int)Math.ceil((double)lotCount/postNum);
-	
-		//출력 게시물
-		int displayPost = (num-1) * postNum;
-		map.put("displayPost", displayPost);
-		mv.addObject("pageNum", pageNum);
-
-		if(IDCheck(req, res) );
+		//String modelno = (String)map.get("modelno");
+		//String domelname = (String)map.get("domelname");
+		
+		mv = new ModelAndView("/MCHWHSCH");//검색결과창
+		
 		if(partno != null && partno.length() > 0) {
 			count++;
 		}
-		
+		/*if(modelno != null && modelno.length() > 0) {
+			count++;
+		}
+		if(domelname != null && domelname.length() > 0) {
+			count++;
+		}*/
 		if(count == 1) {
 			if(partno.equalsIgnoreCase("all")) {
-				list = commonService.mwhSeaLotAll(map);//sql검색결과 저장
+				list = commonService.mwhSeaLotAll(map);//map);//sql검색결과 저장
+				/*
+				for(int i = 0; i < list.size(); i++) {
+					Map<String, Object> mTmp = list.get(i);
+					String sTmp = (String)mTmp.get("IO");
+					
+					if(sTmp != null){
+						listSea.add(mTmp);
+					}
+				} //for list검사
+				*/
 			}else { //all로 검사시
 				list = commonService.mwhSeaLot(map);//검색결과 저장
 			}//개별 검사시
@@ -545,14 +425,15 @@ public class HomeController {
 			}//for list
 			Map<String, Object> mCount = new HashMap<String, Object>();
 			mCount.put("PART_NO", sTemp);
-			part_no.put("PART_NO", sTemp);
 			mCount.put("count", iTemp);
 			nameCountList.add(mCount);
 			
 		}//if PART_NO가 있으면
 		
+		//전체 출력
+		//list = commonService.mwhSeaLotAll(map);//sql검색결과 저장
+		//mv.addObject("list", list);
 		//창고 입출력 있을시
-		mv.addObject("schPartNo",part_no);
 		mv.addObject("list", list);
 		mv.addObject("partName", nameList); //제품이름 리스트
 		mv.addObject("nameCount", nameCountList); //총 제품 수량
@@ -562,31 +443,20 @@ public class HomeController {
 	
 	//출고 처리 ju
 	@RequestMapping(value = { "/MCHWHOUT.do", "/mchwhout.do" }, method = RequestMethod.GET)
-	public ModelAndView mchwhout(@RequestParam Map<String, Object> map,
-			HttpServletRequest req, HttpServletResponse res )throws IOException {
+	public ModelAndView mchwhout(@RequestParam Map<String, Object> map) {
 		log.debug("Request Parameter : " + map);
 		
-		//알림 팝업을 위한 선언부분
-		res.setContentType("text/html; charset=UTF-8");
-		PrintWriter out;
-		out = res.getWriter();
-		
-		ModelAndView mv = null;
-		mv = new ModelAndView("/MCHWHOUT");
 		Map<String, Object> list = new HashMap<String, Object>();
 		List<Map<String, Object>> nameList = commonService.mwhGetPartName(map);
 		list = commonService.mwhCor(map);//검색결과 저장
-		String outIO = (String)map.get("IO"); //입출고 상태
+		String out = (String)map.get("IO");
 		
-		if(IDCheck(req, res));
-		
-		if(outIO != null) {
-			if(outIO.equalsIgnoreCase("X")) {
+		if(out != null) {
+			if(out.equalsIgnoreCase("X")) {
 				commonService.mwhOut(map);
-				out.print("<script>location.href='mchwhsea.do'</script>");
-				out.flush();
 			}
 		}
+		ModelAndView mv = new ModelAndView("/MCHWHOUT");
 		
 		//mv.setViewName("redirect:/MCHWHSEA");
 		mv.addObject("list", list);
@@ -594,33 +464,15 @@ public class HomeController {
 		
 		return mv;
 	}
-	//ID 체크
-	public boolean IDCheck(HttpServletRequest req, HttpServletResponse res )throws IOException {
-		boolean check = false;
-		HttpSession session = req.getSession();
-		String sessionId = (String) session.getAttribute("sessionId"); 
-		res.setContentType("text/html; charset=UTF-8");
-		if(sessionId == null) {
-			check = true;
-			PrintWriter out;
-			out = res.getWriter();
-			out.print("<script>alert('세션정보가 만료되었나봐요! ㅠ 로그인다시해주세용');");
-			out.print("location.href='/index.do';");
-			out.print("</script>");
-			out.flush();			
-		}
-		
-		return check;
-	}
 	//창고 끝
 	
 	//-------------------BOM JIN--------------------------
 	
 	//bom화면
 	@RequestMapping(value = { "/bom.do", "/BOM.do"}, method = RequestMethod.GET)
-	public ModelAndView bom(@RequestParam Map<String, Object> map) {
+	public ModelAndView bom(@RequestParam Map<String, Object> map, HttpServletRequest req, HttpServletResponse res)throws IOException {
 		log.debug("Request Parameter : " + map);
-		
+		if(IDCheck(req, res));
 		ModelAndView mv = new ModelAndView("/bom");
 		
 		List<Map<String, Object>> list = commonService.bom(map);
@@ -628,19 +480,18 @@ public class HomeController {
 		
 		return mv;
 	}
-	
 	//bom등록
 	@RequestMapping(value = { "/bom_insert.do"}, method = RequestMethod.GET)
-	public ModelAndView bom_insert(@RequestParam Map<String, Object> map) {
+	public ModelAndView bom_insert(@RequestParam Map<String, Object> map, HttpServletRequest req, HttpServletResponse res)throws IOException {
 		log.debug("Request Parameter : " + map);
-			
+		if(IDCheck(req, res));
 		ModelAndView mv = new ModelAndView("/bom_insert");
 		List<Map<String, Object>> list = commonService.bomInsertOne(map);
 		List<Map<String, Object>> lsst = commonService.bomInsertTwo(map);
 		
 		return mv;
 	}
-	//BOM 끝
+	
 	
 	//-------------------자재창고 MIN--------------------------
 
@@ -650,7 +501,6 @@ public class HomeController {
 		log.debug("Request Parameter : " + map);
 
 		ModelAndView mv = new ModelAndView("/m_view");
-		
 		if(IDCheck(req, res));
 		//게시물 총 갯수구하기
 		int count = commonService.m_paging(map);
@@ -680,7 +530,7 @@ public class HomeController {
 		out = res.getWriter();
 		int rs = commonService.db_m_update(map);
 		
-		if(IDCheck(req, res));
+		if(IDCheck(req, res));		
 		if (rs > 0) {
 			out.print("<script>alert('자재를 추가하였습니다');");
 			// 성공
@@ -708,7 +558,6 @@ public class HomeController {
 		out = res.getWriter();
 		
 		if(IDCheck(req, res));
-		
 		int NO_checker = commonService.db_m_NOchecker(map, res); // M_NO 중복체크용
 		System.out.println(NO_checker);
 		if(NO_checker>0) {
@@ -730,6 +579,25 @@ public class HomeController {
 		out.flush();
 	}
 
+	//ID 체크
+	   public boolean IDCheck(HttpServletRequest req, HttpServletResponse res )throws IOException {
+	      boolean check = false;
+	      HttpSession session = req.getSession();
+	      String sessionId = (String) session.getAttribute("sessionId"); 
+	      res.setContentType("text/html; charset=UTF-8");
+	      if(sessionId == null) {
+	         check = true;
+	         PrintWriter out;
+	         out = res.getWriter();
+	         out.print("<script>alert('세션정보가 만료되었나봐요! ㅠ 로그인다시해주세용');");
+	         out.print("location.href='/index.do';");
+	         out.print("</script>");
+	         out.flush();         
+	      }
+	      
+	      return check;
+	   }
+	
 	@RequestMapping(value = "/sample/testMapArgumentResolver.do")
 	public ModelAndView testMapArgumentResolver(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("");
@@ -745,4 +613,5 @@ public class HomeController {
 
 	}
 	
-} //class
+
+}

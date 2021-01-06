@@ -2,8 +2,10 @@
     pageEncoding="UTF-8"%>
     <% request.setCharacterEncoding("UTF-8"); 
 String id = (String)session.getAttribute("sessionId");%>
+<link href="resources/css/table.css" rel="stylesheet" type="text/css">
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -12,23 +14,15 @@ String id = (String)session.getAttribute("sessionId");%>
 </head>
 <body>
 <div class="header">
-	<jsp:include page="T_include.jsp">
-	<jsp:param name="id" value="<%= id %>" />
-	</jsp:include>
-	</div>
-	<br>
-	<div class="sidebar">
-	<jsp:include page="l_include.jsp">
-	<jsp:param name="name" value="name" />
-	</jsp:include>
-	</div>
+	<jsp:include page="T_include.jsp" flush="true"/>
+	<div class="sidebar"><jsp:include page="l_include.jsp" flush="true"/></div>
 	
 	<div class="bodyall">
 	<jsp:useBean id="PRlist" class="java.util.ArrayList"/>
 	<jsp:useBean id="PRmap" class="java.util.HashMap"/>
 	
-	<form name="mwhout" method="get" action="MCHWHOUT.do" onsubmit="return check()">
-	<h2>출고하실 물품을 확인해주십시오.</h2>
+	<form name="mwhout" method="get" action="MCHWHOUT.do">
+	<h2>배송을 할 물품을 확인하십시오.</h2>
 		<table border="1">
 			<tr>
 			<!-- 작업번호	제품모델번호	제품명	수량	불량갯수	입/출고 -->

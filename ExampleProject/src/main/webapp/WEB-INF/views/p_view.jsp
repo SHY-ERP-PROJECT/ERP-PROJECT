@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="resources/css/ERPcss.css">
 <%
 	request.setCharacterEncoding("UTF-8");
 	String id = (String)session.getAttribute("sessionId");
@@ -9,6 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="resources/css/ERPcss.css">
 <title>생산계획 조회창</title>
 <script>
 function nullchecker(){
@@ -98,7 +98,10 @@ function nullchecker(){
 			<td>${row.PART_NO}</td>
 			<td>${row.PART_NAME}</td>
 			<td>${row.QUAN}${row.UNIT}</td>
-			<td><c:if test="${row.IO eq 'O'}"><c:out value="입고" /></c:if><c:if test="${row.IO eq 'X'}"><c:out value="출고" /></c:if></td>
+			<td><c:if test="${row.IO eq 'O'}"> <c:out value="입고" />
+			</c:if>
+			<c:if test="${row.IO eq 'X'}"> <c:out value="출고" />
+			 </c:if></td> 
 			<td>${row.S_DATE}</td>
 			<td>${row.F_DATE}</td>
 			<td>${row.OUT_DATE}</td>

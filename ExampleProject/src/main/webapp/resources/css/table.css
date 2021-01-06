@@ -14,15 +14,16 @@
  	}
  	
  	.sidebar{
-	 position : absolute;
-	 left : 0px;
-	 }
-.bodyall{
-	 margin : 30px;
-	 position : absolute;
-	 left : 50px;
-	 }
- 	
+       position:absolute; 
+       padding-right:70;
+    }
+    
+    
+    /*전체 페이지 감싸기용*/
+    .bodyall{
+       padding-top:20px; 
+       margin-left:250px;
+    }
  /* 테이블 컬럼 색상 */
  th{background-color: #A9F5A9;}
  /* 테이블 컬럼 링크 밑줄 제거 */

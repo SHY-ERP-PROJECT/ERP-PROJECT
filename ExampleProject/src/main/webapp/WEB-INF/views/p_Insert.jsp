@@ -57,9 +57,8 @@ function noBefore(date){
 <body>
 	<jsp:include page="T_include.jsp" flush="true"/>
    <div class="sidebar"><jsp:include page="l_include.jsp"/></div>
-	<div class="bodyall">
-	<form name="p_insert" method="get" action="${contextPath}/p_insert.do" onsubmit="return nullchecker()" autocomplete="off">
-	
+   <div class="bodyall">
+   	<form name="p_insert" method="get" action="${contextPath}/p_insert.do" onsubmit="return nullchecker()" autocomplete="off">
 	<h1>생산계획 등록</h1>
 	<table class="table" border="1" width="300px">
 	<tr>
@@ -72,7 +71,7 @@ function noBefore(date){
 		<td><input type="text" name="LOT_NO" id="LOT_NO"></td>
 		<td><input type="text" name="PART_NO" id="PART_NO"></td>
 		<td><input type="number" name="QUAN" id="QUAN" min="0"></td>
-		<td><input type="text" name="S_DATE" id="S_DATE"></td>
+		<td><input type="text" name="S_DATE" id="S_DATE" ></td>
 	</tr>
 	</table>
 	<div class="bottom_buttons">
