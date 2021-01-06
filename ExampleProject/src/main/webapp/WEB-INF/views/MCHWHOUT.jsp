@@ -4,17 +4,6 @@
 String id = (String)session.getAttribute("sessionId");%>
 <!DOCTYPE html>
 <html>
-<style>
-.sidebar{
-	 position : absolute;
-	 left : 0px;
-	 }
-.bodyall{
-	 margin : 30px;
-	 position : absolute;
-	 left : 50px;
-	 }
-</style>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
