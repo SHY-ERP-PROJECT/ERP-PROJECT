@@ -6,7 +6,7 @@ String id = (String)session.getAttribute("sessionId");%>
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="resources/css/ERPcss.css">
-<!-- <link href="resources/css/table.css" rel="stylesheet" type="text/css"> -->
+
 
 <script language="javascript">
 function check() {

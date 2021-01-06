@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     <% request.setCharacterEncoding("UTF-8"); 
 String id = (String)session.getAttribute("sessionId");%>
-<!-- <link href="resources/css/table.css" rel="stylesheet" type="text/css"> -->
+
 <!DOCTYPE html>
 <html>
 
@@ -20,7 +20,12 @@ String id = (String)session.getAttribute("sessionId");%>
 	<jsp:useBean id="PRmap" class="java.util.HashMap"/>
 	
 	<form name="mwhout" method="get" action="MCHWHOUT.do">
-	<h2>배송을 할 물품을 확인하십시오.</h2>
+	<h1>배송을 할 물품을 확인하십시오.</h1>
+	<div class="first">
+	<button type="button" onclick="location.href='/mchwh.do'">제품등록</button>
+	<button type="button" onclick="location.href='/mchwhsea.do'">제품검색</button>
+	</div>
+	<br><br>
 		<table border="1">
 			<tr>
 			<!-- 작업번호	제품모델번호	제품명	수량	불량갯수	입/출고 -->
@@ -60,8 +65,6 @@ String id = (String)session.getAttribute("sessionId");%>
 			</tr>
 		</table>
 	<hr>
-	<button type="button" onclick="location.href='/mchwh.do'">등록화면으로</button>
-	<button type="button" onclick="location.href='/mchwhsea.do'">검색화면으로</button>
 	</form>
 	</div>
 </body>

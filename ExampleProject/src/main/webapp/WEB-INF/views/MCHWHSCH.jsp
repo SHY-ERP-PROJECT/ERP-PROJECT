@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     <% request.setCharacterEncoding("UTF-8"); 
 String id = (String)session.getAttribute("sessionId");%>
-<!-- <link href="resources/css/table.css" rel="stylesheet" type="text/css"> -->
+
 <!DOCTYPE html>
 <html>
 
@@ -17,10 +17,15 @@ String id = (String)session.getAttribute("sessionId");%>
 	
 	<div class="bodyall">
 	<form name="mwhsch" method="get" ><%-- action="MCHWHCOR.do/${mwh.LOT_NO}"> --%>
-		<h2>창고에 입고 되어 있는 검색한 물품의 총 수량입니다.</h2>
+		<h1>창고에 입고 되어 있는 검색한 물품의 총 수량입니다.</h1>
+		<div class="first">
+		<button type="button" onclick="location.href='/mchwh.do'">제품등록</button>
+		<button type="button" onclick="location.href='/mchwhsea.do'">제품검색</button>		
+		</div>
+		<br><br>
 		<%-- <c:set var="mwh" value="${list}"/><!-- 수정할 자료가져오기 --> --%>
 		<c:set var="schPartNo" value="${schPartNo}"/>
-		<table border="1">
+		<table class ="table" border="1">
 			<tr>
 			<th>제품모델번호</th>
 			<th>제품명</th>
@@ -37,14 +42,12 @@ String id = (String)session.getAttribute("sessionId");%>
 			</c:forEach>
 		</table>
 		<br>
-		<button type="button" onclick="location.href='/mchwh.do'">등록화면으로</button>
-		<button type="button" onclick="location.href='/mchwhsea.do'">검색화면으로</button>
 	</form>
 	<hr>
 	
 	<h2>검색한 물품의 입고 상태입니다.</h2>
 	
-	<table border="1">
+	<table class ="table" border="1">
 	<tr>
 		<th><a href="MCHWHSCH.do?ORDER=LOT_NO">작업번호</a></th>
 		<th><a href="MCHWHSCH.do?ORDER=PRAT_NO">제품모델번호</a></th>
@@ -58,16 +61,16 @@ String id = (String)session.getAttribute("sessionId");%>
 	</tr>
 	<c:forEach var="mwh" items="${list}">
 	<tr>
-		<td><input type="text" name="LOT_NO" value="${mwh.LOT_NO}" readonly="readonly"></td>
+		<td><input type="text" name="LOT_NO" value="${mwh.LOT_NO}" readonly="readonly" style="width:100px;"/></td>
 		<td><input type="text" name="PART_NO" value="${mwh.PART_NO}" readonly="readonly"/></td>
 		<c:forEach var="name" items="${partName}">
 			<c:if test="${name.PART_NO == mwh.PART_NO}">
 			<td><input name="PART_NAME" type="text" size=20 value="${name.PART_NAME}" readonly="readonly"/></td>
 			</c:if>
 		</c:forEach>
-		<td><input type="text" name="QUAN" value="${mwh.QUAN}" readonly="readonly"/></td>
-		<td><input type="text" name="FAIL" value="${mwh.FAIL}" readonly="readonly"/></td>
-		<td><input type="text" name="R_QUAN" value="${mwh.R_QUAN}" readonly="readonly"/></td>
+		<td><input type="number" name="QUAN" value="${mwh.QUAN}" readonly="readonly" style="width:100px;"/></td>
+		<td><input type="number" min=0 name="FAIL" value="${mwh.FAIL}" readonly="readonly" style="width:100px;"/></td>
+		<td><input type="number" name="R_QUAN" value="${mwh.R_QUAN}" readonly="readonly" style="width:100px;"/></td>
 		
 		<td>
 		<c:if test="${(mwh.IO == 'O') || (mwh.IO == 'o')}" >

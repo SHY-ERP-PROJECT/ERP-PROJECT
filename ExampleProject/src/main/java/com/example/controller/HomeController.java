@@ -142,24 +142,6 @@ public class HomeController {
 		
 		return mv;
 	}
-	//ID 체크
-	   public boolean IDCheck(HttpServletRequest req, HttpServletResponse res )throws IOException {
-	      boolean check = false;
-	      HttpSession session = req.getSession();
-	      String sessionId = (String) session.getAttribute("sessionId"); 
-	      res.setContentType("text/html; charset=UTF-8");
-	      if(sessionId == null) {
-	         check = true;
-	         PrintWriter out;
-	         out = res.getWriter();
-	         out.print("<script>alert('세션정보가 만료되었나봐요! ㅠ 로그인다시해주세용');");
-	         out.print("location.href='/index.do';");
-	         out.print("</script>");
-	         out.flush();         
-	      }
-	      
-	      return check;
-	   }
 	
 	//----------------생산계획관리 MIN---------------------
 	// 생산계획 조회, 검색용 - MIN
@@ -615,7 +597,7 @@ public class HomeController {
 		return mv;
 	}
 	//ID 체크
-	public boolean IDCheck(HttpServletRequest req, HttpServletResponse res )throws IOException {
+	public boolean IDCheck(HttpServletRequest req, HttpServletResponse res ) throws IOException {
 		boolean check = false;
 		HttpSession session = req.getSession();
 		String sessionId = (String) session.getAttribute("sessionId"); 

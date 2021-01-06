@@ -19,27 +19,14 @@ String id = (String)session.getAttribute("sessionId");%>
 	<div class="bodyall">
 		<jsp:useBean id="PRlist" class="java.util.ArrayList"/>
 		<jsp:useBean id="PRmap" class="java.util.HashMap"/>
-		
 		<div>
 			<form name="mhsea" method="get" action="MCHWHSCH.do?PART_NO=${PART_NO}">
 				<h1>제품 창고 조회</h1>
-				<!-- <table border="1">
-					<tr>
-					작업번호	제품모델번호	제품명
-					<th>제품모델번호</th> -->
-					<!-- <th>제품모델번호</th>
-					<th>제품명</th>
-					</tr> -->
-					<!-- 검색 -->
-					<!-- <tr>
-					<td> -->
+				<div class="first">
+					<button type="button" onclick="location.href='/mchwh.do'">제품등록</button>
+				</div>
 					<input name="PART_NO" type="text" size=10 placeholder="제품모델번호"/>
-					<!--</td>
-					<!-- <td><input id="modelno" type="text" size=10 /></td>
-					<td><input id="domelname" type="text" size=20 /></td>
-				 </table> -->
 				<button type="submit">검색</button>
-				<button type="button" onclick="location.href='/mchwh.do'">등록화면으로</button>
 			</form>
 		</div>
 		<hr>
