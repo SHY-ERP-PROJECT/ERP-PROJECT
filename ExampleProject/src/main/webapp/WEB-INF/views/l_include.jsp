@@ -29,6 +29,10 @@ li a:hover:not(li) {
       <li><a href="/MCHWHSEA.do">제품창고</a></li>
       <li><a href="/bom.do">BOM</a></li>
       <li><a href="/m_view.do">자재창고</a></li>
+      <li><a href="/p_view.do">생산계획등록 및 조회</a></li>
+      <li><a href="/MCHWHSEA.do">제품창고 조회</a></li>
+      <li><a href="/bom.do">BOM</a></li>
+      <li><a href="/m_view.do">자재창고 조회</a></li>
     </ul>
 </body>
 </html>

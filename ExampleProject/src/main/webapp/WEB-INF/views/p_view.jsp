@@ -21,15 +21,8 @@ function nullchecker(){
 </script>
 </head>
 <body>
-	<jsp:include page="T_include.jsp">
-	<jsp:param name="id" value="<%= id %>" />
-	</jsp:include>
-	<br>
-	<div class="sidebar">
-	<jsp:include page="l_include.jsp">
-	<jsp:param name="name" value="name" />
-	</jsp:include>
-	</div>
+	<jsp:include page="T_include.jsp" flush="true"/>
+   <div class="sidebar"><jsp:include page="l_include.jsp"/></div>
 	<div class="bodyall">
 	<h1>신규생산계획 조회</h1>
 	<div class="first">

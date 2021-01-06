@@ -5,7 +5,7 @@
 String id = (String)session.getAttribute("sessionId");%>
 <!DOCTYPE html>
 <html>
-
+<link rel="stylesheet" href="resources/css/ERPcss.css">
 <link href="resources/css/table.css" rel="stylesheet" type="text/css">
 
 <script language="javascript">
@@ -124,7 +124,7 @@ function check() {
 		<div class="third">
 			<c:forEach begin="1" end="${pageNum}" var="num">
    				<span>
-     				<li class="p_li"><a class="p_font" style="color:white" href="mchwh.do?num=${num}">${num}</a></li>
+     				<li class="p_li"><a class="p_font" href="mchwh.do?num=${num}">${num}</a></li>
   				</span>
  			</c:forEach>
 		</div>
