@@ -179,7 +179,7 @@ public class HomeController {
 			return mv;
 	}
 
-	// p_view호출용- MIN
+	// p_insert호출용- MIN
 	@RequestMapping(value = "/transferToP_view.do")
 	public ModelAndView transferToP_view() {
 		ModelAndView mv = new ModelAndView("/p_Insert");
