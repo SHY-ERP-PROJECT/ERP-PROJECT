@@ -64,13 +64,13 @@ function nullchecker(){
 	<tr>
 		</tr>
 		<tr>
-		<td><input type="text" name="PART_NAME"></td>
-		<td><input type="number" name="EA1"></td>
-		<td><input type="number" name="EA2"></td>
-		<td><input type="number" name="EA3"></td>
-		<td><input type="number" name="EA4"></td>
-		<td><input type="number" name="EA5"></td>
-		<td><input type="number" name="EA6"></td>
+		<td><input type="text" name="PART_NAME" ></td>
+		<td><input type="number" name="EA1" min=0></td>
+		<td><input type="number" name="EA2" min=0></td>
+		<td><input type="number" name="EA3" min=0></td>
+		<td><input type="number" name="EA4" min=0></td>
+		<td><input type="number" name="EA5" min=0></td>
+		<td><input type="number" name="EA6" min=0></td>
 	</tr>
 	</table>
 	<button>등록하기</button>
