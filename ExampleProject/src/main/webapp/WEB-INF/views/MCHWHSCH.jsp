@@ -2,19 +2,18 @@
     pageEncoding="UTF-8"%>
     <% request.setCharacterEncoding("UTF-8"); 
 String id = (String)session.getAttribute("sessionId");%>
-<link href="resources/css/table.css" rel="stylesheet" type="text/css">
+<!-- <link href="resources/css/table.css" rel="stylesheet" type="text/css"> -->
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="UTF-8">
 <title>제품검색결과</title>
-
-<link href="resources/css/table.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="resources/css/ERPcss.css">
 </head>
 <body>
 	<jsp:include page="T_include.jsp" flush="true"/>
-	<div class="sidebar"><jsp:include page="l_include.jsp" flush="true"/></div>
+	<div class="sidebar"><jsp:include page="l_include.jsp"/></div>
 	
 	<div class="bodyall">
 	<form name="mwhsch" method="get" ><%-- action="MCHWHCOR.do/${mwh.LOT_NO}"> --%>
@@ -48,7 +47,7 @@ String id = (String)session.getAttribute("sessionId");%>
 	<table border="1">
 	<tr>
 		<th><a href="MCHWHSCH.do?ORDER=LOT_NO">작업번호</a></th>
-		<th><a href="MCHWHSCH.do?ORDER=PRAT_NO">제품모벨번호</a></th>
+		<th><a href="MCHWHSCH.do?ORDER=PRAT_NO">제품모델번호</a></th>
 		<th>제품명</th>
 		<th><a href="MCHWHSCH.do?ORDER=QUAN">생산수량</a></th>
 		<th><a href="MCHWHSCH.do?ORDER=FIAL">불량수량</a></th>

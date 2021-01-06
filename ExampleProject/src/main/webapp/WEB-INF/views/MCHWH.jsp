@@ -6,6 +6,10 @@ String id = (String)session.getAttribute("sessionId");%>
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="resources/css/ERPcss.css">
+<<<<<<< HEAD
+=======
+<!-- <link href="resources/css/table.css" rel="stylesheet" type="text/css"> -->
+>>>>>>> 54173130e0e9c9a7169a488d7c83e552bdf582a7
 
 <script language="javascript">
 function check() {
@@ -25,7 +29,7 @@ function check() {
 </head>
 <body>
 	<jsp:include page="T_include.jsp" flush="true"/>
-	<div class="sidebar"><jsp:include page="l_include.jsp" flush="true"/></div>
+	<div class="sidebar"><jsp:include page="l_include.jsp"/></div>
 	
 	<div class="bodyall">
 	<jsp:useBean id="PRlist" class="java.util.ArrayList"/>
@@ -33,10 +37,13 @@ function check() {
 	<div>
 	<!-- onsubmit = submit 하기전에 펀션을 먼저 검사해서 통과면 true -->
 	<form name="mwh" method="get" onsubmit="return check()">
-	<h2>완성된 물품을 작업번호 기준으로 창고에 입고하십시오.</h2>
-		<input name="LOTNO" type="text" placeholder="작업번호를 입력하시오.">
-		<button type="submit?lotno">검색</button>
-		<button type="button" onclick="location.href='/mchwhsea.do'">검색화면으로</button>
+	<h1>완성된 물품을 작업번호 기준으로 창고에 입고하십시오.</h1>
+		<!-- <input name="LOTNO" type="text" placeholder="작업번호를 입력하시오.">
+		<button type="submit?lotno">검색</button> -->
+		<div class="first">
+		<button type="button" onclick="location.href='/mchwhsea.do'">제품조회</button>
+		</div>
+		<br><br>
 		<hr>
 		
 		<c:if test="${mwhIn != null}">

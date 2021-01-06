@@ -16,6 +16,7 @@
 		SELECT * FROM USER
 		WHERE BINARY ID = #{id}
 		AND BINARY PW = #{pw}
+
 	</select>
 	
 	<select id="bomInsertOne" parameterType="hashMap" resultType="hashMap">

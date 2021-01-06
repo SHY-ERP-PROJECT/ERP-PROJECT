@@ -2,20 +2,18 @@
     pageEncoding="UTF-8"%>
     <% request.setCharacterEncoding("UTF-8"); 
 String id = (String)session.getAttribute("sessionId");%>
-<link href="resources/css/table.css" rel="stylesheet" type="text/css">
+<!-- <link href="resources/css/table.css" rel="stylesheet" type="text/css"> -->
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<link href="resources/css/table.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="resources/css/ERPcss.css">
 </head>
 <body>
-<div class="header">
 	<jsp:include page="T_include.jsp" flush="true"/>
-	<div class="sidebar"><jsp:include page="l_include.jsp" flush="true"/></div>
+	<div class="sidebar"><jsp:include page="l_include.jsp"/></div>
 	
 	<div class="bodyall">
 	<jsp:useBean id="PRlist" class="java.util.ArrayList"/>
