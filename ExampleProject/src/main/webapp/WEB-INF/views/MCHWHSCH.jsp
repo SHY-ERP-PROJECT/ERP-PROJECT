@@ -2,8 +2,10 @@
     pageEncoding="UTF-8"%>
     <% request.setCharacterEncoding("UTF-8"); 
 String id = (String)session.getAttribute("sessionId");%>
+<link href="resources/css/table.css" rel="stylesheet" type="text/css">
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
 <title>제품검색결과</title>
@@ -11,17 +13,8 @@ String id = (String)session.getAttribute("sessionId");%>
 <link href="resources/css/table.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div class="header">
-	<jsp:include page="T_include.jsp">
-	<jsp:param name="id" value="<%= id %>" />
-	</jsp:include>
-	</div>
-	<br>
-	<div class="sidebar">
-	<jsp:include page="l_include.jsp">
-	<jsp:param name="name" value="name" />
-	</jsp:include>
-	</div>
+	<jsp:include page="T_include.jsp" flush="true"/>
+	<div class="sidebar"><jsp:include page="l_include.jsp" flush="true"/></div>
 	
 	<div class="bodyall">
 	<form name="mwhsch" method="get" ><%-- action="MCHWHCOR.do/${mwh.LOT_NO}"> --%>
@@ -41,7 +34,7 @@ String id = (String)session.getAttribute("sessionId");%>
 				<td><input name="PART_NAME" type="text" size=20 value="${name.PART_NAME}" readonly="readonly"/></td>
 					</c:if>
 				</c:forEach>
-				<td><input type="text" value="${nameCount.count}" size=6 readonly="readonly" /></td></tr>
+				<td><input type="text" value="${nameCount.count}" readonly="readonly" /></td></tr>
 			</c:forEach>
 		</table>
 		<br>
@@ -73,9 +66,9 @@ String id = (String)session.getAttribute("sessionId");%>
 			<td><input name="PART_NAME" type="text" size=20 value="${name.PART_NAME}" readonly="readonly"/></td>
 			</c:if>
 		</c:forEach>
-		<td><input type="text" name="QUAN" value="${mwh.QUAN}" size=6 readonly="readonly"/></td>
-		<td><input type="text" name="FAIL" value="${mwh.FAIL}" size=6 readonly="readonly"/></td>
-		<td><input type="text" name="R_QUAN" value="${mwh.R_QUAN}" size=6 readonly="readonly"/></td>
+		<td><input type="text" name="QUAN" value="${mwh.QUAN}" readonly="readonly"/></td>
+		<td><input type="text" name="FAIL" value="${mwh.FAIL}" readonly="readonly"/></td>
+		<td><input type="text" name="R_QUAN" value="${mwh.R_QUAN}" readonly="readonly"/></td>
 		
 		<td>
 		<c:if test="${(mwh.IO == 'O') || (mwh.IO == 'o')}" >

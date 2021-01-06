@@ -37,7 +37,7 @@ jQuery(function($){
 
     $.datepicker.regional['ko'] = {closeText: '닫기',prevText: '이전달',nextText: '다음달',currentText: '오늘',monthNames: ['1월(JAN)','2월(FEB)','3월(MAR)','4월(APR)','5월(MAY)','6월(JUN)','7월(JUL)','8월(AUG)','9월(SEP)','10월(OCT)','11월(NOV)','12월(DEC)'],monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],dayNames: ['일','월','화','수','목','금','토'],dayNamesShort: ['일','월','화','수','목','금','토'],dayNamesMin: ['일','월','화','수','목','금','토'],weekHeader: 'Wk',dateFormat: 'yy-mm-dd',firstDay: 0,isRTL: false,showMonthAfterYear: true,yearSuffix: ''};
     $.datepicker.setDefaults($.datepicker.regional['ko']);
-    $('#S_DATE').datepicker({changeMonth: true,changeYear:true,showButtonPanel:true,yearRange: 'c-0:c+99',constrainInput: true,maxDate:'+1y',beforeShowDay: noBefore});
+    $('#S_DATE').datepicker({changeMonth: true,changeYear:true,showButtonPanel:true,yearRange: 'c-99:c+99',constrainInput: true,maxDate:'+1y',beforeShowDay: noBefore});
 
 });
 function noWeekendsOrHolidays(date) {
@@ -55,8 +55,15 @@ function noBefore(date){
 </script>
 </head>
 <body>
-	<jsp:include page="T_include.jsp" flush="true"/>
-   <div class="sidebar"><jsp:include page="l_include.jsp"/></div>
+	<jsp:include page="T_include.jsp">
+	<jsp:param name="id" value="<%= id %>" />
+	</jsp:include>
+	<br>
+	<div class="sidebar">
+	<jsp:include page="l_include.jsp">
+	<jsp:param name="name" value="name" />
+	</jsp:include>
+	</div>
 	<div class="bodyall">
 	<form name="p_insert" method="get" action="${contextPath}/p_insert.do" onsubmit="return nullchecker()" autocomplete="off">
 	
