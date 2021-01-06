@@ -565,8 +565,6 @@ public class HomeController {
 			}
 		}
 		
-		
-		
 		//mv.setViewName("redirect:/MCHWHSEA");
 		mv.addObject("list", list);
 		mv.addObject("partName", nameList); //제품이름 리스트
@@ -593,15 +591,44 @@ public class HomeController {
 	}
 	//창고 끝
 	
+	//-------------------BOM JIN--------------------------
+	
+	//bom화면
+	@RequestMapping(value = { "/bom.do", "/BOM.do"}, method = RequestMethod.GET)
+	public ModelAndView bom(@RequestParam Map<String, Object> map) {
+		log.debug("Request Parameter : " + map);
+		
+		ModelAndView mv = new ModelAndView("/bom");
+		
+		List<Map<String, Object>> list = commonService.bom(map);
+		mv.addObject("list", list);
+		
+		return mv;
+	}
+	
+	//bom등록
+	@RequestMapping(value = { "/bom_insert.do"}, method = RequestMethod.GET)
+	public ModelAndView bom_insert(@RequestParam Map<String, Object> map) {
+		log.debug("Request Parameter : " + map);
+			
+		ModelAndView mv = new ModelAndView("/bom_insert");
+		List<Map<String, Object>> list = commonService.bomInsertOne(map);
+		List<Map<String, Object>> lsst = commonService.bomInsertTwo(map);
+		
+		return mv;
+	}
+	//BOM 끝
+	
 	//-------------------자재창고 MIN--------------------------
 
 	// 자재창고 조회, 검색용 - MIN
 	@RequestMapping(value = { "/m_view.do" }, method = RequestMethod.GET)
-	public ModelAndView m_view(@RequestParam(value="num", required=false, defaultValue="1") int num, @RequestParam Map<String, Object> map) {
+	public ModelAndView m_view(@RequestParam(value="num", required=false, defaultValue="1") int num, @RequestParam Map<String, Object> map, HttpServletRequest req, HttpServletResponse res) throws IOException {
 		log.debug("Request Parameter : " + map);
 
 		ModelAndView mv = new ModelAndView("/m_view");
-
+		
+		if(IDCheck(req, res));
 		//게시물 총 갯수구하기
 		int count = commonService.m_paging(map);
 		//한페이지 출력수
@@ -630,6 +657,7 @@ public class HomeController {
 		out = res.getWriter();
 		int rs = commonService.db_m_update(map);
 		
+		if(IDCheck(req, res));
 		if (rs > 0) {
 			out.print("<script>alert('자재를 추가하였습니다');");
 			// 성공
@@ -655,6 +683,8 @@ public class HomeController {
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out;
 		out = res.getWriter();
+		
+		if(IDCheck(req, res));
 		
 		int NO_checker = commonService.db_m_NOchecker(map, res); // M_NO 중복체크용
 		System.out.println(NO_checker);
