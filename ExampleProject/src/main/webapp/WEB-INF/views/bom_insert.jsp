@@ -7,7 +7,12 @@
 <title>BOM_insert</title>
 <style>
 	.include{position:absolute; padding-right:70;}
+<<<<<<< HEAD
 	.bomi{padding-top:40; margin-left:250px;}
+=======
+	.bomi{padding-top:20px; margin-left:250px;}
+	.bomm th{background-color : #BBBBBB;}
+>>>>>>> ef1ff425d750f9d1e710c69492b3dc4d70146e2f
 </style>
 <script>
 function nullchecker(){
@@ -27,12 +32,12 @@ function nullchecker(){
 }</script>
 </head>
 <body>
-	<jsp:include page="T_include.jsp" flush="true"/>
-	<div class="include"><jsp:include page="l_include.jsp" flush="true"/></div>
+	<jsp:include page="T_include.jsp"/>
+	<div class="include"><jsp:include page="l_include.jsp"/></div>
 	<div class="bomi">
 	 <form name="bomist" method="GET" action="/bom_insert.do" onsubmit="nullchecker()">
 		<h1>BOM 등록</h1>
-	<table border="1">
+	<table class="bomm" border="1">
 	<tr>
 		<th>모델번호</th>
 		<th>부자재1</th>
@@ -63,18 +68,23 @@ function nullchecker(){
 	<tr>
 		</tr>
 		<tr>
-		<td><input type="text" name="PART_NAME"></td>
-		<td><input type="number" name="EA1"></td>
-		<td><input type="number" name="EA2"></td>
-		<td><input type="number" name="EA3"></td>
-		<td><input type="number" name="EA4"></td>
-		<td><input type="number" name="EA5"></td>
-		<td><input type="number" name="EA6"></td>
+		<td><input type="text" name="PART_NAME" ></td>
+		<td><input type="number" name="EA1" min=0></td>
+		<td><input type="number" name="EA2" min=0></td>
+		<td><input type="number" name="EA3" min=0></td>
+		<td><input type="number" name="EA4" min=0></td>
+		<td><input type="number" name="EA5" min=0></td>
+		<td><input type="number" name="EA6" min=0></td>
+
 	</tr>
 	</table>
 	<button>등록하기</button>
 	</form>
+<<<<<<< HEAD
 	<button onclick="location.href='bom.do'">bom으로가기</button>
 	</div>
+=======
+	<button onclick="location.href='bom.do'">BOM 조회</button>
+>>>>>>> ef1ff425d750f9d1e710c69492b3dc4d70146e2f
 </body>
 </html>

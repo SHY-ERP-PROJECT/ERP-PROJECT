@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Built-By: ￪ﾶﾌ￬ﾧﾄ￬ﾄﾱ
 Build-Jdk: 15
 Created-By: Maven Integration for Eclipse
 
+=======
+Manifest-Version: 1.0
+Built-By: hyunmin
+Build-Jdk: 15
+Created-By: Maven Integration for Eclipse
+
+>>>>>>> ef1ff425d750f9d1e710c69492b3dc4d70146e2f

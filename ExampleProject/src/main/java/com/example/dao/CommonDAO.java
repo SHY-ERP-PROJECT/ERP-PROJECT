@@ -48,6 +48,18 @@ public class CommonDAO extends AbstractDAO {
 		return (List<Map<String, Object>>)selectList("common.db_p_view_paging", map);
 	}
 	
+	//과거 생산계획 조회 페이징-전체글수조회 -- MIN
+	public int pp_paging(Map<String, Object> map) {
+		return (Integer)selectOne("common.db_pp_paging", map);
+	}
+	
+	//과거 생산계획 조회 페이징2 -- MIN
+	public List<Map<String, Object>> db_pp_view(Map<String, Object> map) {
+		
+		return (List<Map<String, Object>>)selectList("common.db_pp_view_paging", map);
+	}
+	
+	
 	//생산계획 등록용 -- MIN 
 	public int db_p_input(Map<String, Object> map) {
 		

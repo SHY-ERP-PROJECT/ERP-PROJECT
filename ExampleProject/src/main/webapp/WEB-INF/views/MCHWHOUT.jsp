@@ -2,44 +2,30 @@
     pageEncoding="UTF-8"%>
     <% request.setCharacterEncoding("UTF-8"); 
 String id = (String)session.getAttribute("sessionId");%>
+
 <!DOCTYPE html>
 <html>
-<style>
-.sidebar{
-	 position : absolute;
-	 left : 0px;
-	 }
-.bodyall{
-	 margin : 30px;
-	 position : absolute;
-	 left : 250px;
-	 }
-</style>
+
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<link href="resources/css/table.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="resources/css/ERPcss.css">
 </head>
 <body>
-<div class="header">
-	<jsp:include page="T_include.jsp">
-	<jsp:param name="id" value="<%= id %>" />
-	</jsp:include>
-	</div>
-	<br>
-	<div class="sidebar">
-	<jsp:include page="l_include.jsp">
-	<jsp:param name="name" value="name" />
-	</jsp:include>
-	</div>
+	<jsp:include page="T_include.jsp" flush="true"/>
+	<div class="sidebar"><jsp:include page="l_include.jsp"/></div>
 	
 	<div class="bodyall">
 	<jsp:useBean id="PRlist" class="java.util.ArrayList"/>
 	<jsp:useBean id="PRmap" class="java.util.HashMap"/>
 	
 	<form name="mwhout" method="get" action="MCHWHOUT.do">
-	<h2>배송을 할 물품을 확인하십시오.</h2>
+	<h1>배송을 할 물품을 확인하십시오.</h1>
+	<div class="first">
+	<button type="button" onclick="location.href='/mchwh.do'">제품등록</button>
+	<button type="button" onclick="location.href='/mchwhsea.do'">제품검색</button>
+	</div>
+	<br><br>
 		<table border="1">
 			<tr>
 			<!-- 작업번호	제품모델번호	제품명	수량	불량갯수	입/출고 -->
@@ -79,8 +65,6 @@ String id = (String)session.getAttribute("sessionId");%>
 			</tr>
 		</table>
 	<hr>
-	<button type="button" onclick="location.href='/mchwh.do'">등록화면으로</button>
-	<button type="button" onclick="location.href='/mchwhsea.do'">검색화면으로</button>
 	</form>
 	</div>
 </body>
