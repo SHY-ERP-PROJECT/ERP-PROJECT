@@ -7,12 +7,9 @@
 <title>BOM_insert</title>
 <style>
 	.include{position:absolute; padding-right:70;}
-<<<<<<< HEAD
 	.bomi{padding-top:40; margin-left:250px;}
-=======
 	.bomi{padding-top:20px; margin-left:250px;}
 	.bomm th{background-color : #BBBBBB;}
->>>>>>> ef1ff425d750f9d1e710c69492b3dc4d70146e2f
 </style>
 <script>
 function nullchecker(){
@@ -48,6 +45,7 @@ function nullchecker(){
 		<th>부자재6</th>
 		<th>L_TIME</th>
 		</tr>
+		<tr>
 		<td><input type="text" name="PART_NO"></td>
 		<td><input type="text" name="M_NO1"></td>
 		<td><input type="text" name="M_NO2"></td>
@@ -56,6 +54,7 @@ function nullchecker(){
 		<td><input type="text" name="M_NO5"></td>
 		<td><input type="text" name="M_NO6"></td>
 		<td><input type="number" name="L_TIME"></td>
+		</tr>
 		<tr>
 		<th>모델이름</th>
 		<th>부자재1갯수</th>
@@ -65,10 +64,8 @@ function nullchecker(){
 		<th>부자재5갯수</th>
 		<th>부자재6갯수</th>
 	</tr>
-	<tr>
-		</tr>
 		<tr>
-		<td><input type="text" name="PART_NAME" ></td>
+		<td><input type="text" name="PART_NAME"></td>
 		<td><input type="number" name="EA1" min=0></td>
 		<td><input type="number" name="EA2" min=0></td>
 		<td><input type="number" name="EA3" min=0></td>
@@ -80,11 +77,7 @@ function nullchecker(){
 	</table>
 	<button>등록하기</button>
 	</form>
-<<<<<<< HEAD
 	<button onclick="location.href='bom.do'">bom으로가기</button>
 	</div>
-=======
-	<button onclick="location.href='bom.do'">BOM 조회</button>
->>>>>>> ef1ff425d750f9d1e710c69492b3dc4d70146e2f
 </body>
 </html>

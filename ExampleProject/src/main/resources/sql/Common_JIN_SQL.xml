@@ -7,19 +7,23 @@
 		select * from erp_db.BOM1 INNER join erp_db.BOM2 using(PART_NO)
 		<choose>
 		<when test="PART_NO != null">
-				 where PART_NO = #{PART_NO}
+				where PART_NO = #{PART_NO}
 		</when>
 		</choose>
+		order by PART_NO LIMIT #{displayPost2}, #{postNum2}
 	</select>
-	
+	<select id="ging" parameterType="hashmap" resultType="int">
+		SELECT COUNT(PART_NO) FROM erp_db.BOM1
+			<choose>
+				<when test="PART_NO != null">
+					WHERE PART_NO=#{PART_NO}
+				</when>
+			</choose>
+	</select>
 	<select id="managerList" parameterType="hashMap" resultType="hashMap">
 		SELECT * FROM USER
 		WHERE BINARY ID = #{id}
 		AND BINARY PW = #{pw}
-<<<<<<< HEAD
-=======
-
->>>>>>> ef1ff425d750f9d1e710c69492b3dc4d70146e2f
 	</select>
 	
 	<select id="bomInsertOne" parameterType="hashMap" resultType="hashMap">

@@ -20,9 +20,6 @@ public class CommonService {
 	private CommonDAO commonDAO;
 	
 	//----------------로그인처리 JIN---------------------	
-	public List<Map<String, Object >> getList(Map<String, Object> map){ 
-		return commonDAO.getList(map);
-	}
 	public List<Map<String, Object >> bom(Map<String, Object> map){ 
 		return commonDAO.bom(map);
 	}
@@ -35,6 +32,9 @@ public class CommonService {
 
 	public Map<String, Object > managerList(Map<String, Object> map){ 
 		return commonDAO.managerList(map);
+	}
+	public int ging(Map<String, Object> map) {
+		return commonDAO.ging(map);
 	}
 	
 	//----------------생산계획관리 MIN---------------------
@@ -50,7 +50,6 @@ public class CommonService {
 	
 	//과거 생산계획 조회 페이징-전체계획수 조회 -MIN
 	public int pp_paging(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return commonDAO.pp_paging(map);
 	}
 	

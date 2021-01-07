@@ -50,7 +50,6 @@ function nullchecker(){
 		<c:forEach var="row" items="${list}">
 			<c:set var="i" value="${i+1}"/>
 		<tr>
-<<<<<<< HEAD
 			<td class="i">${i}</td>
 			<td width="50px">${row.LOT_NO}</td>
 			<td class="NAME">${row.PART_NO}</td>
@@ -58,7 +57,6 @@ function nullchecker(){
 			<td class="QUAN">${row.QUAN}${row.UNIT}</td>
 			<td class="DATE">${row.S_DATE}</td>
 			<td class="DATE">${row.F_DATE}</td>
-=======
 			<td>${i}</td>
 			<td>${row.LOT_NO}</td>
 			<td>${row.PART_NO}</td>
@@ -66,7 +64,6 @@ function nullchecker(){
 			<td>${row.QUAN}${row.UNIT}</td>
 			<td>${row.S_DATE}</td>
 			<td>${row.F_DATE}</td>
->>>>>>> ef1ff425d750f9d1e710c69492b3dc4d70146e2f
 			<td><div class="button"><button type="button" onclick="location.href='transferToPU.do?LOT_NO=${row.LOT_NO}'">수정</button></div></td>
 			<td><div class="button"><button type="button" onclick="location.href='p_delete.do?LOT_NO=${row.LOT_NO}'">삭제</button></div></td>
 			<td><div class="button"><button type="button" onclick="location.href='MCHWH.do?LOT_NO=${row.LOT_NO}'">입고</button></div></td>
