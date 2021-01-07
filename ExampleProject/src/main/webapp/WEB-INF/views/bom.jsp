@@ -7,8 +7,9 @@
 <meta charset="UTF-8">
 <title>bom</title>
 <style>
-	.include{float:left; padding-right:70;}
-	.bomlist{padding-top:40;}<!--본문 클래스-->
+	.include{position:absolute; padding-right:70;}
+	.bomlist{padding-top:20px; margin-left:250px;}
+	.tab{width:35px;} .tabd{width:70px;} .dds{width:410px;}
 </style>
 </head>
 <body>
@@ -18,10 +19,10 @@
 	<h1>BOM 조회</h1><br>
 	<button onclick="location.href='bom_insert.do'" >BOM 등록</button>
 	<form method="get" action="/bom.do">
-		<input type="text" name="PART_NO" placeholder="제품번호를 적어주세요"/>
+		<input type="text" name="PART_NO" placeholder="모델번호를 적어주세요"/>
 		<input type="submit" value="검색" />
 		</form>
-		<table border="1">
+		<table class="dds"border="1">
 		<c:forEach var="row" items="${list}">
 		<tr>
 			<th>모델번호</th>
@@ -34,14 +35,14 @@
 			<th>제작기간</th>
 		</tr>
 		<tr>
-			<td>${row.PART_NO}</td>
-			<td>${row.EA1}</td>
-			<td>${row.EA2}</td>
-			<td>${row.EA3}</td>
-			<td>${row.EA4}</td>
-			<td>${row.EA5}</td>
-			<td>${row.EA6}</td>
-			<td>${row.L_TIME}day</td>
+			<td class="tabd">${row.PART_NO}</td>
+			<td class="tab">${row.EA1}<c:if test="$${row.EA1} != null}"><h2>EA</h2></c:if></td>
+			<td class="tab">${row.EA2}<c:if test="$${row.EA2} != null}">EA</c:if></td>
+			<td class="tab">${row.EA3}<c:if test="$${row.EA3} != null}">EA</c:if></td>
+			<td class="tab">${row.EA4}<c:if test="$${row.EA4} != null}">EA</c:if></td>
+			<td class="tab">${row.EA5}<c:if test="$${row.EA5} != null}">EA</c:if></td>
+			<td class="tab">${row.EA6}<c:if test="$${row.EA6} != null}">EA</c:if></td>
+			<td class="tabd">${row.L_TIME}day</td>
 		</tr>
 		</c:forEach>
 		</table>

@@ -57,7 +57,7 @@ function nullchecker(){
 		<c:forEach var="row" items="${list}">
 			<c:set var="i" value="${i+1}"/>
 		<tr>
-			<td class="i">${i}</th>
+			<td class="i">${i}</td>
 			<td width="50px">${row.LOT_NO}</td>
 			<td class="NAME">${row.PART_NO}</td>
 			<td class="NAME">${row.PART_NAME}</td>

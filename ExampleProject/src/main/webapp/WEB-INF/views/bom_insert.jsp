@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>BOM_insert</title>
 <style>
-	.include{float:left; padding-right:70;}
-	.bomi{padding-top:40;}
+	.include{position:absolute; padding-right:70;}
+	.bomi{padding-top:40; margin-left:250px;}
 </style>
 <script>
 function nullchecker(){
@@ -74,7 +74,7 @@ function nullchecker(){
 	</table>
 	<button>등록하기</button>
 	</form>
-	<button onclick="location.href='bom.do'">등록하기</button>
+	<button onclick="location.href='bom.do'">bom으로가기</button>
 	</div>
 </body>
 </html>

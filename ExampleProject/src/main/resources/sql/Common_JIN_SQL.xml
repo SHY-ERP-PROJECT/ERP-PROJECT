@@ -16,7 +16,6 @@
 		SELECT * FROM USER
 		WHERE BINARY ID = #{id}
 		AND BINARY PW = #{pw}
-<<<<<<< HEAD
 	</select>
 	
 	<select id="bomInsertOne" parameterType="hashMap" resultType="hashMap">
@@ -25,8 +24,7 @@
 	
 	<select id="bomInsertTwo" parameterType="hashMap" resultType="hashMap">
 		INSERT INTO erp_db.BOM2 VALUES (#{PART_NO}, #{EA1}, #{EA2}, #{EA3}, #{EA4}, #{EA5}, #{EA6}, #{PART_NAME})
-=======
->>>>>>> f3c1eeb62171fb6108093b524f268f83be252dc1
+
 	</select>
 
 </mapper>
