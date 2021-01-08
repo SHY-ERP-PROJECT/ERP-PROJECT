@@ -9,7 +9,7 @@
 <body>
 	<%
 		session.invalidate();
-		response.sendRedirect("/logcheck.do");
+		response.sendRedirect("/");
 	%>
 </body>
 </html>
