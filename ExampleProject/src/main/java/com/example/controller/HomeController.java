@@ -580,8 +580,8 @@ public class HomeController {
 	
 	//bom화면
 	@RequestMapping(value = { "/bom.do", "/BOM.do"}, method = RequestMethod.GET)
-	public ModelAndView bom(@RequestParam(value="num2" , required=false, defaultValue="1")int num2, Map<String, Object> map, HttpServletRequest req, HttpServletResponse res)throws IOException {
-		log.debug("Request Parameter : " + map);
+	public ModelAndView bom(@RequestParam(value="num2" , required=false, defaultValue="1")int num2, @RequestParam Map<String, Object> map, HttpServletRequest req, HttpServletResponse res)throws IOException {
+		
 		if(IDCheck(req, res));
 		ModelAndView mv = new ModelAndView("/bom");
 		
@@ -594,6 +594,7 @@ public class HomeController {
 		mv.addObject("pageNum2", pageNum2);
 		int displayPost2 = (num2-1) * postNum2;
 		map.put("displayPost2", displayPost2);
+		
 		List<Map<String, Object>> list = commonService.bom(map);
 		mv.addObject("list", list);
 		return mv;

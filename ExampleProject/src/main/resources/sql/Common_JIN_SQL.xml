@@ -3,14 +3,16 @@
 
 <mapper namespace="jin">
 
-	<select id="bom" parameterType="String" resultType="hashmap">
+	<select id="bom" parameterType="hashmap" resultType="hashmap">
 		select * from erp_db.BOM1 INNER join erp_db.BOM2 using(PART_NO)
 		<choose>
-		<when test="PART_NO != null">
+			<when test="PART_NO != null">
 				where PART_NO = #{PART_NO}
-		</when>
-		</choose>
-		order by PART_NO LIMIT #{displayPost2}, #{postNum2}
+			</when>
+			<when test="PART_NO == null">
+				order by PART_NO LIMIT #{displayPost2}, #{postNum2}
+			</when>
+		</choose> 
 	</select>
 
 	<select id="ging" parameterType="hashmap" resultType="int">

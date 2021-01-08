@@ -33,10 +33,9 @@ function nullchecker(){
 	<form name="bomist" method="get" action="/bom.do" onsubmit="nullchecker()">
 		<input type="text" name="PART_NO" placeholder="모델번호를 적어주세요"/>
 		<input type="submit" value="검색" />
-		</form>
+	</form>
 		<table class="table" border="1">
 		<c:forEach var="row" items="${list}">
-		<% int allsize=0; allsize++; %>
 		<tr>
 			<th class="MNAME">모델번호</th>
 			<th class="MNAME">${row.M_NO1}</th>
@@ -65,7 +64,7 @@ function nullchecker(){
      				<li><a href="bom.do?num2=${num2}">${num2}</a></li>
   				</span>
  			</c:forEach>
-		
+		</div>
 		</div>
 </body>
 </html>
