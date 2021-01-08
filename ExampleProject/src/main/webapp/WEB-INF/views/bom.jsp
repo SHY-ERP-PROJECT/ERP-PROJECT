@@ -44,7 +44,7 @@ function nullchecker(){
 			<th class="MNAME">${row.M_NO4}</th>
 			<th class="MNAME">${row.M_NO5}</th>
 			<th class="MNAME">${row.M_NO6}</th>
-			<th class="DATE">제작기간</th>
+			<th width="180px">제작기간</th>
 		</tr>
 		<tr>
 			<td>${row.PART_NO}</td>

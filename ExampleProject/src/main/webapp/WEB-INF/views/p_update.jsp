@@ -63,7 +63,7 @@ function noBefore(date){
 		</tr>
 		<tr>
 			<td><input type="text" name="LOT_NO" value="${row.LOT_NO}" style="background-color:transparent;border:0" readonly></td>
-			<td>${row.PART_NO}</td>
+			<td><input type="text" name="PART_NO" value="${row.PART_NO}" style="background-color:transparent;border:0" readonly></td>
 			<td><input type="number" value="${row.QUAN}" name="QUAN" id="QUAN" min="0"></td>
 			<td><input type="text" value="${row.S_DATE}" name="S_DATE" id="S_DATE"></td>
 		</tr>

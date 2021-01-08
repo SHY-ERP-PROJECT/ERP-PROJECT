@@ -158,19 +158,15 @@ public class HomeController {
 			//--------------------완료작업------------- 
 			//작업 총 갯수구하기
 			int count2 = commonService.pp_paging(map);
-			System.out.println(count2);
 			//한페이지 출력수
 			int postNum2=10;
 			map.put("postNum2", postNum2);
 			//하단 페이지 번호
 			int pageNum2=(int)Math.ceil((double)count2/postNum2);
-			System.out.println(pageNum2);
 			
 		
 			//출력 게시물
 			int displayPost2 = (num2-1) * postNum2;
-			System.out.println(num2);
-			System.out.println(displayPost2);
 			map.put("displayPost2", displayPost2);
 			List<Map<String, Object>> list2 = commonService.db_pp_view(map);
 			mv.addObject("list2", list2);
@@ -196,7 +192,6 @@ public class HomeController {
 		
 		if(IDCheck(req, res));
 		int LOT_checker = commonService.db_p_LOTchecker(map, res); // LOT_NO 중복체크용
-		System.out.println(LOT_checker);
 		if(LOT_checker>0) {
 			System.out.println(LOT_checker+"2");
 			out.print("<script>alert('작업번호가 중복입니다!');");
@@ -237,6 +232,8 @@ public class HomeController {
 		PrintWriter out;
 		out = res.getWriter();
 		
+		System.out.println(map.get("PART_NO"));
+		System.out.println("나와랏");
 		if(IDCheck(req, res));
 		int rs = commonService.db_p_update(map, res);
 		if (rs > 0) {

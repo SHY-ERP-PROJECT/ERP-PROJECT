@@ -10,6 +10,7 @@
 				 where PART_NO = #{PART_NO}
 		</when>
 		</choose>
+		ORDER BY PART_NO
 	</select>
 	
 	<select id="managerList" parameterType="hashMap" resultType="hashMap">
