@@ -10,10 +10,10 @@
 
 	<!-- 생산계획 수세기-->
 	<select id="db_p_paging" parameterType="hashmap" resultType="int">
-		SELECT COUNT(LOT_NO) FROM PR
+		SELECT COUNT(LOT_NO) FROM PR WHERE PR.IO IS NULL
 			<choose>
 				<when test="LOT_NO != null">
-					 WHERE LOT_NO=#{LOT_NO}
+					 AND LOT_NO=#{LOT_NO}
 				</when>
 			</choose>
 	</select>
@@ -56,7 +56,7 @@
 				ORDER BY ${ORDER}
 			</when>
 			<when test="displayPost!=null">
-				LIMIT #{displayPost}, #{postNum}
+				LIMIT #{displayPost2}, #{postNum2}
 			</when>	
 		</choose>
 	</select> 
@@ -85,7 +85,8 @@
 
 	<!--  생산_수정:sysdate가 이전이면 수정 가능 (갯수만)--> 
 	<update id="db_p_update" parameterType="hashmap">
-		UPDATE PR SET QUAN = #{QUAN}, S_DATE = #{S_DATE} WHERE LOT_NO=#{LOT_NO}
+		UPDATE PR SET QUAN = #{QUAN}, S_DATE = #{S_DATE}, F_DATE=date_add(#{S_DATE}, 
+				INTERVAL (SELECT L_TIME FROM BOM1 WHERE PART_NO=#{PART_NO}) DAY) WHERE LOT_NO=#{LOT_NO}
 	</update>	
 
 	<!--  생산_삭제:sysdate가 이전이면 삭제가능--> 
@@ -114,6 +115,7 @@
 				ORDER BY ${ORDER}
 			</when>		
 		</choose>
+				LIMIT #{displayPost}, #{postNum}
 	</select> 
 
 	<!--  자재삽입기능 --> 

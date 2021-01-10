@@ -31,7 +31,7 @@ String id = (String)session.getAttribute("sessionId");%>
 		</div>
 		<hr>
 		<div class="partNo">
-			<h2>창고에 입고된 전체 물품의 종류와 수량입니다.</h1>
+			<h1>창고에 입고된 전체 물품의 종류와 수량입니다.</h1>
 			<table class="table" border="1">
 				<tr>
 				<th>제품모델번호</th>
@@ -70,7 +70,7 @@ String id = (String)session.getAttribute("sessionId");%>
 			<table class="table" border="1">
 				<tr>
 					<th><a href="MCHWHSEA.do?ORDER=LOT_NO">작업번호</a></th>
-					<th><a href="MCHWHSEA.do?ORDER=PRAT_NO">제품모델벨번호</a></th>
+					<th><a href="MCHWHSEA.do?ORDER=PRAT_NO">제품모델번호</a></th>
 					<th>제품명</th>
 					<th><a href="MCHWHSEA.do?ORDER=QUAN">생산수량</a></th>
 					<th><a href="MCHWHSEA.do?ORDER=FIAL">불량수량</a></th>

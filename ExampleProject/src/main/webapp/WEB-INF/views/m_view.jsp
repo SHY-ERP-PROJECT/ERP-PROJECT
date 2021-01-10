@@ -35,9 +35,9 @@ function nullcheckers(){
 		</form>
 		<table class ="table" border="1">
 		<tr>
-			<th></th>
-			<th><a href="m_view.do?ORDER=M_NO">자재번호</a></th>
-			<th><a href="m_view.do?ORDER=M_NAME">자재명</a></th>
+			<th class="i"></th>
+			<th class="M_NO"><a href="m_view.do?ORDER=M_NO">자재번호</a></th>
+			<th class="MNAME"><a href="m_view.do?ORDER=M_NAME">자재명</a></th>
 			<th>수량</th>
 			<th>추가수량</th>
 			<th>등록</th>
@@ -46,9 +46,9 @@ function nullcheckers(){
 			<c:set var="i" value="${i+1}"/>
 		<form name="m_update" method="get" action="${contextPath}/m_update.do?M_NO=${row.M_NO}" onsubmit="return nullcheckeri(PLUS_QUAN)">
 				<tr>
-					<td class="i">${i}</td>
+					<td>${i}</td>
 					<td><input type="text" name="M_NO" value="${row.M_NO}" style="background-color:transparent;border:0" readonly/></td>
-					<td class="MNAME">${row.M_NAME}</td>
+					<td>${row.M_NAME}</td>
 					<td class="QUAN">${row.M_QUAN}EA</td>
 					<td><input type="number" name="PLUS_QUAN" style="background-color:transparent;border:0;width:50px;" min="0" placeholder="0"/>EA</td>
 					<td><div class="button"><button type="submit">추가</button></div></td>

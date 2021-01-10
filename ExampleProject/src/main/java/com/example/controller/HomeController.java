@@ -1,5 +1,6 @@
 package com.example.controller;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,17 +62,6 @@ public class HomeController {
 		 */
 	}
 
-		//로그인 후 첫화면
-	@RequestMapping(value = { "/empty.do", "/EMPTY.do" }, method = RequestMethod.GET)
-	public ModelAndView empty(@RequestParam Map<String, Object> map) {
-		log.debug("Request Parameter : " + map);
-			
-		ModelAndView mv = new ModelAndView("/empty");
-			
-		mv.addObject("rs", map.get("rs"));
-			
-		return mv;
-	}
 	@RequestMapping(value = { "/t_include.do", "/T_INCLUDE.do" }, method = RequestMethod.POST)
 	public ModelAndView tinclude(@RequestParam Map<String, Object> map, HttpServletRequest request) {
 		log.debug("Request Parameter : " + map); 
@@ -88,7 +78,7 @@ public class HomeController {
 			mv.setViewName("redirect:/index.do");
 			mv.addObject("msg", "로그인 실패");
 		}
-		else mv.setViewName("redirect:/empty.do");
+		else mv.setViewName("redirect:/p_view.do");
 		return mv;
 	}
 		//로그아웃d
@@ -109,44 +99,12 @@ public class HomeController {
 			
 		return mv;
 	}
-		
-		//로그아웃체크
-	@RequestMapping(value = { "/logcheck.do", "/LOGCHECK.do"}, method = RequestMethod.GET)
-	public ModelAndView logcheck(@RequestParam Map<String, Object> map) {
-		log.debug("Request Parameter : " + map);
-			
-		ModelAndView mv = new ModelAndView("/logcheck");
-			
-		return mv;
-	}
-	//bom화면
-	@RequestMapping(value = { "/bom.do", "/BOM.do"}, method = RequestMethod.GET)
-	public ModelAndView bom(@RequestParam Map<String, Object> map, HttpServletRequest req, HttpServletResponse res)throws IOException {
-		log.debug("Request Parameter : " + map);
-		if(IDCheck(req, res));
-		ModelAndView mv = new ModelAndView("/bom");
-		
-		List<Map<String, Object>> list = commonService.bom(map);
-		mv.addObject("list", list);
-		
-		return mv;
-	}
-	//bom등록
-	@RequestMapping(value = { "/bom_insert.do"}, method = RequestMethod.GET)
-	public ModelAndView bom_insert(@RequestParam Map<String, Object> map, HttpServletRequest req, HttpServletResponse res)throws IOException {
-		log.debug("Request Parameter : " + map);
-		if(IDCheck(req, res));
-		ModelAndView mv = new ModelAndView("/bom_insert");
-		List<Map<String, Object>> list = commonService.bomInsertOne(map);
-		List<Map<String, Object>> lsst = commonService.bomInsertTwo(map);
-		
-		return mv;
-	}
+
 	
 	//----------------생산계획관리 MIN---------------------
 	// 생산계획 조회, 검색용 - MIN
 	@RequestMapping(value = { "/p_view.do" }, method = RequestMethod.GET)
-	public ModelAndView p_paging(@RequestParam(value="num", required=false, defaultValue="1") int num, @RequestParam Map<String, Object> map, HttpServletRequest request, HttpServletResponse res) throws IOException{
+	public ModelAndView p_paging(@RequestParam(value="num", required=false, defaultValue="1") int num,@RequestParam(value="num2", required=false, defaultValue="1") int num2, @RequestParam Map<String, Object> map, HttpServletRequest request, HttpServletResponse res) throws IOException{
 		log.debug("Request Parameter : " + map);
 		ModelAndView mv = new ModelAndView("/p_view");
 		
@@ -179,24 +137,25 @@ public class HomeController {
 			
 			//--------------------완료작업------------- 
 			//작업 총 갯수구하기
-			int count2 = commonService.p_paging(map);
+			int count2 = commonService.pp_paging(map);
 			//한페이지 출력수
 			int postNum2=10;
 			map.put("postNum2", postNum2);
 			//하단 페이지 번호
 			int pageNum2=(int)Math.ceil((double)count2/postNum2);
+			
 		
 			//출력 게시물
-			int displayPost2 = (num-1) * postNum2;
+			int displayPost2 = (num2-1) * postNum2;
 			map.put("displayPost2", displayPost2);
-			List<Map<String, Object>> list2 = commonService.db_p_view(map);
+			List<Map<String, Object>> list2 = commonService.db_pp_view(map);
 			mv.addObject("list2", list2);
 			mv.addObject("pageNum2", pageNum2);			
 			}
 			return mv;
 	}
 
-	// p_view호출용- MIN
+	// p_insert호출용- MIN
 	@RequestMapping(value = "/transferToP_view.do")
 	public ModelAndView transferToP_view() {
 		ModelAndView mv = new ModelAndView("/p_Insert");
@@ -213,7 +172,6 @@ public class HomeController {
 		
 		if(IDCheck(req, res));
 		int LOT_checker = commonService.db_p_LOTchecker(map, res); // LOT_NO 중복체크용
-		System.out.println(LOT_checker);
 		if(LOT_checker>0) {
 			System.out.println(LOT_checker+"2");
 			out.print("<script>alert('작업번호가 중복입니다!');");
@@ -254,6 +212,8 @@ public class HomeController {
 		PrintWriter out;
 		out = res.getWriter();
 		
+		System.out.println(map.get("PART_NO"));
+		System.out.println("나와랏");
 		if(IDCheck(req, res));
 		int rs = commonService.db_p_update(map, res);
 		if (rs > 0) {
@@ -291,7 +251,6 @@ public class HomeController {
 	}
 	
 	//----------------제품창고 JU---------------------
-	//----------------제품창고 JU 0104---------------------
 	//상품입출고창고등록	ju
 	@RequestMapping(value = { "/MCHWH.do", "/mchwh.do" }, method = RequestMethod.GET)
 	public ModelAndView mchwh(@RequestParam Map<String, Object> map,
@@ -615,6 +574,43 @@ public class HomeController {
 		
 		return mv;
 	}
+
+	//-------------------BOM JIN--------------------------
+
+	
+	//bom화면
+	@RequestMapping(value = { "/bom.do", "/BOM.do"}, method = RequestMethod.GET)
+	public ModelAndView bom(@RequestParam(value="num2" , required=false, defaultValue="1")int num2, @RequestParam Map<String, Object> map, HttpServletRequest req, HttpServletResponse res)throws IOException {
+		
+		if(IDCheck(req, res));
+		ModelAndView mv = new ModelAndView("/bom");
+		
+		int count2 = commonService.ging(map);
+		//한페이지 출력수
+		int postNum2=10;
+		map.put("postNum2", postNum2);
+		//하단 페이지 번호
+		int pageNum2=(int)Math.ceil((double)count2/postNum2);
+		mv.addObject("pageNum2", pageNum2);
+		int displayPost2 = (num2-1) * postNum2;
+		map.put("displayPost2", displayPost2);
+		
+		List<Map<String, Object>> list = commonService.bom(map);
+		mv.addObject("list", list);
+		return mv;
+	}
+	//bom등록
+	@RequestMapping(value = { "/bom_insert.do"}, method = RequestMethod.GET)
+	public ModelAndView bom_insert(@RequestParam Map<String, Object> map, HttpServletRequest req, HttpServletResponse res)throws IOException {
+		log.debug("Request Parameter : " + map);
+		if(IDCheck(req, res));
+		ModelAndView mv = new ModelAndView("/bom_insert");
+		List<Map<String, Object>> list = commonService.bomInsertOne(map);
+		List<Map<String, Object>> lsst = commonService.bomInsertTwo(map);
+		
+		return mv;
+	}
+
 	
 	//-------------------자재창고 MIN--------------------------
 

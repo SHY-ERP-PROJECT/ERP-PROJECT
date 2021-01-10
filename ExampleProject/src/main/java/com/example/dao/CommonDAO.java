@@ -18,9 +18,6 @@ public class CommonDAO extends AbstractDAO {
 	//Logger log = Logger.getLogger(this.getClass());
 	
 	//unchecked : 검증되지 않은 연산자 관련 경고 억제
-	public List<Map<String, Object>> getList(Map<String, Object> map) {
-		return (List<Map<String, Object>>)selectList("jin.managerList", map);
-	}
 	public List<Map<String, Object>> bom(Map<String, Object> map) {
 		return (List<Map<String, Object>>)selectList("jin.bom", map);
 	}
@@ -34,7 +31,9 @@ public class CommonDAO extends AbstractDAO {
 	public Map<String, Object> managerList(Map<String, Object> map) {
 		return (Map<String, Object>)selectOne("jin.managerList", map);
 	}	
-	
+	public int ging(Map<String, Object> map) {
+		return (Integer)selectOne("jin.ging", map);
+	}
 	
 	//----------------생산계획관리 MIN---------------------
 	//생산계획 조회 페이징-전체글수조회 -- MIN
