@@ -74,7 +74,7 @@
 	</select>
 	<!-- 제품 이름 검색 -->
 	<select id="getPartName" parameterType="hashMap" resultType="hashmap">
-		SELECT distinct PR.PART_NO, BOM2.PART_NAME FROM BOM2, PR WHERE PR.PART_NO=BOM2.PART_NO;
+		SELECT distinct PR.PART_NO, BOM2.PART_NAME FROM BOM2, PR WHERE PR.PART_NO=BOM2.PART_NO AND IO='O';
 	</select>
 	<!-- 창고에 있는 제품 중 제품 정보 작업번호로 검색 -->
 	<select id="Cor" parameterType="hashMap" resultType="hashmap">
